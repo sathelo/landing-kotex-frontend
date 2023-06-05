@@ -1,0 +1,55 @@
+<%
+const title = '';
+const description = '';
+const image = '';
+
+const hasAuth = false;
+%><!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <% if (isProduction) { %>
+      <link href="<%- assetsPath %>/css/app.css?v=<%- buildVersion %>" rel="stylesheet">
+    <% } %>
+
+    <title><%- title %></title>
+    <meta name="description" content="<%- description %>">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="">
+    <link rel="icon" type="image/png" sizes="32x32" href="">
+    <link rel="icon" type="image/png" sizes="48x48" href="">
+
+    <meta property="og:title" content="<%- title %>">
+    <meta property="og:description" content="<%- description %>">
+    <meta property="og:image" content="<%- image %>">
+
+    <meta name="twitter:title" content="<%- title %>">
+    <meta name="twitter:description" content="<%- description %>">
+    <meta name="twitter:image" content="<%- image %>">
+    <meta name="twitter:card" content="summary_large_image">
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script>
+    window.ASSETS_PATH = '<%- assetsPath %>';
+    window.SERVER_TIME = <%- serverTime %>;
+    window.BUNKER = <%= bunkerJson %>;
+    </script>
+
+    <% if (hasAuth) { %>
+      <script src="<%- mdaLibraryUrl %>"></script>
+      <%- mdaReloadOnAuthCode %>
+      <script>
+      window.USER = <%= userJson %>;
+      </script>
+    <% } %>
+
+    <% if (isProduction) { %>
+      <script src="<%- assetsPath %>/js/vendor.js?v=<%- buildVersion %>"></script>
+      <script src="<%- assetsPath %>/js/app.js?v=<%- buildVersion %>"></script>
+    <% } %>
+  </body>
+</html>
