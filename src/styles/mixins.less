@@ -1,3 +1,11 @@
+@import 'vars';
+
+.content(@indents, @borderRadius: 32px, @bg: @white) {
+  background: @bg;
+  border-radius: @borderRadius;
+  padding: @indents;
+}
+
 .img(@name) {
   background-image: url('../images/@{name}');
 }

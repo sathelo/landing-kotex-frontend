@@ -1,4 +1,46 @@
 @import '../../styles/helpers';
 
-.header {
+.main {
+  margin-bottom: 64px;
+
+  &-block {
+    &__content {
+      .content(64px 40px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
+    &-info {
+      width: 100%;
+      max-width: 624px;
+      margin-right: 10px;
+
+      &__title {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 100%;
+        color: #1D1D1B;
+        margin-bottom: 24px;
+      }
+
+      &__subtitle {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 130%;
+        color: rgba(54, 54, 54, 0.6);
+      }
+    }
+
+    &__photo {
+      .cover();
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      max-width: 678px;
+    }
+  }
 }
