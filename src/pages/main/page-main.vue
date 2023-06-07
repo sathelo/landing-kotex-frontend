@@ -1,6 +1,8 @@
 <template>
   <div class="page-main">
-    <example-block />
+    <header-block />
+    <main-block />
+    <footer-block />
   </div>
 </template>
 
