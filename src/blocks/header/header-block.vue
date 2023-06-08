@@ -4,8 +4,8 @@
       <div class="header-logos-logo">
         <img
           class="header-logos-logo__kotex"
-          :src="getStaticUrl('logo-kotex.svg')"
-          alt="logo-kotex"
+          :src="getStaticUrl('logo-kotex-red.svg')"
+          alt="logo-kotex-red"
         />
       </div>
       <div class="header-logos-logo">
@@ -18,7 +18,13 @@
     </div>
 
     <div class="header-nav">
-      <a v-for="(section, id) in menu" :key="id" :href="section.item.link" class="header-nav-item">
+      <a
+        v-for="(section, id) in menu"
+        :key="id"
+        :href="section.item.link"
+        :target="section.item.target"
+        class="header-nav-item"
+      >
         {{ section.item.title }}
       </a>
     </div>

@@ -11,6 +11,10 @@ import HeaderBlock from './header/header-block.vue';
 import MainBlock from './main/main-block.vue';
 import FooterBlock from './footer/footer-block.vue';
 
+import LockBlock from './ui/lock/lock-block.vue';
+
 Vue.component('header-block', HeaderBlock);
 Vue.component('main-block', MainBlock);
 Vue.component('footer-block', FooterBlock);
+
+Vue.component('lock-block', LockBlock);
