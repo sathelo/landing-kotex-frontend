@@ -83,7 +83,7 @@
         },
         {
             "film": {
-                "image": "cruella",
+                "image": "cruella.png",
                 "title": "Круэлла",
                 "subtitle": "США&nbsp;/ комедия, криминал, драма&nbsp;/ 134мин&nbsp;/ 12+",
                 "description": "Великобритания, 1960-е годы. Эстелла была необычным ребёнком, и&nbsp;особенно трудно ей&nbsp;было мириться со&nbsp;всякого рода несправедливостью. Вылетев из&nbsp;очередной школы, она с&nbsp;мамой отправляется в&nbsp;Лондон. По&nbsp;дороге они заезжают в&nbsp;особняк известной модельерши по&nbsp;имени Баронесса, где в&nbsp;результате ужасного несчастного случая мама погибает. Добравшись до&nbsp;Лондона, Эстелла знакомится с&nbsp;двумя мальчишками&nbsp;&mdash; уличными мошенниками Джаспером и&nbsp;Хорасом.",
@@ -92,7 +92,7 @@
         },
         {
             "film": {
-                "image": "grand-budapest-hotel",
+                "image": "grand-budapest-hotel.png",
                 "title": "Отель &laquo;Гранд Будапешт&raquo;",
                 "subtitle": "США&nbsp;/ комедия, приключения, детектив, криминал&nbsp;/ 100мин&nbsp;/ 16+",
                 "description": "Давным-давно в&nbsp;волшебной стране Кумандре бок о&nbsp;бок с&nbsp;людьми жили драконы&nbsp;&mdash; создатели и&nbsp;хранители воды. Мирной жизни пришел конец, когда появились друуны. Порождения тьмы обращали людей и&nbsp;драконов в&nbsp;каменные изваяния, и&nbsp;только магия драконихи Сису смогла прогнать злых созданий и&nbsp;расколдовать людей, но&nbsp;на&nbsp;драконов не&nbsp;подействовала...",
@@ -106,6 +106,83 @@
                 "subtitle": "США&nbsp;/ фэнтэзи, семейный&nbsp;/ 107мин&nbsp;/ 6+",
                 "description": "Давным-давно в&nbsp;волшебной стране Кумандре бок о&nbsp;бок с&nbsp;людьми жили драконы&nbsp;&mdash; создатели и&nbsp;хранители воды. Мирной жизни пришел конец, когда появились друуны. Порождения тьмы обращали людей и&nbsp;драконов в&nbsp;каменные изваяния, и&nbsp;только магия драконихи Сису смогла прогнать злых созданий и&nbsp;расколдовать людей, но&nbsp;на&nbsp;драконов не&nbsp;подействовала...",
                 "link": "#"
+            }
+        }
+    ],
+    "podcasts": [
+        {
+            "podcast": {
+                "image": "podcast-1.png",
+                "title": "Подкаст осознанности",
+                "subtitle": "",
+                "link": "#",
+                "isActive": false
+            }
+        },
+        {
+            "podcast": {
+                "image": "podcast-2.png",
+                "title": "Подкаст осознанности",
+                "subtitle": "Абстрактное высказывание прочно интегрирует возврат к&nbsp;стереотипам, так как в&nbsp;данном случае роль наблюдателя опосредована ролью рассказчика",
+                "link": "#",
+                "isActive": true
+            }
+        },
+        {
+            "podcast": {
+                "image": "podcast-3.png",
+                "title": "Подкаст осознанности",
+                "subtitle": "",
+                "link": "#",
+                "isActive": false
+            }
+        }
+    ],
+    "materials": [
+        {
+            "material": {}
+        },
+        {
+            "material": {}
+        },
+        {
+            "material": {}
+        },
+        {
+            "material": {}
+        }
+    ],
+    "recommendations": [
+        {
+            "item": {
+                "image": "sanitary-napkin.png",
+                "title": "Гигиенические прокладки Kotex Young<sup class='reg'>&reg;</sup>",
+                "rating": 4,
+                "maxRating": 6
+            }
+        },
+        {
+            "item": {
+                "image": "night-panties.png",
+                "title": "Ночные трусики Kotex<sup class='reg'>&reg;</sup>",
+                "rating": 10,
+                "maxRating": 10
+            }
+        },
+        {
+            "item": {
+                "image": "tampons-with-applicator.png",
+                "title": "Тампоны с&nbsp;аппликатором Kotex<sup class='reg'>&reg;</sup>",
+                "rating": 3,
+                "maxRating": 3
+            }
+        },
+        {
+            "item": {
+                "image": "panty-liners.png",
+                "title": "Ежедневные прокладки Kotex Natural<sup class='reg'>&reg;</sup>",
+                "rating": 2,
+                "maxRating": 6
             }
         }
     ]

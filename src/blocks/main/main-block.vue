@@ -157,7 +157,11 @@
 
           <div class="main-block-5-info-cards">
             <div v-for="(film, id) in films" :key="id" class="main-block-5-info-cards-card">
-              <img :src="film.film.image" alt="photo" class="main-block-5-info-cards-card__photo" />
+              <img
+                :src="getStaticUrl(film.film.image)"
+                alt="photo"
+                class="main-block-5-info-cards-card__photo"
+              />
 
               <div class="main-block-5-info-cards-card-info">
                 <div class="main-block-5-info-cards-card-info__title">{{ film.film.title }}</div>
@@ -172,16 +176,141 @@
                   target="_blank"
                   class="main-block-5-info-cards-card-info-btn btn"
                 >
-                  <div class="main-block-5-info-btn__text">Все фото с&nbsp;мероприятия ищи тут</div>
                   <img
-                    :src="getStaticUrl('vk-ico-white.svg')"
-                    alt="vk-ico"
-                    class="main-block-5-info-btn__ico"
+                    :src="getStaticUrl('btn-gradient.png')"
+                    alt="btn-watching"
+                    class="main-block-5-info-cards-card-info-btn--watching"
                   />
                 </a>
               </div>
             </div>
           </div>
+
+          <a href="#" target="_blank" class="main-block-5-info-btn btn">
+            <div class="main-block-5-info-btn__text">Показать больше</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-block-6">
+      <div class="main-block-6__content">
+        <div class="main-block-6-info">
+          <div class="main-block-6-info__header">Подкасты</div>
+
+          <div class="main-block-6-info__subtitle">
+            Подкасты об&nbsp;отношениях, женском здоровье и&nbsp;первом походе к&nbsp;гинекологу.
+            Слушай, когда тебе комфортно
+          </div>
+
+          <div class="main-block-6-info-cards">
+            <div
+              v-for="(podcast, id) in podcasts"
+              :key="id"
+              :class="{
+                'main-block-6-info-cards-card--active': podcast.podcast.isActive,
+              }"
+              class="main-block-6-info-cards-card"
+            >
+              <img
+                :src="getStaticUrl(podcast.podcast.image)"
+                alt="photo"
+                class="main-block-6-info-cards-card__photo"
+              />
+
+              <div class="main-block-6-info-cards-card-info">
+                <div class="main-block-6-info-cards-card-info__title">
+                  {{ podcast.podcast.title }}
+                </div>
+                <div
+                  v-if="podcast.podcast.isActive"
+                  class="main-block-6-info-cards-card-info__subtitle"
+                >
+                  {{ podcast.podcast.subtitle }}
+                </div>
+
+                <a
+                  v-if="podcast.podcast.isActive"
+                  :href="podcast.podcast.link"
+                  target="_blank"
+                  class="main-block-6-info-cards-card-info-btn btn"
+                >
+                  <img
+                    :src="getStaticUrl('btn-text-listen-gradient.png')"
+                    alt="btn-listen"
+                    class="main-block-6-info-cards-card-info-btn--listen"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-block-8">
+      <div class="main-block-8__content">
+        <div class="main-block-8-info">
+          <div class="main-block-8-info__header">Полезные материалы</div>
+
+          <div class="main-block-8-info__subtitle">
+            Видео и&nbsp;комиксы, которые помогут тебе немного лучше понять своё тело
+          </div>
+
+          <div class="main-block-8-info-cards">
+            <div v-for="(material, id) in materials" :key="id" class="main-block-8-info-cards-card">
+              <div class="main-block-8-info-cards-card-info">
+                <div
+                  v-if="isEmpty(material.material)"
+                  class="main-block-8-info-cards-card-info-close"
+                >
+                  <lock-block class="main-block-8-info-cards-card-info-close__lock" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" target="_blank" class="main-block-8-info-btn btn">
+            <div class="main-block-8-info-btn__text">Показать больше</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-block-9">
+      <div class="main-block-9__content">
+        <div class="main-block-9-info">
+          <div class="main-block-9-info__header">
+            Kotex<sup class="reg">&reg;</sup> рекомендует при первой менструации
+          </div>
+
+          <div class="main-block-9-info-cards">
+            <div
+              v-for="(item, id) in recommendations"
+              :key="id"
+              class="main-block-9-info-cards-card"
+            >
+              <img
+                :src="getStaticUrl(item.item.image)"
+                alt="photo"
+                class="main-block-9-info-cards-card__photo"
+              />
+
+              <div class="main-block-9-info-cards-card-info">
+                <div class="main-block-9-info-cards-card-info__title">{{ item.item.title }}</div>
+                <div class="main-block-9-info-cards-card-info__reviews">
+                  <reviews-drops-block
+                    :rating="item.item.rating"
+                    :max-rating="item.item.maxRating"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" target="_blank" class="main-block-9-info-btn btn">
+            <div class="main-block-9-info-btn__text">Показать больше</div>
+          </a>
         </div>
       </div>
     </div>
@@ -202,6 +331,15 @@ export default {
     },
     films() {
       return this.$store.state.bunker.films;
+    },
+    podcasts() {
+      return this.$store.state.bunker.podcasts;
+    },
+    materials() {
+      return this.$store.state.bunker.materials;
+    },
+    recommendations() {
+      return this.$store.state.bunker.recommendations;
     },
   },
   mounted() {
