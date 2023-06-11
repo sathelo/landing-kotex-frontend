@@ -1,8 +1,10 @@
 <template>
   <div class="drops">
     <div v-for="(maxR, id) in maxRating" :key="id" class="drops-drop">
-      <img v-if="checkRating(maxR)" :src="getStaticUrl('drop-filled.svg')" alt="drop-filled" />
-      <img v-else :src="getStaticUrl('drop-empty.svg')" alt="drop-empty" />
+      <img
+        :src="checkRating(maxR) ? getStaticUrl('drop-filled.svg') : getStaticUrl('drop-empty.svg')"
+        alt="drop-filled"
+      />
     </div>
   </div>
 </template>

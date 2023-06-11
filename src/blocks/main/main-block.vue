@@ -309,7 +309,7 @@
           </div>
 
           <a href="#" target="_blank" class="main-block-9-info-btn btn">
-            <div class="main-block-9-info-btn__text">Показать больше</div>
+            <div class="main-block-9-info-btn__text">Все продукты</div>
           </a>
         </div>
       </div>
