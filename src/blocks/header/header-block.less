@@ -1,4 +1,49 @@
 @import '../../styles/helpers';
 
 .header {
+  .content(24px 40px, 0px 0px 32px 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 64px;
+
+  &-logos {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+
+    &-logo {
+      &:nth-child(n+2) {
+        border-left: 1px solid @grey--darken;
+      }
+
+      &__kotex {
+        margin-right: 24px;
+      }
+
+      &__perehod {
+        margin-left: 24px;
+      }
+    }
+  }
+
+  &-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-item {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 120%;
+      letter-spacing: 0.02em;
+      color: rgba(54, 54, 54, 0.6);
+    }
+
+    & > *:not(:last-child) {
+      margin-right: 24px;
+    }
+  }
 }
