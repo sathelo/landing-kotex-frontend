@@ -1,32 +1,29 @@
 <template>
   <div class="header">
     <div class="header-logos">
-      <div class="header-logos-logo">
+      <a href="#" target="_blank" class="header-logos-logo">
         <img
           class="header-logos-logo__kotex"
           :src="getStaticUrl('logo-kotex-red.svg')"
-          alt="logo-kotex-red"
+          alt="logo-kotex"
         />
-      </div>
-      <div class="header-logos-logo">
+      </a>
+
+      <a href="#" target="_blank" class="header-logos-logo">
         <img
           class="header-logos-logo__perehod"
           :src="getStaticUrl('logo-perehod.svg')"
           alt="logo-perehod"
         />
-      </div>
+      </a>
     </div>
 
-    <div class="header-nav">
-      <a
-        v-for="(section, id) in menu"
-        :key="id"
-        :href="section.item.link"
-        :target="section.item.target"
-        class="header-nav-item"
-      >
-        {{ section.item.title }}
-      </a>
+    <div class="header-menu">
+      <div v-for="(section, sectionId) in menu" :key="sectionId" class="header-menu-item">
+        <a :href="section.item.link" :target="section.item.target" class="header-menu-item__link">
+          {{ section.item.title }}
+        </a>
+      </div>
     </div>
   </div>
 </template>

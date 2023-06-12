@@ -1,0 +1,120 @@
+@import '../../styles/helpers';
+
+.podcasts {
+  .content(64px 40px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+
+  &-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 40px;
+
+    &__header {
+      text-align: center;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 100%;
+      color: @yellow-green--dark;
+      margin-bottom: 24px;
+    }
+
+    &__subtitle {
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 130%;
+      color: @yellow-green--lighten;
+    }
+  }
+
+  &-cards {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    & > *:not(:last-child) {
+      margin-right: 16px;
+    }
+
+    &-card {
+      .content(40px, 32px, rgba(248, 170, 179, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 2px solid rgba(248, 170, 179, 0.2);
+
+      &__photo {
+        width: 100%;
+        max-width: 284px;
+        margin-bottom: 42px;
+      }
+
+      &-info {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        &__title {
+          text-align: center;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 32px;
+          line-height: 100%;
+          color: @yellow-green--dark;
+        }
+
+        &__subtitle {
+          text-align: center;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 130%;
+          letter-spacing: 0.01em;
+          color: @white;
+          margin-top: 16px;
+          margin-bottom: 24px;
+        }
+
+        &-btn {
+          .content(20px 40px, 16px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &__listen {
+            width: 100%;
+            max-width: 82px;
+          }
+        }
+      }
+
+      &--active {
+        .content(40px 20px, 32px, #F8AAB3);
+        border: 2px solid #FBD2D7;
+
+        .podcasts-cards-card-info__title {
+          text-align: center;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 32px;
+          line-height: 100%;
+          color: @white;
+        }
+      }
+    }
+  }
+}

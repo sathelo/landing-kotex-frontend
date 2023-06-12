@@ -1,0 +1,54 @@
+@import '../../styles/helpers';
+
+.afisha {
+  .content(64px 48px 64px 63px, 32px, linear-gradient(124.81deg, #FF00BB 7.75%, #EA1B23 92.33%));
+  position: relative;
+  overflow: hidden;
+  display: flex;
+
+  &-info {
+    width: 100%;
+    max-width: 624px;
+    margin-left: auto;
+
+    &__logo {
+      margin-bottom: 16px;
+    }
+
+    &__title {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 110%;
+      color: @white;
+      margin-bottom: 32px;
+    }
+
+    &-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: @white;
+      border-radius: 32px;
+      padding: 20px 40px;
+
+      &__text {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 120%;
+        color: @yellow-green--dark;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  &__photo {
+    .cover();
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 565px;
+  }
+}
