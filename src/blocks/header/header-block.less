@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 64px;
 
   &-logos {
     display: flex;
@@ -28,18 +27,20 @@
     }
   }
 
-  &-nav {
+  &-menu {
     display: flex;
     justify-content: center;
     align-items: center;
 
     &-item {
-      font-style: normal;
-      font-weight: 700;
-      font-size: 16px;
-      line-height: 120%;
-      letter-spacing: 0.02em;
-      color: rgba(54, 54, 54, 0.6);
+      &__link {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 120%;
+        letter-spacing: 0.02em;
+        color: @grey--dark;
+      }
     }
 
     & > *:not(:last-child) {

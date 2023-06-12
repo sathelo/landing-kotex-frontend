@@ -1,0 +1,53 @@
+@import '../../styles/helpers';
+
+.about-partner {
+  .content(64px 40px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+
+  &-info {
+    width: 100%;
+    max-width: 828px;
+    margin-right: 10px;
+
+    &__logo {
+      margin-bottom: 24px;
+    }
+
+    &__title {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 110%;
+      color: @yellow-green--dark;
+      margin-bottom: 32px;
+    }
+
+    &-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(124.81deg, #F0B 7.75%, #EA1B23 92.33%);
+      border-radius: 16px;
+      padding: 20px 40px;
+
+      &__text {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 120%;
+        color: @white;
+      }
+    }
+  }
+
+  &__photo {
+    .cover();
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 484px;
+  }
+}

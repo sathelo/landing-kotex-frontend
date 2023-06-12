@@ -1,8 +1,8 @@
 <template>
   <div class="drops">
-    <div v-for="(maxR, id) in maxRating" :key="id" class="drops-drop">
+    <div v-for="(rat, id) in maxRating" :key="id" class="drops-drop">
       <img
-        :src="checkRating(maxR) ? getStaticUrl('drop-filled.svg') : getStaticUrl('drop-empty.svg')"
+        :src="checkRating(rat) ? getStaticUrl('drop-filled.svg') : getStaticUrl('drop-empty.svg')"
         alt="drop-filled"
       />
     </div>
@@ -14,14 +14,14 @@ export default {
   name: 'reviews-drops-block',
   props: {
     rating: {
-      type: String,
+      type: Number,
       required: true,
       validator(value) {
         return Number.isInteger(value) && value >= 0;
       },
     },
     maxRating: {
-      type: String,
+      type: Number,
       required: true,
       validator(value) {
         return Number.isInteger(value) && value >= 0;
