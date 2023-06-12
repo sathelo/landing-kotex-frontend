@@ -257,16 +257,13 @@
             Видео и&nbsp;комиксы, которые помогут тебе немного лучше понять своё тело
           </div>
 
-          <div class="main-block-8-info-cards">
-            <div v-for="(material, id) in materials" :key="id" class="main-block-8-info-cards-card">
-              <div class="main-block-8-info-cards-card-info">
-                <div
-                  v-if="isEmpty(material.material)"
-                  class="main-block-8-info-cards-card-info-close"
-                >
-                  <lock-block class="main-block-8-info-cards-card-info-close__lock" />
-                </div>
-              </div>
+          <div
+            v-for="(materialBox, materialBoxId) in materialsBox"
+            :key="materialBoxId"
+            class="main-block-8-info-boxes"
+          >
+            <div class="main-block-8-info-boxes-box">
+              <materials-cards-block :material="materialBox" />
             </div>
           </div>
 
@@ -325,6 +322,12 @@ import 'swiper/less';
 
 export default {
   name: 'main-block',
+  data() {
+    return {
+      materialsGroupBy: [],
+      sizeMaterialsBox: 4,
+    };
+  },
   computed: {
     slider() {
       return this.$store.state.bunker.slider;
@@ -340,6 +343,10 @@ export default {
     },
     recommendations() {
       return this.$store.state.bunker.recommendations;
+    },
+    materialsBox() {
+      this.groupBy();
+      return this.materialsGroupBy;
     },
   },
   mounted() {
@@ -359,8 +366,13 @@ export default {
     });
   },
   methods: {
-    isEmpty(slide) {
-      return !Object.keys(slide).length;
+    isEmpty(value) {
+      return !Object.keys(value).length;
+    },
+    groupBy() {
+      for (let i = 0; i < this.materials.length; i += this.sizeMaterialsBox) {
+        this.materialsGroupBy.push(this.materials.slice(i, i + this.sizeMaterialsBox));
+      }
     },
   },
 };
