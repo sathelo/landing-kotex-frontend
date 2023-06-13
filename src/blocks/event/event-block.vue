@@ -42,7 +42,7 @@
       </div>
 
       <div class="event-swiper-btn">
-        <button class="event-swiper-btn__left swiper-button-prev btn">
+        <button class="event-swiper-btn__left swiper-button-prev">
           <img
             :src="getStaticUrl('arrow-left-ico.svg')"
             alt="arrow-left-ico"
@@ -50,7 +50,7 @@
           />
         </button>
 
-        <button class="event-swiper-btn__right swiper-button-next btn">
+        <button class="event-swiper-btn__right swiper-button-next">
           <img
             :src="getStaticUrl('arrow-right-ico.svg')"
             alt="arrow-right-ico"

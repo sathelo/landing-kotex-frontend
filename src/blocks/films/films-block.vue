@@ -20,11 +20,11 @@
           <div class="films-cards-card-info__description">
             {{ film.film.description }}
           </div>
-          <a :href="film.film.link" target="_blank" class="films-cards-card-info-btn btn">
+          <a :href="film.film.link" target="_blank" class="films-cards-card-info-btn">
             <img
               :src="getStaticUrl('btn-gradient.png')"
               alt="btn-watching"
-              class="films-cards-card-info-btn__watching"
+              class="films-cards-card-info-btn__watching btn"
             />
           </a>
         </div>
