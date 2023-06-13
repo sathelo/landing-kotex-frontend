@@ -6,6 +6,7 @@
     <event-block />
     <films-block />
     <podcasts-block />
+    <afisha-event-block />
     <materials-block />
     <recommendations-block />
   </div>
