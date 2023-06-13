@@ -7,18 +7,29 @@
     </div>
 
     <div class="recommendations-cards">
-      <div v-for="(item, id) in recommendations" :key="id" class="recommendations-cards-card">
+      <a
+        v-for="(recommendation, id) in recommendations"
+        :key="id"
+        :href="recommendation.recommendation.link"
+        :target="recommendation.recommendation.target"
+        class="recommendations-cards-card btn"
+      >
         <img
-          :src="getStaticUrl(item.item.image)"
+          :src="getStaticUrl(recommendation.recommendation.image)"
           alt="photo"
           class="recommendations-cards-card__photo"
         />
 
         <div class="recommendations-cards-card-info">
-          <div class="recommendations-cards-card-info__title">{{ item.item.title }}</div>
-          <reviews-drops-block :rating="item.item.rating" :max-rating="item.item.maxRating" />
+          <div class="recommendations-cards-card-info__title">
+            {{ recommendation.recommendation.title }}
+          </div>
+          <reviews-drops-block
+            :rating="recommendation.recommendation.rating"
+            :max-rating="recommendation.recommendation.maxRating"
+          />
         </div>
-      </div>
+      </a>
     </div>
 
     <a href="#" target="_blank" class="recommendations-btn btn">
