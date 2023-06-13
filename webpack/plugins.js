@@ -25,6 +25,7 @@ module.exports = (projectName, isProduction) => {
     new webpack.DefinePlugin({
       'process.env.PROJECT_NAME': JSON.stringify(projectName),
       'process.env.IN_KP': JSON.stringify(inKp),
+      'process.env.API_URL': JSON.stringify(process.env.API_URL),
     }),
     new ESLintPlugin({
       extensions: ['js', 'vue'],
