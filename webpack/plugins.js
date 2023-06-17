@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
+const DotenvPlugin = require('webpack-dotenv-plugin');
 const htmlPlugins = require('./htmlPlugins');
 const CheckMetrikaPlugin = require('./CheckMetrikaPlugin');
 const CheckFilenamesPlugin = require('./CheckFilenamesPlugin');
@@ -25,7 +26,10 @@ module.exports = (projectName, isProduction) => {
     new webpack.DefinePlugin({
       'process.env.PROJECT_NAME': JSON.stringify(projectName),
       'process.env.IN_KP': JSON.stringify(inKp),
-      'process.env.API_URL': JSON.stringify(process.env.API_URL),
+    }),
+    new DotenvPlugin({
+      sample: './.env.example',
+      path: './.env',
     }),
     new ESLintPlugin({
       extensions: ['js', 'vue'],
