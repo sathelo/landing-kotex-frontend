@@ -10,5 +10,6 @@ pnpm-debug.log*
 
 .idea
 .vscode
+.env
 
 /dist
