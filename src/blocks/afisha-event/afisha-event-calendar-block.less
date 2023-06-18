@@ -1,0 +1,20 @@
+@import '../../styles/helpers';
+
+.calendar {
+  &-events {
+    display: flex;
+
+    & > * {
+      margin-right: 20px;
+    }
+
+    &-event {
+      .content(6px 16px 8px 16px, 88px, inherit);
+      cursor: pointer;
+
+      &--active {
+        background: #FEF6F7;
+      }
+    }
+  }
+}

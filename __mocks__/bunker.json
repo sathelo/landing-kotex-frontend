@@ -138,6 +138,60 @@
             }
         }
     ],
+    "calendar": {
+        "events": [
+            {
+                "event": {
+                    "title": "все",
+                    "isActive": true
+                }
+            },
+            {
+                "event": {
+                    "title": "кино",
+                    "isActive": false
+                }
+            },
+            {
+                "event": {
+                    "title": "концерты",
+                    "isActive": false
+                }
+            },
+            {
+                "event": {
+                    "title": "выставки",
+                    "isActive": false
+                }
+            },
+            {
+                "event": {
+                    "title": "рестораны",
+                    "isActive": false
+                }
+            },
+            {
+                "event": {
+                    "title": "лекции",
+                    "isActive": false
+                }
+            }
+        ],
+        "months": [
+            "Январь",
+            "Февраль",
+            "Март",
+            "Апрель",
+            "Май",
+            "Июнь",
+            "Июль",
+            "Август",
+            "Сентябрь",
+            "Октябрь",
+            "Ноябрь",
+            "Декабрь"
+        ]
+    },
     "materials": [
         {
             "material": {}
