@@ -1,8 +1,14 @@
 @import '../../styles/helpers';
 
 .calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
   &-events {
     display: flex;
+    margin-bottom: 12px;
 
     & > * {
       margin-right: 20px;
@@ -15,6 +21,20 @@
       &--active {
         background: #FEF6F7;
       }
+    }
+  }
+
+  &-months {
+    &__wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+
+      & > *:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+
+    &-month {
     }
   }
 }
