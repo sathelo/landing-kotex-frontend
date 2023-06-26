@@ -25,6 +25,9 @@
   }
 
   &-months {
+    width: 100%;
+    overflow: hidden;
+
     &__wrapper {
       display: flex;
       flex-wrap: nowrap;
@@ -35,6 +38,40 @@
     }
 
     &-month {
+      &__title {
+        color: @yellow-green--dark;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 150%;
+        letter-spacing: 0.64px;
+      }
+
+      &-dates {
+        display: flex;
+
+        & > *:not(:last-child) {
+          margin-right: 16px;
+        }
+
+        &-date {
+          padding: 8px 12px;
+
+          &__number {
+            color: @yellow-green--dark;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 150%;
+            letter-spacing: 0.36px;
+          }
+
+          &__name {
+            color: @yellow-green--dark;
+            font-size: 18px;
+            line-height: 150%;
+            letter-spacing: 0.36px;
+          }
+        }
+      }
     }
   }
 }

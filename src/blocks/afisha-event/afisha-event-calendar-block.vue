@@ -14,15 +14,16 @@
 
     <div class="calendar-months">
       <div class="calendar-months__wrapper">
-        <div v-for="(month, monthId) in months" :key="monthId" class="calendar-months-month">
+        <div v-for="(month, monthId) in sortedMonths" :key="monthId" class="calendar-months-month">
           <div class="calendar-months-month__title">{{ month }}</div>
           <div class="calendar-months-month-dates">
             <div
-              v-for="(date, dateId) in dates"
+              v-for="(date, dateId) in getDates(month)"
               :key="dateId"
               class="calendar-months-month-dates-date"
             >
-              {{ date }}
+              <div class="calendar-months-month-dates-date__number">{{ date }}</div>
+              <div class="calendar-months-month-dates-date__name">{{ getWeekDay(date) }}</div>
             </div>
           </div>
         </div>
@@ -34,6 +35,13 @@
 <script>
 export default {
   name: 'afisha-event-calendar-block',
+  data() {
+    return {
+      days: ['СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', 'ПН', 'ВТ'],
+      minMonths: 0,
+      maxMonths: 3,
+    };
+  },
   computed: {
     events() {
       return this.$store.state.bunker.calendar.events;
@@ -41,11 +49,15 @@ export default {
     months() {
       return this.$store.state.bunker.calendar.months;
     },
-    dates() {
-      const firstDay = new Date().getDate();
-      const lastDay = this.getLastDay();
-      return this.range(firstDay, lastDay);
+    sortedMonths() {
+      return this.$store.state.bunker.calendar.months.slice(
+        this.minMonths,
+        this.minMonths + this.maxMonths
+      );
     },
+  },
+  mounted() {
+    this.minMonths = this.$store.getters.currentMonth - 1;
   },
   methods: {
     chooseEvent(currentEventId) {
@@ -54,20 +66,36 @@ export default {
         if (eId === currentEventId) e.event.isActive = true;
       });
     },
-    getLastDay() {
+    getLastDay(month) {
       const year = this.$store.getters.currentYear;
-      const month = this.$store.getters.currentMonth;
-      const lastDay = new Date(year, month, 0).getDate();
+      const nMonth = this.getNumberMonth(month);
+      const lastDay = new Date(year, nMonth, 0).getDate();
       return lastDay;
     },
     range(start, end) {
       const arr = [];
-      for (let counter = start; counter < end; counter += 1) {
-        if (counter < end) {
+      for (let counter = start; counter <= end; counter += 1) {
+        if (counter <= end) {
           arr.push(counter);
         }
       }
       return arr;
+    },
+    getDates(month) {
+      if (month === this.months[this.$store.getters.currentMonth - 1]) {
+        const firstDay = new Date().getDate();
+        const lastDay = this.getLastDay();
+        return this.range(firstDay, lastDay);
+      }
+      const firstDay = 1;
+      const lastDay = this.getLastDay(month);
+      return this.range(firstDay, lastDay);
+    },
+    getWeekDay(date) {
+      return this.days[date % 7];
+    },
+    getNumberMonth(month) {
+      return this.$store.state.bunker.calendar.months.indexOf(month);
     },
   },
 };
