@@ -19,7 +19,7 @@
         Подборка событий для совместного посещения родителями и&nbsp;подростками
       </div>
       <div class="afisha-event-info-select">
-        <div class="afisha-event-info-select__text">Москва</div>
+        <div class="afisha-event-info-select__text">{{ afishaEvent().items }}</div>
         <img
           :src="getStaticUrl('arrow-bottom-ico.svg')"
           alt="arrow-bottom"
@@ -29,6 +29,10 @@
     </div>
 
     <afisha-event-calendar-block />
+
+    <a href="#" target="_blank" class="afisha-event-btn btn">
+      <div class="afisha-event-btn__text">Показать больше</div>
+    </a>
   </div>
 </template>
 
@@ -38,10 +42,15 @@ import { Event } from '../../api/afisha-event.js';
 
 export default {
   name: 'afisha-event-block',
+  data() {
+    return {
+      cityId: 0, // Moscow default
+    };
+  },
   methods: {
     async afishaEvent() {
       // eslint-disable-next-line no-return-await
-      return await Event.getData(0);
+      return await Event.getData(this.cityId);
     },
   },
 };

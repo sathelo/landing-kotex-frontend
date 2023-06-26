@@ -29,6 +29,17 @@
         </div>
       </div>
     </div>
+
+    <div class="calendar-cards">
+      <afisha-event-calendar-card-block
+        v-for="(card, cardIndex) in cards"
+        :key="cardIndex"
+        :title="card.card.title"
+        :subtitle="card.card.subtitle"
+        :link="card.card.link"
+        :is-active="card.card.isActive"
+      />
+    </div>
   </div>
 </template>
 
@@ -43,6 +54,9 @@ export default {
     };
   },
   computed: {
+    cards() {
+      return this.$store.state.bunker.calendar.cards;
+    },
     events() {
       return this.$store.state.bunker.calendar.events;
     },
