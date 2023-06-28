@@ -18,13 +18,28 @@
       <div class="afisha-event-info__subtitle">
         Подборка событий для совместного посещения родителями и&nbsp;подростками
       </div>
-      <div class="afisha-event-info-select">
-        <div class="afisha-event-info-select__text">{{ afishaEvent().items }}</div>
+      <div class="afisha-event-info-select" @click="openSelect">
+        {{ isSelect }}
+        <div class="afisha-event-info-select__text">Москва</div>
         <img
           :src="getStaticUrl('arrow-bottom-ico.svg')"
           alt="arrow-bottom"
           class="afisha-event-info-select__ico"
         />
+
+        <div v-if="isSelect" class="afisha-event-info-select--active">
+          <div class="afisha-event-info-select__content">
+            <div class="afisha-event-info-select-cities">
+              <div
+                v-for="(city, cityId) in testList"
+                :key="cityId"
+                class="afisha-event-info-select-cities-city"
+              >
+                <div class="afisha-event-info-select-city__name">{{ city }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -44,13 +59,31 @@ export default {
   name: 'afisha-event-block',
   data() {
     return {
-      cityId: 0, // Moscow default
+      currentCityId: 0, // Moscow default
+      isSelect: false,
+      testList: [
+        'asd',
+        '123',
+        '321w',
+        '9892',
+        'asd',
+        '123',
+        '321w',
+        '9892',
+        'asd',
+        '123',
+        '321w',
+        '9892',
+      ],
     };
   },
   methods: {
+    openSelect() {
+      this.isSelect = !this.isSelect;
+    },
     async afishaEvent() {
       // eslint-disable-next-line no-return-await
-      return await Event.getData(this.cityId);
+      return await Event.getData(this.currentCityId);
     },
   },
 };
