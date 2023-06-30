@@ -13,21 +13,44 @@
     </div>
 
     <div class="calendar-months">
-      <div class="calendar-months__wrapper">
-        <div v-for="(month, monthId) in sortedMonths" :key="monthId" class="calendar-months-month">
-          <div class="calendar-months-month__title">{{ month }}</div>
-          <div class="calendar-months-month-dates">
-            <div
-              v-for="(date, dateId) in getDates(month)"
-              :key="dateId"
-              class="calendar-months-month-dates-date"
-            >
-              <div class="calendar-months-month-dates-date__number">{{ date }}</div>
-              <div class="calendar-months-month-dates-date__name">{{ getWeekDay(date) }}</div>
+      <button class="calendar-months-btn__left" @click="scrollDays(-300)">
+        <img
+          :src="getStaticUrl('arrow-left-ico.svg')"
+          alt="arrow-left-ico"
+          class="calendar-months-btn__ico"
+        />
+      </button>
+
+      <div class="calendar-months__content">
+        <div ref="listDaysWrapper" class="calendar-months__wrapper">
+          <div
+            v-for="(month, monthId) in sortedMonths"
+            :key="monthId"
+            class="calendar-months-month"
+          >
+            <div class="calendar-months-month__title">{{ month }}</div>
+            <div class="calendar-months-month-dates">
+              <div
+                v-for="(date, dateId) in getDates(month)"
+                :key="dateId"
+                class="calendar-months-month-dates-date"
+                @click="chooseDate(month, date)"
+              >
+                <div class="calendar-months-month-dates-date__number">{{ date }}</div>
+                <div class="calendar-months-month-dates-date__name">{{ getWeekDay(date) }}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <button class="calendar-months-btn__right" @click="scrollDays(300)">
+        <img
+          :src="getStaticUrl('arrow-right-ico.svg')"
+          alt="arrow-right-ico"
+          class="calendar-months-btn__ico"
+        />
+      </button>
     </div>
 
     <div class="calendar-cards">
@@ -51,6 +74,10 @@ export default {
       days: ['СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', 'ПН', 'ВТ'],
       minMonths: 0,
       maxMonths: 3,
+      chooseDates: {
+        fDay: null,
+        lDay: null,
+      },
     };
   },
   computed: {
@@ -110,6 +137,29 @@ export default {
     },
     getNumberMonth(month) {
       return this.$store.state.bunker.calendar.months.indexOf(month);
+    },
+    scrollDays(shift) {
+      const { listDaysWrapper } = this.$refs;
+      if (listDaysWrapper) {
+        this.scrollElementTo({
+          element: listDaysWrapper,
+          left: listDaysWrapper.scrollLeft + shift,
+        });
+      }
+    },
+    scrollElementTo({ element, left }) {
+      element.scrollTo({ left, behavior: 'smooth' });
+    },
+    chooseDate(month, day) {
+      const m = this.getNumberMonth(month);
+      const date = '';
+      this.chooseDates.fDay = this.chooseDates.fDay ? this.chooseDates.fDay : date;
+      this.chooseDates.lDay = this.chooseDates.lDay ? this.chooseDates.lDay : date;
+      console.log(m, day, date);
+      console.log(this.chooseDates.fDay, this.chooseDates.lDay);
+      // if (!chooseDates.fDay) {
+      //   chooseDates.fDay =
+      // }
     },
   },
 };

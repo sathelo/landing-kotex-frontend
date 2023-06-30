@@ -31,14 +31,23 @@
   }
 
   &-months {
+    display: flex;
+    align-items: center;
+    position: relative;
     width: 100%;
     max-width: 1022px;
     margin-bottom: 48px;
-    overflow: hidden;
+
+    &__content {
+      width: 100%;
+      max-width: 1022px;
+      overflow: hidden;
+    }
 
     &__wrapper {
       display: flex;
       flex-wrap: nowrap;
+      overflow-x: hidden;
 
       & > *:not(:last-child) {
         margin-right: 16px;
@@ -79,6 +88,23 @@
             letter-spacing: 0.36px;
           }
         }
+      }
+    }
+
+    &-btn {
+      &__left,
+      &__right {
+        .content(0, 50%, linear-gradient(125deg, #F0B 7.75%, #EA1B23 92.33%));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+      }
+
+      &__ico {
+        max-width: 8px;
       }
     }
   }

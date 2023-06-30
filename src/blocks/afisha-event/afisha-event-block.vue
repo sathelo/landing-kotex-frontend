@@ -19,7 +19,6 @@
         Подборка событий для совместного посещения родителями и&nbsp;подростками
       </div>
       <div class="afisha-event-info-select" @click="openSelect">
-        {{ isSelect }}
         <div class="afisha-event-info-select__text">Москва</div>
         <img
           :src="getStaticUrl('arrow-bottom-ico.svg')"
@@ -28,15 +27,13 @@
         />
 
         <div v-if="isSelect" class="afisha-event-info-select--active">
-          <div class="afisha-event-info-select__content">
-            <div class="afisha-event-info-select-cities">
-              <div
-                v-for="(city, cityId) in testList"
-                :key="cityId"
-                class="afisha-event-info-select-cities-city"
-              >
-                <div class="afisha-event-info-select-city__name">{{ city }}</div>
-              </div>
+          <div class="afisha-event-info-select-cities">
+            <div
+              v-for="(city, cityId) in testList"
+              :key="cityId"
+              class="afisha-event-info-select-cities-city"
+            >
+              <div class="afisha-event-info-select-city__name">{{ city }}</div>
             </div>
           </div>
         </div>
