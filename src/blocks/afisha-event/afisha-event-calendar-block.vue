@@ -42,6 +42,7 @@
               </div>
             </div>
           </div>
+          <div class="calendar-months-month-dates-date__ranged" />
         </div>
       </div>
 
@@ -104,6 +105,16 @@ export default {
         this.minMonths,
         this.minMonths + this.maxMonths
       );
+    },
+  },
+  watch: {
+    chooseDates: {
+      handler(newChooseDates, oldChooseDates) {
+        const { listDaysWrapper } = this.$refs;
+        console.log(listDaysWrapper.scrollWidth);
+        console.log(newChooseDates, oldChooseDates);
+      },
+      deep: true,
     },
   },
   mounted() {
