@@ -34,6 +34,7 @@
                 v-for="(date, dateId) in getDates(month)"
                 :key="dateId"
                 class="calendar-months-month-dates-date"
+                :class="{ 'calendar-months-month-dates-date--active': isChooseDate(month, date) }"
                 @click="chooseDate(month, date)"
               >
                 <div class="calendar-months-month-dates-date__number">{{ date }}</div>
@@ -75,8 +76,16 @@ export default {
       minMonths: 0,
       maxMonths: 3,
       chooseDates: {
-        fDay: null,
-        lDay: null,
+        fDay: {
+          year: null,
+          month: null,
+          day: null,
+        },
+        lDay: {
+          year: null,
+          month: null,
+          day: null,
+        },
       },
     };
   },
@@ -151,15 +160,34 @@ export default {
       element.scrollTo({ left, behavior: 'smooth' });
     },
     chooseDate(month, day) {
+      const year = this.$store.getters.currentYear;
       const m = this.getNumberMonth(month);
-      const date = '';
-      this.chooseDates.fDay = this.chooseDates.fDay ? this.chooseDates.fDay : date;
-      this.chooseDates.lDay = this.chooseDates.lDay ? this.chooseDates.lDay : date;
-      console.log(m, day, date);
-      console.log(this.chooseDates.fDay, this.chooseDates.lDay);
-      // if (!chooseDates.fDay) {
-      //   chooseDates.fDay =
-      // }
+      const params = { year, month: m, day };
+      if (this.isEmptyObj(this.chooseDates.fDay)) {
+        this.chooseDates.fDay = params;
+        return;
+      }
+      if (this.isEmptyObj(this.chooseDates.lDay)) {
+        this.chooseDates.lDay = params;
+      } else {
+        const resetParams = { year: null, month: null, day: null };
+        this.chooseDates.fDay = params;
+        this.chooseDates.lDay = resetParams;
+      }
+    },
+    isEmptyObj(obj) {
+      const values = Object.values(obj);
+      if (!values.length) return true;
+      return !values.filter((v) => v !== undefined && v !== null).length;
+    },
+    isChooseDate(month, day) {
+      const year = this.$store.getters.currentYear;
+      const m = this.getNumberMonth(month);
+      const params = { year, month: m, day };
+      return (
+        JSON.stringify(this.chooseDates.fDay) === JSON.stringify(params) ||
+        JSON.stringify(this.chooseDates.lDay) === JSON.stringify(params)
+      );
     },
   },
 };
