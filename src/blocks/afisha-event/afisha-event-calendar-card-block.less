@@ -1,0 +1,40 @@
+@import '../../styles/helpers';
+
+.calendar-card {
+  .content(40px);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: 2px solid rgba(29, 29, 27, 0.05);
+
+  &-info {
+    margin-right: 32px;
+
+    &__title {
+      color: @yellow-green--dark;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 110%;
+      letter-spacing: -0.256px;
+      margin-bottom: 16px;
+    }
+
+    &__subtitle {
+      color: @yellow-green--light;
+      font-size: 16px;
+      line-height: 100%;
+    }
+  }
+
+  &-btn {
+    &__more {
+      width: 100%;
+      max-width: 120px;
+    }
+  }
+
+  &--active {
+    .content(40px, 32px, rgba(248, 170, 179, 0.1));
+    border: 2px solid rgba(248, 170, 179, 0.2);
+  }
+}

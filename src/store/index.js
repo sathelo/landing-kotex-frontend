@@ -40,6 +40,15 @@ export default new Vuex.Store({
         (item) => item.service === 'yandex' && item.subscription
       );
     },
+    currentTime(state) {
+      return new Date(state.serverTime * 1000);
+    },
+    currentDay(state) {
+      return new Date(state.serverTime * 1000).getDay();
+    },
+    currentMonth(state) {
+      return new Date(state.serverTime * 1000).getMonth() + 1;
+    },
     currentYear(state) {
       return new Date(state.serverTime * 1000).getFullYear();
     },

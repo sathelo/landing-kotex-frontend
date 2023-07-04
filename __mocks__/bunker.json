@@ -138,6 +138,106 @@
             }
         }
     ],
+    "calendar": {
+        "events": [
+            {
+                "event": {
+                    "title": "все",
+                    "isActive": true
+                }
+            },
+            {
+                "event": {
+                    "title": "кино",
+                    "isActive": false
+                }
+            },
+            {
+                "event": {
+                    "title": "концерты",
+                    "isActive": false
+                }
+            },
+            {
+                "event": {
+                    "title": "выставки",
+                    "isActive": false
+                }
+            },
+            {
+                "event": {
+                    "title": "рестораны",
+                    "isActive": false
+                }
+            },
+            {
+                "event": {
+                    "title": "лекции",
+                    "isActive": false
+                }
+            }
+        ],
+        "months": [
+            "Январь",
+            "Февраль",
+            "Март",
+            "Апрель",
+            "Май",
+            "Июнь",
+            "Июль",
+            "Август",
+            "Сентябрь",
+            "Октябрь",
+            "Ноябрь",
+            "Декабрь"
+        ],
+        "cards": [
+            {
+                "card": {
+                    "title": "Алые паруса. Орган, арфа, саксофон, флейта, дудук",
+                    "subtitle": "27\u00A0сентября, суббота\u00A0/ Кино",
+                    "link": {
+                        "href": "#",
+                        "target": "_blank"
+                    },
+                    "isActive": true
+                }
+            },
+            {
+                "card": {
+                    "title": "Алые паруса. Орган, арфа, саксофон, флейта, дудук",
+                    "subtitle": "27\u00A0сентября, суббота\u00A0/ Кино",
+                    "link": {
+                        "href": "#",
+                        "target": "_blank"
+                    },
+                    "isActive": false
+                }
+            },
+            {
+                "card": {
+                    "title": "Алые паруса. Орган, арфа, саксофон, флейта, дудук",
+                    "subtitle": "27\u00A0сентября, суббота\u00A0/ Кино",
+                    "link": {
+                        "href": "#",
+                        "target": "_blank"
+                    },
+                    "isActive": false
+                }
+            },
+            {
+                "card": {
+                    "title": "Алые паруса. Орган, арфа, саксофон, флейта, дудук",
+                    "subtitle": "27\u00A0сентября, суббота\u00A0/ Кино",
+                    "link": {
+                        "href": "#",
+                        "target": "_blank"
+                    },
+                    "isActive": false
+                }
+            }
+        ]
+    },
     "materials": [
         {
             "material": {}

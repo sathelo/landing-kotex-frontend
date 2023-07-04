@@ -1,0 +1,151 @@
+@import '../../styles/helpers';
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 40px;
+
+  &-events {
+    display: flex;
+    margin-bottom: 12px;
+
+    & > * {
+      margin-right: 20px;
+    }
+
+    &-event {
+      .content(6px 16px 8px 16px, 88px, inherit);
+      cursor: pointer;
+      color: @yellow-green--dark;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 150%;
+      letter-spacing: 0.36px;
+
+      &--active {
+        background: #FEF6F7;
+      }
+    }
+  }
+
+  &-months {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 48px;
+
+    &__content {
+      width: 100%;
+      max-width: 942px;
+      overflow: hidden;
+    }
+
+    &__wrapper {
+      overflow-x: hidden;
+
+      &-scroll {
+        z-index: 1;
+        display: flex;
+        flex-wrap: nowrap;
+        position: relative;
+
+        & > *:not(:last-child) {
+          margin-right: 16px;
+        }
+      }
+    }
+
+    &-month {
+      height: 102px;
+
+      &__title {
+        color: @yellow-green--dark;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 150%;
+        letter-spacing: 0.64px;
+      }
+
+      &-dates {
+        position: relative;
+        display: flex;
+
+        & > *:not(:last-child) {
+          margin-right: 16px;
+        }
+
+        &-date {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          padding: 8px 12px;
+          cursor: pointer;
+
+          &__number {
+            color: @yellow-green--dark;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 150%;
+            letter-spacing: 0.36px;
+          }
+
+          &__name {
+            color: @yellow-green--dark;
+            font-size: 18px;
+            line-height: 150%;
+            letter-spacing: 0.36px;
+          }
+
+          &__ranged {
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            z-index: -1;
+            width: 0;
+            height: 100%;
+            background: #FFFAFB;
+            pointer-events: none;
+            border-radius: 12px;
+          }
+
+          &--active {
+            .content(8px 12px, 12px, #FEF6F7);
+            border: 1px solid #FBD2D7;
+            box-shadow: 0 4px 0 0 #FBCED3;
+          }
+        }
+      }
+    }
+
+    &-btn {
+      &__left,
+      &__right {
+        .content(0, 50%, linear-gradient(125deg, #F0B 7.75%, #EA1B23 92.33%));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+
+      &__ico {
+        max-width: 8px;
+      }
+    }
+  }
+
+  &-cards {
+    width: 100%;
+
+    & > *:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+}
