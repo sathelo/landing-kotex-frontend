@@ -23,26 +23,29 @@
 
       <div class="calendar-months__content">
         <div ref="listDaysWrapper" class="calendar-months__wrapper">
-          <div
-            v-for="(month, monthId) in sortedMonths"
-            :key="monthId"
-            class="calendar-months-month"
-          >
-            <div class="calendar-months-month__title">{{ month }}</div>
-            <div class="calendar-months-month-dates">
-              <div
-                v-for="(date, dateId) in getDates(month)"
-                :key="dateId"
-                class="calendar-months-month-dates-date"
-                :class="{ 'calendar-months-month-dates-date--active': isChooseDate(month, date) }"
-                @click="chooseDate(month, date)"
-              >
-                <div class="calendar-months-month-dates-date__number">{{ date }}</div>
-                <div class="calendar-months-month-dates-date__name">{{ getWeekDay(date) }}</div>
+          <div class="calendar-months__wrapper-scroll">
+            <div
+              v-for="(month, monthId) in sortedMonths"
+              :key="monthId"
+              class="calendar-months-month"
+            >
+              <div class="calendar-months-month__title">{{ month }}</div>
+              <div class="calendar-months-month-dates">
+                <div
+                  v-for="(date, dateId) in getDates(month)"
+                  :key="dateId"
+                  :ref="`dateSelect${Number(isChooseDate(month, date))}`"
+                  class="calendar-months-month-dates-date"
+                  :class="{ 'calendar-months-month-dates-date--active': isChooseDate(month, date) }"
+                  @click="chooseDate(month, date)"
+                >
+                  <div class="calendar-months-month-dates-date__number">{{ date }}</div>
+                  <div class="calendar-months-month-dates-date__name">{{ getWeekDay(date) }}</div>
+                </div>
               </div>
             </div>
+            <div ref="listDaysRange" class="calendar-months-month-dates-date__ranged" />
           </div>
-          <div class="calendar-months-month-dates-date__ranged" />
         </div>
       </div>
 
@@ -75,7 +78,7 @@ export default {
     return {
       days: ['СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', 'ПН', 'ВТ'],
       minMonths: 0,
-      maxMonths: 3,
+      maxMonths: 2,
       chooseDates: {
         fDay: {
           year: null,
@@ -108,13 +111,18 @@ export default {
     },
   },
   watch: {
-    chooseDates: {
-      handler(newChooseDates, oldChooseDates) {
-        const { listDaysWrapper } = this.$refs;
-        console.log(listDaysWrapper.scrollWidth);
-        console.log(newChooseDates, oldChooseDates);
+    'chooseDates.lDay': {
+      handler(newChooseDates) {
+        if (!this.isEmptyObj(newChooseDates)) {
+          const { dateSelect1 } = this.$refs;
+          setTimeout(() => {
+            console.log(dateSelect1);
+            this.showRange(...dateSelect1);
+          });
+        } else {
+          this.hideRange();
+        }
       },
-      deep: true,
     },
   },
   mounted() {
@@ -126,6 +134,27 @@ export default {
         if (e.event.isActive === true && eId !== currentEventId) e.event.isActive = false;
         if (eId === currentEventId) e.event.isActive = true;
       });
+    },
+    showRange(left, right) {
+      const { listDaysWrapper, listDaysRange } = this.$refs;
+      let leftRect = left.getBoundingClientRect();
+      let rightRect = right.getBoundingClientRect();
+      if (leftRect.left > rightRect.left) {
+        const tmp = leftRect;
+        leftRect = rightRect;
+        rightRect = tmp;
+      }
+      const listDaysWrapperRect = listDaysWrapper.getBoundingClientRect();
+      const rangeWidth = Math.abs(leftRect.left - rightRect.left) + leftRect.width;
+      listDaysRange.style.width = `${rangeWidth}px`;
+      listDaysRange.style.height = `${leftRect.height + 4}px`;
+      listDaysRange.style.left = `${
+        leftRect.left + listDaysWrapper.scrollLeft - listDaysWrapperRect.left
+      }px`;
+    },
+    hideRange() {
+      const { listDaysRange } = this.$refs;
+      listDaysRange.style.width = 0;
     },
     getLastDay(month) {
       const year = this.$store.getters.currentYear;

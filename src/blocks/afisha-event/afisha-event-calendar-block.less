@@ -31,26 +31,31 @@
   }
 
   &-months {
+    position: relative;
     display: flex;
     align-items: center;
-    position: relative;
+    justify-content: center;
     width: 100%;
-    max-width: 1022px;
     margin-bottom: 48px;
 
     &__content {
       width: 100%;
-      max-width: 1022px;
+      max-width: 942px;
       overflow: hidden;
     }
 
     &__wrapper {
-      display: flex;
-      flex-wrap: nowrap;
       overflow-x: hidden;
 
-      & > *:not(:last-child) {
-        margin-right: 16px;
+      &-scroll {
+        z-index: 1;
+        display: flex;
+        flex-wrap: nowrap;
+        position: relative;
+
+        & > *:not(:last-child) {
+          margin-right: 16px;
+        }
       }
     }
 
@@ -98,6 +103,14 @@
 
           &__ranged {
             position: absolute;
+            left: 0;
+            bottom: 2px;
+            z-index: -1;
+            width: 0;
+            height: 100%;
+            background: #FFFAFB;
+            pointer-events: none;
+            border-radius: 12px;
           }
 
           &--active {
@@ -119,6 +132,7 @@
         width: 32px;
         height: 32px;
         cursor: pointer;
+        margin-top: 8px;
       }
 
       &__ico {
