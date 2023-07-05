@@ -21,9 +21,10 @@
         />
 
         <div class="recommendations-cards-card-info">
-          <div class="recommendations-cards-card-info__title">
-            {{ recommendation.recommendation.title }}
-          </div>
+          <div
+            class="recommendations-cards-card-info__title"
+            v-html="recommendation.recommendation.title"
+          />
           <reviews-drops-block
             :rating="recommendation.recommendation.rating"
             :max-rating="recommendation.recommendation.maxRating"
