@@ -39,7 +39,7 @@
       right: 0;
       display: flex;
       border: 2px solid rgba(29, 29, 27, 0.2);
-      border-radius: 16px 16px 0 0;
+      border-radius: 16px;
       cursor: pointer;
 
       &__text {
@@ -51,6 +51,10 @@
         color: @yellow-green--dark;
       }
 
+      &--chooses {
+        border-radius: 16px 16px 0 0;
+      }
+
       &--active {
         position: absolute;
         bottom: 0;
@@ -59,18 +63,20 @@
       }
 
       &-cities {
-        .content(20px 40px, 16px, @white);
+        .content(0, 16px, @white);
         position: absolute;
+        left: -2px;
         z-index: 2;
-        width: 100%;
+        text-align: center;
+        width: 102%;
         max-height: calc(200px - 20px);
         border: 2px solid rgba(29, 29, 27, 0.2);
         border-radius: 0 0 16px 16px;
         border-top: none;
         overflow-y: scroll;
 
-        & > *:not(:last-child) {
-          margin-bottom: 24px;
+        &-city {
+          padding: 20px 0;
         }
       }
     }

@@ -116,7 +116,6 @@ export default {
         if (!this.isEmptyObj(newChooseDates)) {
           const { dateSelect1 } = this.$refs;
           setTimeout(() => {
-            console.log(dateSelect1);
             this.showRange(...dateSelect1);
           });
         } else {
