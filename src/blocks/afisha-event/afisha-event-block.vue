@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <afisha-event-calendar-block />
+    <afisha-event-calendar-block v-if="!isEmptyObj(dataCity)" :data-city="dataCity" />
 
     <a href="#" target="_blank" class="afisha-event-btn btn">
       <div class="afisha-event-btn__text">Показать больше</div>
@@ -56,15 +56,14 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/extensions
-import { Afisha } from '../../api/afisha-event.js';
+import { Afisha } from '../../api/afisha-event';
 
 export default {
   name: 'afisha-event-block',
   data() {
     return {
       cities: [],
-      dataCity: {},
+      dataCity: [],
       currentCity: {},
       defaultCityId: 0,
       isSelect: false,
@@ -89,6 +88,7 @@ export default {
     },
     selectCity(city) {
       this.currentCity = city;
+      this.getCityData();
     },
     isEmptyObj(obj) {
       const values = Object.values(obj);
@@ -106,7 +106,7 @@ export default {
         : this.currentCity;
     },
     async getCityData() {
-      this.dataCity = await Afisha.getListEventsCity(this.currentCity?.id);
+      this.dataCity = (await Afisha.getListEventsCity(this.currentCity?.id))?.items;
     },
   },
 };

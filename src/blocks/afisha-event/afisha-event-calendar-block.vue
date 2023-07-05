@@ -60,12 +60,11 @@
 
     <div class="calendar-cards">
       <afisha-event-calendar-card-block
-        v-for="(card, cardIndex) in cards"
+        v-for="(card, cardIndex) in dataCity"
         :key="cardIndex"
-        :title="card.card.title"
-        :subtitle="card.card.subtitle"
-        :link="card.card.link"
-        :is-active="card.card.isActive"
+        :title="card.title"
+        :type="card.type"
+        :link="card.afisha_url"
       />
     </div>
   </div>
@@ -74,6 +73,12 @@
 <script>
 export default {
   name: 'afisha-event-calendar-block',
+  props: {
+    dataCity: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       days: ['СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', 'ПН', 'ВТ'],
@@ -94,9 +99,6 @@ export default {
     };
   },
   computed: {
-    cards() {
-      return this.$store.state.bunker.calendar.cards;
-    },
     events() {
       return this.$store.state.bunker.calendar.events;
     },
