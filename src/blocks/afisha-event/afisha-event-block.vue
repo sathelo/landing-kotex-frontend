@@ -18,8 +18,13 @@
       <div class="afisha-event-info__subtitle">
         Подборка событий для совместного посещения родителями и&nbsp;подростками
       </div>
-      <div class="afisha-event-info-select" @click="openSelect">
-        <div class="afisha-event-info-select__text">Москва</div>
+      <div
+        ref="choosesCities"
+        :class="{ 'afisha-event-info-select--chooses': isSelect }"
+        class="afisha-event-info-select"
+        @click="openSelect"
+      >
+        <div class="afisha-event-info-select__text">{{ currentCity.name }}</div>
         <img
           :src="getStaticUrl('arrow-bottom-ico.svg')"
           alt="arrow-bottom"
@@ -29,18 +34,20 @@
         <div v-if="isSelect" class="afisha-event-info-select--active">
           <div class="afisha-event-info-select-cities">
             <div
-              v-for="(city, cityId) in testList"
+              v-for="(city, cityId) in filteredCities"
               :key="cityId"
               class="afisha-event-info-select-cities-city"
             >
-              <div class="afisha-event-info-select-city__name">{{ city }}</div>
+              <div class="afisha-event-info-select-city__name" @click="selectCity(city)">
+                {{ city.name }}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <afisha-event-calendar-block />
+    <afisha-event-calendar-block v-if="!isEmptyObj(dataCity)" :data-city="dataCity" />
 
     <a href="#" target="_blank" class="afisha-event-btn btn">
       <div class="afisha-event-btn__text">Показать больше</div>
@@ -49,38 +56,57 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/extensions
-import { Event } from '../../api/afisha-event.js';
+import { Afisha } from '../../api/afisha-event';
 
 export default {
   name: 'afisha-event-block',
   data() {
     return {
-      currentCityId: 0, // Moscow default
+      cities: [],
+      dataCity: [],
+      currentCity: {},
+      defaultCityId: 0,
       isSelect: false,
-      testList: [
-        'asd',
-        '123',
-        '321w',
-        '9892',
-        'asd',
-        '123',
-        '321w',
-        '9892',
-        'asd',
-        '123',
-        '321w',
-        '9892',
-      ],
     };
+  },
+  computed: {
+    filteredCities() {
+      return this.cities.filter((city) => this.currentCity?.id !== city?.id);
+    },
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
+  },
+  async mounted() {
+    await this.getCities();
+    await this.getCityData();
+    document.addEventListener('click', this.handleClickOutside);
   },
   methods: {
     openSelect() {
       this.isSelect = !this.isSelect;
     },
-    async afishaEvent() {
-      // eslint-disable-next-line no-return-await
-      return await Event.getData(this.currentCityId);
+    selectCity(city) {
+      this.currentCity = city;
+      this.getCityData();
+    },
+    isEmptyObj(obj) {
+      const values = Object.values(obj);
+      if (!values.length) return true;
+      return !values.filter((v) => v !== undefined && v !== null).length;
+    },
+    handleClickOutside(event) {
+      const { choosesCities } = this.$refs;
+      if (!choosesCities.contains(event.target)) this.isSelect = false;
+    },
+    async getCities() {
+      this.cities = (await Afisha.getCities())?.items;
+      this.currentCity = !this.isEmptyObj(this.cities)
+        ? this.cities[this.defaultCityId]
+        : this.currentCity;
+    },
+    async getCityData() {
+      this.dataCity = (await Afisha.getListEventsCity(this.currentCity?.id))?.items;
     },
   },
 };

@@ -60,12 +60,12 @@
 
     <div class="calendar-cards">
       <afisha-event-calendar-card-block
-        v-for="(card, cardIndex) in cards"
+        v-for="(card, cardIndex) in dataCity"
         :key="cardIndex"
-        :title="card.card.title"
-        :subtitle="card.card.subtitle"
-        :link="card.card.link"
-        :is-active="card.card.isActive"
+        :title="card.title"
+        :dates="card.dates"
+        :type="card.type"
+        :link="card.afisha_url"
       />
     </div>
   </div>
@@ -74,6 +74,12 @@
 <script>
 export default {
   name: 'afisha-event-calendar-block',
+  props: {
+    dataCity: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       days: ['СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', 'ПН', 'ВТ'],
@@ -94,17 +100,14 @@ export default {
     };
   },
   computed: {
-    cards() {
-      return this.$store.state.bunker.calendar.cards;
-    },
     events() {
       return this.$store.state.bunker.calendar.events;
     },
     months() {
-      return this.$store.state.bunker.calendar.months;
+      return this.$store.state.bunker.calendar.months.nominativeAccusative;
     },
     sortedMonths() {
-      return this.$store.state.bunker.calendar.months.slice(
+      return this.$store.state.bunker.calendar.months.nominativeAccusative.slice(
         this.minMonths,
         this.minMonths + this.maxMonths
       );
@@ -116,7 +119,6 @@ export default {
         if (!this.isEmptyObj(newChooseDates)) {
           const { dateSelect1 } = this.$refs;
           setTimeout(() => {
-            console.log(dateSelect1);
             this.showRange(...dateSelect1);
           });
         } else {
@@ -185,7 +187,7 @@ export default {
       return this.days[date % 7];
     },
     getNumberMonth(month) {
-      return this.$store.state.bunker.calendar.months.indexOf(month);
+      return this.$store.state.bunker.calendar.months.nominativeAccusative.indexOf(month);
     },
     scrollDays(shift) {
       const { listDaysWrapper } = this.$refs;
