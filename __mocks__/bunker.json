@@ -142,38 +142,38 @@
         "events": [
             {
                 "event": {
-                    "title": "все",
-                    "isActive": true
+                    "id": "all",
+                    "title": "все"
                 }
             },
             {
                 "event": {
-                    "title": "кино",
-                    "isActive": false
+                    "id": "cinema",
+                    "title": "кино"
                 }
             },
             {
                 "event": {
-                    "title": "концерты",
-                    "isActive": false
+                    "id": "concert",
+                    "title": "концерты"
                 }
             },
             {
                 "event": {
-                    "title": "выставки",
-                    "isActive": false
+                    "id": "art",
+                    "title": "выставки"
                 }
             },
             {
                 "event": {
-                    "title": "рестораны",
-                    "isActive": false
+                    "id": "restaurants",
+                    "title": "рестораны"
                 }
             },
             {
                 "event": {
-                    "title": "лекции",
-                    "isActive": false
+                    "id": "lectures",
+                    "title": "лекции"
                 }
             }
         ],
