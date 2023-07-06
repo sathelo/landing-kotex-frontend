@@ -5,7 +5,7 @@
         v-for="(event, eventId) in events"
         :key="eventId"
         class="calendar-events-event"
-        :class="{ 'calendar-events-event--active': event.event.isActive }"
+        :class="{ 'calendar-events-event--active': eventId === eventActive }"
         @click="chooseEvent(eventId)"
       >
         {{ event.event.title }}
@@ -60,7 +60,7 @@
 
     <div class="calendar-cards">
       <afisha-event-calendar-card-block
-        v-for="(card, cardIndex) in dataCity"
+        v-for="(card, cardIndex) in filteredDataCity"
         :key="cardIndex"
         :title="card.title"
         :dates="card.dates"
@@ -82,6 +82,7 @@ export default {
   },
   data() {
     return {
+      eventActive: 0,
       days: ['СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', 'ПН', 'ВТ'],
       minMonths: 0,
       maxMonths: 2,
@@ -112,6 +113,12 @@ export default {
         this.minMonths + this.maxMonths
       );
     },
+    filteredDataCity() {
+      const currentEventId = this.$store.state.bunker.calendar.events[this.eventActive].event.id;
+      return currentEventId !== 'all'
+        ? this.$props.dataCity.filter((data) => data.tags.includes(currentEventId))
+        : this.$props.dataCity;
+    },
   },
   watch: {
     'chooseDates.lDay': {
@@ -132,10 +139,7 @@ export default {
   },
   methods: {
     chooseEvent(currentEventId) {
-      this.$store.state.bunker.calendar.events.forEach((e, eId) => {
-        if (e.event.isActive === true && eId !== currentEventId) e.event.isActive = false;
-        if (eId === currentEventId) e.event.isActive = true;
-      });
+      this.eventActive = currentEventId;
     },
     showRange(left, right) {
       const { listDaysWrapper, listDaysRange } = this.$refs;
