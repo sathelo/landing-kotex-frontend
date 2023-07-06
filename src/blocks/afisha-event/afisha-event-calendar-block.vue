@@ -79,6 +79,14 @@ export default {
       type: Array,
       required: true,
     },
+    minCard: {
+      type: Number,
+      required: true,
+    },
+    maxCard: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -116,8 +124,10 @@ export default {
     filteredDataCity() {
       const currentEventId = this.$store.state.bunker.calendar.events[this.eventActive].event.id;
       return currentEventId !== 'all'
-        ? this.$props.dataCity.filter((data) => data.tags.includes(currentEventId))
-        : this.$props.dataCity;
+        ? this.$props.dataCity
+            .filter((data) => data.tags.includes(currentEventId))
+            .slice(0, this.$props.maxCard)
+        : this.$props.dataCity.slice(this.$props.minCard, this.$props.maxCard);
     },
   },
   watch: {
@@ -209,6 +219,17 @@ export default {
       const year = this.$store.getters.currentYear;
       const m = this.getNumberMonth(month);
       const params = { year, month: m, day };
+      const resetParams = { year: null, month: null, day: null };
+      if (
+        this.chooseDates.fDay.year === params.year &&
+        this.chooseDates.fDay.month === params.month &&
+        this.chooseDates.fDay.day === params.day &&
+        this.isEmptyObj(this.chooseDates.lDay)
+      ) {
+        this.chooseDates.fDay = resetParams;
+        this.chooseDates.lDay = resetParams;
+        return;
+      }
       if (this.isEmptyObj(this.chooseDates.fDay)) {
         this.chooseDates.fDay = params;
         return;
@@ -216,7 +237,6 @@ export default {
       if (this.isEmptyObj(this.chooseDates.lDay)) {
         this.chooseDates.lDay = params;
       } else {
-        const resetParams = { year: null, month: null, day: null };
         this.chooseDates.fDay = params;
         this.chooseDates.lDay = resetParams;
       }

@@ -47,11 +47,16 @@
       </div>
     </div>
 
-    <afisha-event-calendar-block v-if="!isEmptyObj(dataCity)" :data-city="dataCity" />
+    <afisha-event-calendar-block
+      v-if="!isEmptyObj(dataCity)"
+      :data-city="dataCity"
+      :min-card="minCard"
+      :max-card="maxCard"
+    />
 
-    <a href="#" target="_blank" class="afisha-event-btn btn">
+    <button class="afisha-event-btn btn" @click="moreCard">
       <div class="afisha-event-btn__text">Показать больше</div>
-    </a>
+    </button>
   </div>
 </template>
 
@@ -67,6 +72,9 @@ export default {
       currentCity: {},
       defaultCityId: 0,
       isSelect: false,
+      minCard: 0,
+      maxCard: 4,
+      howMuchWeAdd: 4,
     };
   },
   computed: {
@@ -98,6 +106,9 @@ export default {
     handleClickOutside(event) {
       const { choosesCities } = this.$refs;
       if (!choosesCities.contains(event.target)) this.isSelect = false;
+    },
+    moreCard() {
+      this.maxCard += this.howMuchWeAdd;
     },
     async getCities() {
       this.cities = (await Afisha.getCities())?.items;
