@@ -63,6 +63,7 @@
         v-for="(card, cardIndex) in dataCity"
         :key="cardIndex"
         :title="card.title"
+        :dates="card.dates"
         :type="card.type"
         :link="card.afisha_url"
       />
@@ -103,10 +104,10 @@ export default {
       return this.$store.state.bunker.calendar.events;
     },
     months() {
-      return this.$store.state.bunker.calendar.months;
+      return this.$store.state.bunker.calendar.months.nominativeAccusative;
     },
     sortedMonths() {
-      return this.$store.state.bunker.calendar.months.slice(
+      return this.$store.state.bunker.calendar.months.nominativeAccusative.slice(
         this.minMonths,
         this.minMonths + this.maxMonths
       );
@@ -186,7 +187,7 @@ export default {
       return this.days[date % 7];
     },
     getNumberMonth(month) {
-      return this.$store.state.bunker.calendar.months.indexOf(month);
+      return this.$store.state.bunker.calendar.months.nominativeAccusative.indexOf(month);
     },
     scrollDays(shift) {
       const { listDaysWrapper } = this.$refs;

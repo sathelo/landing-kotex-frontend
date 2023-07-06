@@ -2,7 +2,7 @@
   <div class="calendar-card">
     <div class="calendar-card-info">
       <div class="calendar-card-info__title">{{ title }}</div>
-      <div class="calendar-card-info__subtitle">{{ titleType }}</div>
+      <div class="calendar-card-info__subtitle">{{ datesString }} / {{ titleType }}</div>
     </div>
 
     <a :href="link" target="_blank" class="calendar-card-btn">
@@ -23,6 +23,10 @@ export default {
       type: String,
       required: true,
     },
+    dates: {
+      type: Array,
+      required: true,
+    },
     type: {
       type: String,
       required: true,
@@ -34,48 +38,33 @@ export default {
   },
   data() {
     return {
-      types: [
-        {
-          id: 'cinema',
-          title: 'Кино',
-          type: 'cinema',
-        },
-        {
-          id: 'show',
-          title: 'Шоу',
-          type: null,
-        },
-        {
-          id: 'theatre',
-          title: 'Театр',
-          type: 'theatre',
-        },
-        {
-          id: 'quest',
-          title: 'Квесты',
-          type: 'quest',
-        },
-        {
-          id: 'excursions',
-          title: 'Экскурсии',
-          type: null,
-        },
-        {
-          id: 'concert',
-          title: 'Концерты',
-          type: 'concert',
-        },
-        {
-          id: 'art',
-          title: 'Выставки',
-          type: 'art',
-        },
-      ],
+      days: ['Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье', 'Понедельник', 'Вторник'],
     };
   },
   computed: {
     titleType() {
-      return this.types.filter((t) => t.type === this.$props.type)[0]?.title;
+      return this.$store.state.bunker.calendar.types.filter((t) => t.type === this.$props.type)[0]
+        ?.title;
+    },
+    datesString() {
+      return this.$props.dates
+        .map((date) => {
+          const data = new Date(date);
+          const day = data.getDate();
+          const month = data.getMonth();
+          return `${day} ${this.defineMonth(month).toLowerCase()}, ${this.getWeekDay(
+            data
+          ).toLowerCase()}`;
+        })
+        .join('; ');
+    },
+  },
+  methods: {
+    defineMonth(month) {
+      return this.$store.state.bunker.calendar.months.genitive[month];
+    },
+    getWeekDay(date) {
+      return this.days[date % 7];
     },
   },
 };
