@@ -52,11 +52,8 @@
       :data-city="dataCity"
       :min-card="minCard"
       :max-card="maxCard"
+      @moreCard="moreCard"
     />
-
-    <button class="afisha-event-btn btn" @click="moreCard">
-      <div class="afisha-event-btn__text">Показать больше</div>
-    </button>
   </div>
 </template>
 

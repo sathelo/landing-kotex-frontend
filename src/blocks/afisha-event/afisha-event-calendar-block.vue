@@ -68,6 +68,10 @@
         :link="card.afisha_url"
       />
     </div>
+
+    <button v-if="isBtnMore" class="calendar-btn btn" @click="$emit('moreCard')">
+      <div class="calendar-btn__text">Показать больше</div>
+    </button>
   </div>
 </template>
 
@@ -128,6 +132,9 @@ export default {
             .filter((data) => data.tags.includes(currentEventId))
             .slice(0, this.$props.maxCard)
         : this.$props.dataCity.slice(this.$props.minCard, this.$props.maxCard);
+    },
+    isBtnMore() {
+      return this.filteredDataCity.length && this.filteredDataCity.length === this.$props.maxCard;
     },
   },
   watch: {
