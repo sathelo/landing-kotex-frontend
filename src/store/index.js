@@ -53,16 +53,16 @@ export default new Vuex.Store({
       return new Date(state.serverTime * 1000).getFullYear();
     },
     isDesktopOnly(state) {
-      return !!window.matchMedia(state.cssVars.desktopOnly).matches;
+      return !!window.matchMedia(state.lessVars.desktopOnly).matches;
     },
     isTablet(state) {
-      return !!window.matchMedia(state.cssVars.tablet).matches;
+      return !!window.matchMedia(state.lessVars.tablet).matches;
     },
     isMobile(state) {
-      return !!window.matchMedia(state.cssVars.mobile).matches;
+      return !!window.matchMedia(state.lessVars.mobile).matches;
     },
     isMobileSmall(state) {
-      return !!window.matchMedia(state.cssVars.mobileSmall).matches;
+      return !!window.matchMedia(state.lessVars.mobileSmall).matches;
     },
   },
 });

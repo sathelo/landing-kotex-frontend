@@ -28,6 +28,18 @@
         />
       </div>
     </div>
+
+    <div class="header-burger-menu" @click="showSideMenu">
+      <div class="header-burger-menu-line" />
+      <!-- <div v-for="(menuItem, menuItemId) in menu" :key="menuItemId" class="header-burger-menu-side">
+        <a
+          :href="menuItem.item.link"
+          :target="menuItem.item.target"
+          class="header-menu-item__link"
+          v-html="menuItem.item.title"
+        />
+      </div> -->
+    </div>
   </div>
 </template>
 
@@ -38,6 +50,16 @@ export default {
     menu: {
       type: Array,
       required: true,
+    },
+  },
+  data() {
+    return {
+      sideMenu: false,
+    };
+  },
+  methods: {
+    showSideMenu() {
+      this.sideMenu = !this.sideMenu;
     },
   },
 };

@@ -14,7 +14,15 @@
       </div>
     </div>
 
-    <img :src="getStaticUrl('photo-block-1.png')" alt="photo" class="about__photo" />
+    <img
+      :src="
+        $store.getters.isTablet
+          ? getStaticUrl('photo-block-for-mobile-1.png')
+          : getStaticUrl('photo-block-1.png')
+      "
+      alt="photo"
+      class="about__photo"
+    />
   </div>
 </template>
 

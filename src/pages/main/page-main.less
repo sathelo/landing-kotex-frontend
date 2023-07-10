@@ -6,11 +6,15 @@
   height: 100%;
   margin: 0 auto;
 
-  & > * {
+  & > *:not(:first-child) {
     margin: 0 20px;
   }
 
   & > *:not(:last-child) {
     margin-bottom: 64px;
+
+    @media @tablet {
+      margin-bottom: 20px;
+    }
   }
 }

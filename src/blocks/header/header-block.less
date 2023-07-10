@@ -19,11 +19,25 @@
 
       &__kotex {
         margin-right: 24px;
+
+        @media @tablet {
+          max-width: 73px;
+          margin-right: 16px;
+        }
       }
 
       &__perehod {
         margin-left: 24px;
+
+        @media @tablet {
+          max-width: 73px;
+          margin-left: 16px;
+        }
       }
+    }
+
+    @media @tablet {
+      margin-bottom: 0;
     }
   }
 
@@ -52,5 +66,25 @@
     & > *:not(:last-child) {
       margin-right: 24px;
     }
+
+    @media @tablet {
+      display: none;
+    }
+  }
+
+  &-burger-menu {
+    .content(16px 20px, 50%, #FDCBD1);
+    cursor: pointer;
+    display: none;
+
+    @media @tablet {
+      display: block;
+    }
+  }
+
+  @media @tablet {
+    .content(16px 20px, 0px 0px 32px 32px);
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
