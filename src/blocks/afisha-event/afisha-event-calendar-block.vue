@@ -130,7 +130,13 @@ export default {
       if (!this.isEmptyObj(this.chooseDates.fDay)) {
         const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
         const startDate = new Date(fYear, fMonth, fDay);
-        daysDifference.push(startDate.getDate());
+        daysDifference.push(
+          `${startDate.getFullYear()}-${
+            startDate.getMonth() + 1 < 10
+              ? `0${startDate.getMonth() + 1}`
+              : startDate.getMonth() + 1
+          }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
+        );
       }
       if (!this.isEmptyObj(this.chooseDates.fDay) && !this.isEmptyObj(this.chooseDates.lDay)) {
         const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
@@ -139,34 +145,38 @@ export default {
         const endDate = new Date(lYear, lMonth, lDay);
         if (startDate > endDate) {
           while (endDate <= startDate) {
-            daysDifference.push(endDate.getDate());
+            daysDifference.push(
+              `${endDate.getFullYear()}-${
+                endDate.getMonth() + 1 < 10 ? `0${endDate.getMonth() + 1}` : endDate.getMonth() + 1
+              }-${endDate.getDate() < 10 ? `0${endDate.getDate()}` : endDate.getDate()}`
+            );
             endDate.setDate(endDate.getDate() + 1);
           }
         } else {
           while (startDate <= endDate) {
-            daysDifference.push(startDate.getDate());
+            daysDifference.push(
+              `${startDate.getFullYear()}-${
+                startDate.getMonth() + 1 < 10
+                  ? `0${startDate.getMonth() + 1}`
+                  : startDate.getMonth() + 1
+              }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
+            );
             startDate.setDate(startDate.getDate() + 1);
           }
         }
       }
 
-      if (daysDifference.length) {
-        const currentEventId = this.$store.state.bunker.calendar.events[this.eventActive].event.id;
-        return currentEventId !== 'all'
-          ? this.$props.dataCity
-              .filter(
-                (data) =>
-                  data.tags.includes(currentEventId) && this.checkArrays(daysDifference, data.dates)
-              )
-              .slice(0, this.$props.maxCard)
-          : this.$props.dataCity.slice(this.$props.minCard, this.$props.maxCard);
-      }
       const currentEventId = this.$store.state.bunker.calendar.events[this.eventActive].event.id;
-      return currentEventId !== 'all'
-        ? this.$props.dataCity
-            .filter((data) => data.tags.includes(currentEventId))
+      const sortedByTags =
+        currentEventId !== 'all'
+          ? this.$props.dataCity.filter((data) => data.tags.includes(currentEventId))
+          : this.$props.dataCity;
+      const sortedByDate = daysDifference.length
+        ? sortedByTags
+            .filter((data) => this.contains(data.dates, daysDifference))
             .slice(0, this.$props.maxCard)
-        : this.$props.dataCity.slice(this.$props.minCard, this.$props.maxCard);
+        : sortedByTags.slice(this.$props.minCard, this.$props.maxCard);
+      return sortedByDate;
     },
     isBtnMore() {
       return this.filteredDataCity.length && this.filteredDataCity.length === this.$props.maxCard;
@@ -297,9 +307,9 @@ export default {
         JSON.stringify(this.chooseDates.lDay) === JSON.stringify(params)
       );
     },
-    checkArrays(arr1, arr2) {
-      return arr1.forEach((a1) => {
-        return arr2.includes(a1);
+    contains(where, what) {
+      return where.some((el) => {
+        return what.includes(el);
       });
     },
   },
