@@ -8,14 +8,14 @@
 
     <div class="recommendations-cards">
       <a
-        v-for="(recommendation, id) in recommendations"
-        :key="id"
-        :href="recommendation.recommendation.link"
-        :target="recommendation.recommendation.target"
+        v-for="(dataRecommendation, dataRecommendationId) in recommendations"
+        :key="dataRecommendationId"
+        :href="dataRecommendation.recommendation.link"
+        :target="dataRecommendation.recommendation.target"
         class="recommendations-cards-card btn"
       >
         <img
-          :src="getStaticUrl(recommendation.recommendation.image)"
+          :src="getStaticUrl(dataRecommendation.recommendation.image)"
           alt="photo"
           class="recommendations-cards-card__photo"
         />
@@ -23,11 +23,11 @@
         <div class="recommendations-cards-card-info">
           <div
             class="recommendations-cards-card-info__title"
-            v-html="recommendation.recommendation.title"
+            v-html="dataRecommendation.recommendation.title"
           />
           <reviews-drops-block
-            :rating="recommendation.recommendation.rating"
-            :max-rating="recommendation.recommendation.maxRating"
+            :rating="dataRecommendation.recommendation.rating"
+            :max-rating="dataRecommendation.recommendation.maxRating"
           />
         </div>
       </a>
@@ -42,9 +42,10 @@
 <script>
 export default {
   name: 'recommendations-block',
-  computed: {
-    recommendations() {
-      return this.$store.state.bunker.recommendations;
+  props: {
+    recommendations: {
+      type: Array,
+      required: true,
     },
   },
 };

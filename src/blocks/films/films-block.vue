@@ -9,18 +9,17 @@
     </div>
 
     <div class="films-cards">
-      <div v-for="(film, id) in films" :key="id" class="films-cards-card">
-        <img :src="getStaticUrl(film.film.image)" alt="photo" class="films-cards-card__photo" />
-
+      <div v-for="(dataFilm, dataFilmId) in films" :key="dataFilmId" class="films-cards-card">
+        <img :src="getStaticUrl(dataFilm.film.image)" alt="photo" class="films-cards-card__photo" />
         <div class="films-cards-card-info">
-          <div class="films-cards-card-info__title">{{ film.film.title }}</div>
+          <div class="films-cards-card-info__title">{{ dataFilm.film.title }}</div>
           <div class="films-cards-card-info__subtitle">
-            {{ film.film.subtitle }}
+            {{ dataFilm.film.subtitle }}
           </div>
           <div class="films-cards-card-info__description">
-            {{ film.film.description }}
+            {{ dataFilm.film.description }}
           </div>
-          <a :href="film.film.link" target="_blank" class="films-cards-card-info-btn">
+          <a :href="dataFilm.film.link" target="_blank" class="films-cards-card-info-btn">
             <img
               :src="getStaticUrl('btn-gradient.png')"
               alt="btn-watching"
@@ -40,9 +39,10 @@
 <script>
 export default {
   name: 'films-block',
-  computed: {
-    films() {
-      return this.$store.state.bunker.films;
+  props: {
+    films: {
+      type: Array,
+      required: true,
     },
   },
 };

@@ -1,8 +1,8 @@
 <template>
   <div class="drops">
-    <div v-for="(rat, id) in maxRating" :key="id" class="drops-drop">
+    <div v-for="(rat, ratId) in maxRating" :key="ratId" class="drops-drop">
       <img
-        :src="checkRating(rat) ? getStaticUrl('drop-filled.svg') : getStaticUrl('drop-empty.svg')"
+        :src="isFilled(rat) ? getStaticUrl('drop-filled.svg') : getStaticUrl('drop-empty.svg')"
         alt="drop-filled"
       />
     </div>
@@ -29,7 +29,7 @@ export default {
     },
   },
   methods: {
-    checkRating(number) {
+    isFilled(number) {
       return this.$props.rating - number >= 0;
     },
   },

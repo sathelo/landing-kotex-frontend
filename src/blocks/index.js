@@ -7,6 +7,7 @@ Css блоков в итоговой сборке будет иметь тако
 имели возможность переопределить стили корневого элемента ребёнка без использования !important
 */
 
+/* Components */
 import HeaderBlock from './header/header-block.vue';
 import MainBlock from './main/main-block.vue';
 import AboutBlock from './about/about-block.vue';
@@ -23,9 +24,11 @@ import MaterialsCardsBlock from './materials/materials-cards-block.vue';
 import RecommendationsBlock from './recommendations/recommendations-block.vue';
 import FooterBlock from './footer/footer-block.vue';
 
+/* UI Components */
 import LockBlock from './ui/lock/lock-block.vue';
 import ReviewsDropsBlock from './ui/reviews/reviews-drops-block.vue';
 
+/* Components */
 Vue.component('header-block', HeaderBlock);
 Vue.component('main-block', MainBlock);
 Vue.component('about-block', AboutBlock);
@@ -42,5 +45,6 @@ Vue.component('materials-cards-block', MaterialsCardsBlock);
 Vue.component('recommendations-block', RecommendationsBlock);
 Vue.component('footer-block', FooterBlock);
 
+/* UI Components */
 Vue.component('lock-block', LockBlock);
 Vue.component('reviews-drops-block', ReviewsDropsBlock);

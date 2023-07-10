@@ -27,6 +27,12 @@
 <script>
 export default {
   name: 'materials-block',
+  props: {
+    materials: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       materialsGroupBy: [],
@@ -34,9 +40,6 @@ export default {
     };
   },
   computed: {
-    materials() {
-      return this.$store.state.bunker.materials;
-    },
     materialsBox() {
       this.groupBy();
       return this.materialsGroupBy;
@@ -45,7 +48,7 @@ export default {
   methods: {
     groupBy() {
       for (let i = 0; i < this.materials.length; i += this.sizeMaterialsBox) {
-        this.materialsGroupBy.push(this.materials.slice(i, i + this.sizeMaterialsBox));
+        this.materialsGroupBy.push(this.$props.materials.slice(i, i + this.sizeMaterialsBox));
       }
     },
   },

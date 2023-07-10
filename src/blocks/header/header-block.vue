@@ -19,12 +19,12 @@
     </div>
 
     <div class="header-menu">
-      <div v-for="(section, sectionId) in menu" :key="sectionId" class="header-menu-item">
+      <div v-for="(menuItem, menuItemId) in menu" :key="menuItemId" class="header-menu-item">
         <a
-          :href="section.item.link"
-          :target="section.item.target"
+          :href="menuItem.item.link"
+          :target="menuItem.item.target"
           class="header-menu-item__link"
-          v-html="section.item.title"
+          v-html="menuItem.item.title"
         />
       </div>
     </div>
@@ -34,9 +34,10 @@
 <script>
 export default {
   name: 'header-block',
-  computed: {
-    menu() {
-      return this.$store.state.bunker.menu;
+  props: {
+    menu: {
+      type: Array,
+      required: true,
     },
   },
 };

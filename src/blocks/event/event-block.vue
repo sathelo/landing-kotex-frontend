@@ -35,8 +35,12 @@
     <div class="event-swiper">
       <div ref="swiper" class="event-swiper__content swiper">
         <div class="event-swiper__wrapper swiper-wrapper">
-          <div v-for="(slide, id) in slider" :key="id" class="event-swiper__slide swiper-slide">
-            <lock-block v-if="isEmpty(slide.slide)" />
+          <div
+            v-for="(slideData, slideDataId) in slider"
+            :key="slideDataId"
+            class="event-swiper__slide swiper-slide"
+          >
+            <lock-block v-if="isEmpty(slideData.slide)" />
           </div>
         </div>
       </div>
@@ -70,9 +74,10 @@ import 'swiper/less';
 
 export default {
   name: 'event-block',
-  computed: {
-    slider() {
-      return this.$store.state.bunker.slider;
+  props: {
+    slider: {
+      type: Array,
+      required: true,
     },
   },
   mounted() {
