@@ -126,6 +126,41 @@ export default {
       );
     },
     filteredDataCity() {
+      const daysDifference = [];
+      if (!this.isEmptyObj(this.chooseDates.fDay)) {
+        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
+        const startDate = new Date(fYear, fMonth, fDay);
+        daysDifference.push(startDate.getDate());
+      }
+      if (!this.isEmptyObj(this.chooseDates.fDay) && !this.isEmptyObj(this.chooseDates.lDay)) {
+        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
+        const { year: lYear, month: lMonth, day: lDay } = this.chooseDates.lDay;
+        const startDate = new Date(fYear, fMonth, fDay);
+        const endDate = new Date(lYear, lMonth, lDay);
+        if (startDate > endDate) {
+          while (endDate <= startDate) {
+            daysDifference.push(endDate.getDate());
+            endDate.setDate(endDate.getDate() + 1);
+          }
+        } else {
+          while (startDate <= endDate) {
+            daysDifference.push(startDate.getDate());
+            startDate.setDate(startDate.getDate() + 1);
+          }
+        }
+      }
+
+      if (daysDifference.length) {
+        const currentEventId = this.$store.state.bunker.calendar.events[this.eventActive].event.id;
+        return currentEventId !== 'all'
+          ? this.$props.dataCity
+              .filter(
+                (data) =>
+                  data.tags.includes(currentEventId) && this.checkArrays(daysDifference, data.dates)
+              )
+              .slice(0, this.$props.maxCard)
+          : this.$props.dataCity.slice(this.$props.minCard, this.$props.maxCard);
+      }
       const currentEventId = this.$store.state.bunker.calendar.events[this.eventActive].event.id;
       return currentEventId !== 'all'
         ? this.$props.dataCity
@@ -261,6 +296,11 @@ export default {
         JSON.stringify(this.chooseDates.fDay) === JSON.stringify(params) ||
         JSON.stringify(this.chooseDates.lDay) === JSON.stringify(params)
       );
+    },
+    checkArrays(arr1, arr2) {
+      return arr1.forEach((a1) => {
+        return arr2.includes(a1);
+      });
     },
   },
 };
