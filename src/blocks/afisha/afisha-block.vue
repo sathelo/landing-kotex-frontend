@@ -1,6 +1,14 @@
 <template>
   <div class="afisha">
-    <img :src="getStaticUrl('photo-block-2.png')" alt="photo" class="afisha__photo" />
+    <img
+      :src="
+        $store.getters.isTablet
+          ? getStaticUrl('photo-block-for-mobile-2.png')
+          : getStaticUrl('photo-block-2.png')
+      "
+      alt="photo"
+      class="afisha__photo"
+    />
 
     <div class="afisha-info">
       <img :src="getStaticUrl('logo-kotex-white.svg')" alt="logo-kotex" class="afisha-info__logo" />

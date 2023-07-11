@@ -19,7 +19,12 @@
           <div class="films-cards-card-info__description">
             {{ dataFilm.film.description }}
           </div>
-          <a :href="dataFilm.film.link" target="_blank" class="films-cards-card-info-btn">
+          <a
+            v-if="!$store.getters.isTablet"
+            :href="dataFilm.film.link"
+            target="_blank"
+            class="films-cards-card-info-btn"
+          >
             <img
               :src="getStaticUrl('btn-gradient.png')"
               alt="btn-watching"
@@ -31,7 +36,9 @@
     </div>
 
     <a href="#" target="_blank" class="films-btn btn">
-      <div class="films-btn__text">Показать больше</div>
+      <div class="films-btn__text">
+        {{ !$store.getters.isTablet ? 'Показать больше' : 'Смотреть' }}
+      </div>
     </a>
   </div>
 </template>

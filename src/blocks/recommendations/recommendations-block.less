@@ -23,6 +23,18 @@
       font-size: 48px;
       line-height: 100%;
       color: @grey;
+
+      @media @tablet {
+        color: @grey;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+      }
+    }
+
+    @media @tablet {
+      margin-bottom: 24px;
     }
   }
 
@@ -34,6 +46,11 @@
 
     & > *:not(:last-child) {
       margin-right: 24px;
+
+      @media @tablet {
+        margin-right: 0;
+        margin-bottom: 16px;
+      }
     }
 
     &-card {
@@ -48,6 +65,10 @@
         max-width: 165px;
         height: 160px;
         margin-bottom: 37px;
+
+        @media @tablet {
+          margin-bottom: 39px;
+        }
       }
 
       &-info {
@@ -67,6 +88,15 @@
           margin-bottom: 12px;
         }
       }
+
+      @media @tablet {
+        flex: 0 0 100%;
+      }
+    }
+
+    @media @tablet {
+      flex-wrap: wrap;
+      margin-bottom: 24px;
     }
   }
 
@@ -85,6 +115,18 @@
       font-size: 20px;
       line-height: 120%;
       color: @white;
+
+      @media @tablet {
+        color: @white;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+      }
+    }
+
+    @media @tablet {
+      width: 100%;
     }
   }
 }

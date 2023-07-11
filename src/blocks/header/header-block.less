@@ -2,10 +2,13 @@
 
 .header {
   .content(24px 40px, 0px 0px 32px 32px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
+  &__decs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
   &-logos {
     display: flex;
@@ -73,9 +76,95 @@
   }
 
   &-burger-menu {
-    .content(16px 20px, 50%, #FDCBD1);
-    cursor: pointer;
-    display: none;
+    &-nav {
+      .content(0 20px 20px 20px, 0, #FDCBD1);
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      color: rgba(54, 54, 54, 0.6);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 110%;
+
+      &__item {
+        text-align: center;
+        width: 100%;
+        padding: 20px 0;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.04);
+      }
+
+      &:not(.header-burger-menu-nav--active) {
+        display: none;
+        cursor: pointer;
+      }
+    }
+
+    &-btn {
+      .content(16px, 50%, #FDCBD1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.06);
+      width: 48px;
+      height: 48px;
+
+      span {
+        position: relative;
+        width: 22px;
+        height: 2px;
+        background: @white;
+
+        &::after,
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background: @white;
+        }
+
+        &::after {
+          transform: translateY(5px);
+          transition: 0.2s;
+        }
+
+        &::before {
+          transform: translateY(-5px);
+          transition: 0.2s;
+        }
+      }
+
+      &__active span {
+        &::after {
+          transform: rotate(35deg);
+          transform-origin: left bottom;
+          width: 10px;
+          transition: 0.2s;
+        }
+
+        &::before {
+          transform: rotate(-35deg);
+          transform-origin: left top;
+          width: 10px;
+          transition: 0.2s;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
     @media @tablet {
       display: block;
@@ -84,6 +173,7 @@
 
   @media @tablet {
     .content(16px 20px, 0px 0px 32px 32px);
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
