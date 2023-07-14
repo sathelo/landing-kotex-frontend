@@ -1,6 +1,6 @@
 <template>
   <div class="afisha-event">
-    <div class="afisha-event-heart">
+    <div v-if="!$store.getters.isTablet" class="afisha-event-heart">
       <img
         :src="getStaticUrl('heart-fill.svg')"
         alt="heart-fill"

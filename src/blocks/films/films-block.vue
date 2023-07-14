@@ -8,48 +8,127 @@
       </div>
     </div>
 
-    <div class="films-cards">
-      <div v-for="(dataFilm, dataFilmId) in films" :key="dataFilmId" class="films-cards-card">
-        <img :src="getStaticUrl(dataFilm.film.image)" alt="photo" class="films-cards-card__photo" />
-        <div class="films-cards-card-info">
-          <div class="films-cards-card-info__title">{{ dataFilm.film.title }}</div>
-          <div class="films-cards-card-info__subtitle">
-            {{ dataFilm.film.subtitle }}
+    <div ref="swiperFilm" class="films-cards" :class="{ swiper: $store.getters.isTablet }">
+      <div class="films-cards__wrapper" :class="{ 'swiper-wrapper': $store.getters.isTablet }">
+        <div
+          v-for="(dataFilm, dataFilmId) in films"
+          :key="dataFilmId"
+          class="films-cards-card"
+          :class="{ 'swiper-slide': $store.getters.isTablet }"
+        >
+          <img
+            :src="getStaticUrl(dataFilm.film.image)"
+            alt="photo"
+            class="films-cards-card__photo"
+          />
+          <div class="films-cards-card-info">
+            <div class="films-cards-card-info__title">{{ dataFilm.film.title }}</div>
+            <div class="films-cards-card-info__subtitle">
+              {{ dataFilm.film.subtitle }}
+            </div>
+            <div class="films-cards-card-info__description">
+              {{ dataFilm.film.description }}
+            </div>
+            <a
+              v-if="!$store.getters.isTablet"
+              :href="dataFilm.film.link"
+              target="_blank"
+              class="films-cards-card-info-btn"
+            >
+              <img
+                :src="getStaticUrl('btn-gradient.png')"
+                alt="btn-watching"
+                class="films-cards-card-info-btn__watching btn"
+              />
+            </a>
           </div>
-          <div class="films-cards-card-info__description">
-            {{ dataFilm.film.description }}
-          </div>
-          <a
-            v-if="!$store.getters.isTablet"
-            :href="dataFilm.film.link"
-            target="_blank"
-            class="films-cards-card-info-btn"
-          >
-            <img
-              :src="getStaticUrl('btn-gradient.png')"
-              alt="btn-watching"
-              class="films-cards-card-info-btn__watching btn"
-            />
-          </a>
         </div>
       </div>
     </div>
 
-    <a href="#" target="_blank" class="films-btn btn">
-      <div class="films-btn__text">
-        {{ !$store.getters.isTablet ? 'Показать больше' : 'Смотреть' }}
-      </div>
-    </a>
+    <div class="films-swiper">
+      <button
+        v-if="$store.getters.isTablet"
+        class="films-swiper-btn__left"
+        @click="minusToSizeFilms"
+      >
+        <img
+          :src="getStaticUrl('arrow-left-ico--gradient.svg')"
+          alt="arrow-left-ico"
+          class="films-swiper-btn__ico"
+        />
+      </button>
+
+      <a
+        :href="!$store.getters.isTablet ? '#' : `${films[currentFilm].film.link}`"
+        target="_blank"
+        class="films-btn btn"
+      >
+        <div class="films-btn__text">
+          {{ !$store.getters.isTablet ? 'Показать больше' : 'Смотреть' }}
+        </div>
+      </a>
+
+      <button
+        v-if="$store.getters.isTablet"
+        class="films-swiper-btn__right"
+        @click="plusToSizeFilms"
+      >
+        <img
+          :src="getStaticUrl('arrow-right-ico--gradient.svg')"
+          alt="arrow-right-ico"
+          class="films-swiper-btn__ico"
+        />
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
+// import Swiper JS
+import Swiper, { Navigation } from 'swiper';
+// import Swiper styles
+import 'swiper/less';
+
 export default {
   name: 'films-block',
   props: {
     films: {
       type: Array,
       required: true,
+    },
+  },
+  data() {
+    return {
+      currentFilm: 0,
+    };
+  },
+  computed: {
+    sizeFilms() {
+      return this.$props.films.lenght;
+    },
+  },
+  mounted() {
+    // eslint-disable-next-line no-new
+    new Swiper(this.$refs.swiperFilm, {
+      modules: [Navigation],
+      slidesPerView: 'auto',
+      grabCursor: true,
+      mousewheel: {
+        forceToAxis: true,
+      },
+      navigation: {
+        nextEl: '.films-swiper-btn__right',
+        prevEl: '.films-swiper-btn__left',
+      },
+    });
+  },
+  methods: {
+    plusToSizeFilms() {
+      if (this.currentFilm !== this.sizeFilms) this.currentFilm += 1;
+    },
+    minusToSizeFilms() {
+      if (this.currentFilm >= 0) this.currentFilm -= 1;
     },
   },
 };

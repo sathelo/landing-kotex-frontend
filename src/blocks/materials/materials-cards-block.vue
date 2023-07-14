@@ -3,7 +3,7 @@
     <div class="cards-card">
       <div v-if="isEmpty(material[0].material)" class="cards-card-close">
         <div class="cards-card-close__content">
-          <lock-block class="cards-card-close__lock" />
+          <lock-block class="cards-card-close__lock" s="64px" p="20px" s-image="20px" />
         </div>
       </div>
     </div>
@@ -11,7 +11,7 @@
       <div class="cards-card">
         <div v-if="isEmpty(material[1].material)" class="cards-card-close">
           <div class="cards-card-close__content">
-            <lock-block class="cards-card-close__lock" />
+            <lock-block class="cards-card-close__lock" s="64px" p="20px" s-image="20px" />
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
       <div class="cards-card">
         <div v-if="isEmpty(material[2].material)" class="cards-card-close">
           <div class="cards-card-close__content">
-            <lock-block class="cards-card-close__lock" />
+            <lock-block class="cards-card-close__lock" s="64px" p="20px" s-image="20px" />
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
       <div class="cards-card">
         <div v-if="isEmpty(material[3].material)" class="cards-card-close">
           <div class="cards-card-close__content">
-            <lock-block class="cards-card-close__lock" />
+            <lock-block class="cards-card-close__lock" s="64px" p="20px" s-image="20px" />
           </div>
         </div>
       </div>
