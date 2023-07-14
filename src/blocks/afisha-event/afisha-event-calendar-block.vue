@@ -68,6 +68,10 @@
         :link="card.afisha_url"
       />
     </div>
+
+    <button v-if="isBtnMore" class="calendar-btn btn" @click="$emit('moreCard')">
+      <div class="calendar-btn__text">Показать больше</div>
+    </button>
   </div>
 </template>
 
@@ -122,12 +126,60 @@ export default {
       );
     },
     filteredDataCity() {
+      const daysDifference = [];
+      if (!this.isEmptyObj(this.chooseDates.fDay)) {
+        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
+        const startDate = new Date(fYear, fMonth, fDay);
+        daysDifference.push(
+          `${startDate.getFullYear()}-${
+            startDate.getMonth() + 1 < 10
+              ? `0${startDate.getMonth() + 1}`
+              : startDate.getMonth() + 1
+          }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
+        );
+      }
+      if (!this.isEmptyObj(this.chooseDates.fDay) && !this.isEmptyObj(this.chooseDates.lDay)) {
+        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
+        const { year: lYear, month: lMonth, day: lDay } = this.chooseDates.lDay;
+        const startDate = new Date(fYear, fMonth, fDay);
+        const endDate = new Date(lYear, lMonth, lDay);
+        if (startDate > endDate) {
+          while (endDate <= startDate) {
+            daysDifference.push(
+              `${endDate.getFullYear()}-${
+                endDate.getMonth() + 1 < 10 ? `0${endDate.getMonth() + 1}` : endDate.getMonth() + 1
+              }-${endDate.getDate() < 10 ? `0${endDate.getDate()}` : endDate.getDate()}`
+            );
+            endDate.setDate(endDate.getDate() + 1);
+          }
+        } else {
+          while (startDate <= endDate) {
+            daysDifference.push(
+              `${startDate.getFullYear()}-${
+                startDate.getMonth() + 1 < 10
+                  ? `0${startDate.getMonth() + 1}`
+                  : startDate.getMonth() + 1
+              }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
+            );
+            startDate.setDate(startDate.getDate() + 1);
+          }
+        }
+      }
+
       const currentEventId = this.$store.state.bunker.calendar.events[this.eventActive].event.id;
-      return currentEventId !== 'all'
-        ? this.$props.dataCity
-            .filter((data) => data.tags.includes(currentEventId))
+      const sortedByTags =
+        currentEventId !== 'all'
+          ? this.$props.dataCity.filter((data) => data.tags.includes(currentEventId))
+          : this.$props.dataCity;
+      const sortedByDate = daysDifference.length
+        ? sortedByTags
+            .filter((data) => this.contains(data.dates, daysDifference))
             .slice(0, this.$props.maxCard)
-        : this.$props.dataCity.slice(this.$props.minCard, this.$props.maxCard);
+        : sortedByTags.slice(this.$props.minCard, this.$props.maxCard);
+      return sortedByDate;
+    },
+    isBtnMore() {
+      return this.filteredDataCity.length && this.filteredDataCity.length === this.$props.maxCard;
     },
   },
   watch: {
@@ -254,6 +306,11 @@ export default {
         JSON.stringify(this.chooseDates.fDay) === JSON.stringify(params) ||
         JSON.stringify(this.chooseDates.lDay) === JSON.stringify(params)
       );
+    },
+    contains(where, what) {
+      return where.some((el) => {
+        return what.includes(el);
+      });
     },
   },
 };

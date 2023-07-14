@@ -11,30 +11,30 @@
 
     <div class="podcasts-cards">
       <div
-        v-for="(podcast, id) in podcasts"
-        :key="id"
+        v-for="(dataPodcast, dataPodcastId) in podcasts"
+        :key="dataPodcastId"
         :class="{
-          'podcasts-cards-card--active': podcast.podcast.isActive,
+          'podcasts-cards-card--active': dataPodcast.podcast.isActive,
         }"
         class="podcasts-cards-card"
       >
         <img
-          :src="getStaticUrl(podcast.podcast.image)"
+          :src="getStaticUrl(dataPodcast.podcast.image)"
           alt="photo"
           class="podcasts-cards-card__photo"
         />
 
         <div class="podcasts-cards-card-info">
           <div class="podcasts-cards-card-info__title">
-            {{ podcast.podcast.title }}
+            {{ dataPodcast.podcast.title }}
           </div>
-          <div v-if="podcast.podcast.isActive" class="podcasts-cards-card-info__subtitle">
-            {{ podcast.podcast.subtitle }}
+          <div v-if="dataPodcast.podcast.isActive" class="podcasts-cards-card-info__subtitle">
+            {{ dataPodcast.podcast.subtitle }}
           </div>
 
           <a
-            v-if="podcast.podcast.isActive"
-            :href="podcast.podcast.link"
+            v-if="dataPodcast.podcast.isActive"
+            :href="dataPodcast.podcast.link"
             target="_blank"
             class="podcasts-cards-card-info-btn btn"
           >
@@ -53,9 +53,10 @@
 <script>
 export default {
   name: 'podcasts-block',
-  computed: {
-    podcasts() {
-      return this.$store.state.bunker.podcasts;
+  props: {
+    podcasts: {
+      type: Array,
+      required: true,
     },
   },
 };

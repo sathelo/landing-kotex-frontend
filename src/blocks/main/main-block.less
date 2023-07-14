@@ -3,5 +3,9 @@
 .main {
   & > *:not(:last-child) {
     margin-bottom: 64px;
+
+    @media @tablet {
+      margin-bottom: 40px;
+    }
   }
 }

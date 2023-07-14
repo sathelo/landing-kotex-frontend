@@ -12,14 +12,14 @@
   &-heart {
     &__fill {
       position: absolute;
-      top: 110px;
-      left: 0;
+      top: 125px;
+      left: 48px;
     }
 
     &__empty {
       position: absolute;
-      top: 146px;
-      right: 0;
+      top: 158px;
+      right: 30px;
     }
   }
 
@@ -35,11 +35,11 @@
     &-select {
       .content(20px 40px, 16px, @white);
       position: absolute;
-      top: 0;
-      right: 0;
+      z-index: 2;
+      top: -12px;
+      right: -2px;
       display: flex;
       border: 2px solid rgba(29, 29, 27, 0.2);
-      border-radius: 16px;
       cursor: pointer;
 
       &__text {
@@ -49,10 +49,14 @@
         font-size: 20px;
         line-height: 120%;
         color: @yellow-green--dark;
-      }
 
-      &--chooses {
-        border-radius: 16px 16px 0 0;
+        @media @tablet {
+          color: @yellow-green--dark;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 140%;
+        }
       }
 
       &--active {
@@ -79,6 +83,18 @@
           padding: 20px 0;
         }
       }
+
+      @media @tablet {
+        .content(12px 32px, 76px, @white);
+        position: relative;
+        top: 0;
+        right: 0;
+        border: 2px solid rgba(29, 29, 27, 0.2);
+      }
+
+      &--chooses {
+        border-radius: 16px 16px 0 0;
+      }
     }
 
     &__title {
@@ -89,6 +105,15 @@
       line-height: 100%;
       color: @yellow-green--dark;
       margin-bottom: 24px;
+
+      @media @tablet {
+        color: @yellow-green--dark;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+        margin-bottom: 8px;
+      }
     }
 
     &__subtitle {
@@ -98,21 +123,23 @@
       font-size: 20px;
       line-height: 130%;
       color: @yellow-green--lighten;
+
+      @media @tablet {
+        color: @yellow-green--lighten;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 130%;
+        margin-bottom: 12px;
+      }
+    }
+
+    @media @tablet {
+      margin-bottom: 32px;
     }
   }
 
-  &-btn {
-    .content(20px 40px, 16px, linear-gradient(125deg, #F0B 7.75%, #EA1B23 92.33%));
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 30px 0 rgba(255, 255, 255, 0.25) inset, 0 4px 16px 0 rgba(249, 140, 162, 0.4);
-
-    &__text {
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 120%;
-      color: @white;
-    }
+  @media @tablet {
+    .content(32px 20px);
   }
 }

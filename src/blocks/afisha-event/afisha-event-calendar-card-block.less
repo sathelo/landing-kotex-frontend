@@ -17,12 +17,37 @@
       line-height: 110%;
       letter-spacing: -0.256px;
       margin-bottom: 16px;
+
+      @media @tablet {
+        color: @yellow-green--dark;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        margin-bottom: 0;
+      }
     }
 
     &__subtitle {
       color: @yellow-green--light;
       font-size: 16px;
       line-height: 100%;
+
+      @media @tablet {
+        color: @yellow-green--light;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%;
+        margin-bottom: 12px;
+      }
+    }
+
+    @media @tablet {
+      display: flex;
+      flex-direction: column-reverse;
+      margin-right: 0;
+      margin-bottom: 53px;
     }
   }
 
@@ -32,11 +57,24 @@
     &__more {
       width: 100%;
       max-width: 120px;
+
+      @media @tablet {
+        max-width: 98px;
+      }
     }
   }
 
   &:hover {
     .content(40px, 32px, rgba(248, 170, 179, 0.1));
     border: 2px solid rgba(248, 170, 179, 0.2);
+
+    @media @tablet {
+      .content(20px, 24px, rgba(248, 170, 179, 0.1));
+    }
+  }
+
+  @media @tablet {
+    .content(20px, 24px);
+    flex-direction: column;
   }
 }

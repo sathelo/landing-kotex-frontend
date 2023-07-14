@@ -12,6 +12,10 @@
     left: calc(50% - 50vw);
     width: 100vw;
     border-top: 1px solid rgba(54, 54, 54, 0.1);
+
+    @media @tablet {
+      border-top: initial;
+    }
   }
 
   &-logo {
@@ -20,6 +24,12 @@
     background: @grey--light;
     border-radius: 12px;
     margin-right: 24px;
+
+    @media @tablet {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+    }
   }
 
   &-info {
@@ -37,6 +47,11 @@
       color: @grey;
       opacity: 0.4;
       margin-right: 32px;
+
+      @media @tablet {
+        margin-right: 0;
+        margin-bottom: 42px;
+      }
     }
 
     &-copyrights {
@@ -60,6 +75,18 @@
         color: @grey;
         opacity: 0.4;
       }
+
+      @media screen {
+        margin-left: auto;
+      }
     }
+
+    @media @tablet {
+      flex-direction: column;
+    }
+  }
+
+  @media @tablet {
+    padding: 20px 0 34px 0;
   }
 }

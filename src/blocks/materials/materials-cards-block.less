@@ -17,6 +17,18 @@
       width: calc(50% - 24px / 2);
       height: 100%;
       margin-right: 24px;
+
+      @media @tablet {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 16px;
+        height: 392px;
+      }
+    }
+
+    @media @tablet {
+      flex-direction: column;
+      flex-wrap: nowrap;
     }
   }
 
@@ -32,17 +44,39 @@
         height: calc(50% - 24px / 2);
         margin-bottom: 24px;
         margin-right: 0;
+
+        @media @tablet {
+          margin-bottom: 16px;
+          height: 196px;
+        }
       }
 
       &:nth-child(2),
       &:nth-child(3) {
         width: calc(50% - 24px / 2);
         height: calc(50% - 24px / 2);
+
+        @media @tablet {
+          width: calc(50% - 16px / 2);
+          height: 160px;
+        }
       }
 
       &:nth-child(2) {
         margin-right: 24px;
+
+        @media @tablet {
+          margin-right: 16px;
+        }
       }
     }
+
+    @media @tablet {
+      width: 100%;
+    }
+  }
+
+  @media @tablet {
+    height: 100%;
   }
 }

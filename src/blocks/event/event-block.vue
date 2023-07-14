@@ -15,28 +15,38 @@
       </div>
 
       <a href="#" target="_blank" class="event-info-btn btn">
-        <div class="event-info-btn__text">Все фото с&nbsp;мероприятия ищи тут</div>
+        <div class="event-info-btn__text">
+          {{
+            $store.getters.isTablet
+              ? `${'Фото с&nbsp;мероприятия тут'}`
+              : `${'Все фото с&nbsp;мероприятия ищи тут'}`
+          }}
+        </div>
         <img :src="getStaticUrl('vk-ico-white.svg')" alt="vk-ico" class="event-info-btn__ico" />
       </a>
     </div>
 
     <div class="event-broadcast">
-      <div class="event-broadcast-live">
+      <div v-if="!$store.getters.isTablet" class="event-broadcast-live">
         <div class="event-broadcast-live__status" />
         <div class="event-broadcast-live__text">трансляция</div>
       </div>
 
       <div class="event-broadcast-close">
         <div class="event-broadcast-close__title">Скоро здесь появится запись трансляции</div>
-        <lock-block class="event-broadcast-close__lock" />
+        <lock-block class="event-broadcast-close__lock" s="40px" p="25px" s-image="16px" />
       </div>
     </div>
 
     <div class="event-swiper">
       <div ref="swiper" class="event-swiper__content swiper">
         <div class="event-swiper__wrapper swiper-wrapper">
-          <div v-for="(slide, id) in slider" :key="id" class="event-swiper__slide swiper-slide">
-            <lock-block v-if="isEmpty(slide.slide)" />
+          <div
+            v-for="(slideData, slideDataId) in slider"
+            :key="slideDataId"
+            class="event-swiper__slide swiper-slide"
+          >
+            <lock-block v-if="isEmpty(slideData.slide)" s="40px" p="25px" s-image="16px" />
           </div>
         </div>
       </div>
@@ -70,9 +80,10 @@ import 'swiper/less';
 
 export default {
   name: 'event-block',
-  computed: {
-    slider() {
-      return this.$store.state.bunker.slider;
+  props: {
+    slider: {
+      type: Array,
+      required: true,
     },
   },
   mounted() {
