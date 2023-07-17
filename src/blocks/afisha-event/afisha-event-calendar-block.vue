@@ -312,6 +312,11 @@ export default {
         return what.includes(el);
       });
     },
+    filteredDates(where, what) {
+      return where.filter((el) => {
+        return what.indexOf(el) !== -1;
+      });
+    },
   },
 };
 </script>
