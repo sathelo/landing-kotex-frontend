@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="header__decs">
+    <div class="header__content">
       <div class="header-logos">
         <a href="#" target="_blank" class="header-logos-logo">
           <img
@@ -29,30 +29,22 @@
           />
         </div>
       </div>
-    </div>
 
-    <div v-if="$store.getters.isTablet" class="header__mob">
-      <div class="header-burger-menu" @click="showSideMenu">
-        <div class="header-burger-menu__block">
-          <div
-            :class="{ 'header-burger-menu-nav--active': sideMenu }"
-            class="header-burger-menu-nav"
-          >
-            <a
-              v-for="(menuItem, menuItemId) in menu"
-              :key="menuItemId"
-              :href="menuItem.item.link"
-              :target="menuItem.item.target"
-              class="header-burger-menu-nav__item"
-              v-html="menuItem.item.title"
-            />
-          </div>
-          <div class="header-burger-menu-btn">
-            <span />
-          </div>
-        </div>
+      <div
+        v-if="$store.getters.isTablet"
+        class="header-menu-btn"
+        :class="{ 'header-menu-btn--active': sideMenu }"
+        @click="showSideMenu"
+      >
+        <span />
       </div>
     </div>
+
+    <header-burger-block
+      v-if="$store.getters.isTablet && sideMenu"
+      :side-menu="sideMenu"
+      :menu="menu"
+    />
   </div>
 </template>
 

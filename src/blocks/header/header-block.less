@@ -1,13 +1,23 @@
 @import '../../styles/helpers';
 
 .header {
-  .content(24px 40px, 0px 0px 32px 32px);
+  // .content(24px 40px, 0px 0px 32px 32px);
 
-  &__decs {
+  &__content {
+    .content(24px 40px, 0px 0px 32px 32px);
+    position: relative;
+    z-index: 4;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media @tablet {
+      .content(16px 20px, 0px 0px 32px 32px);
+      width: 100%;
+      flex-direction: initial;
+      justify-content: space-between;
+    }
   }
 
   &-logos {
@@ -66,47 +76,6 @@
       }
     }
 
-    & > *:not(:last-child) {
-      margin-right: 24px;
-    }
-
-    @media @tablet {
-      display: none;
-    }
-  }
-
-  &-burger-menu {
-    &-nav {
-      .content(0 20px 20px 20px, 0, #FDCBD1);
-      position: fixed;
-      z-index: 3;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      height: 100%;
-      width: 100%;
-      color: rgba(54, 54, 54, 0.6);
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 110%;
-
-      &__item {
-        text-align: center;
-        width: 100%;
-        padding: 20px 0;
-        border-bottom: 2px solid rgba(0, 0, 0, 0.04);
-      }
-
-      &:not(.header-burger-menu-nav--active) {
-        display: none;
-        cursor: pointer;
-      }
-    }
-
     &-btn {
       .content(16px, 50%, #FDCBD1);
       display: flex;
@@ -145,19 +114,21 @@
         }
       }
 
-      &__active span {
-        &::after {
-          transform: rotate(35deg);
-          transform-origin: left bottom;
-          width: 10px;
-          transition: 0.2s;
-        }
+      &--active {
+        background: linear-gradient(125deg, #F0B 7.75%, #EA1B23 92.33%);
 
-        &::before {
-          transform: rotate(-35deg);
-          transform-origin: left top;
-          width: 10px;
-          transition: 0.2s;
+        span {
+          background: initial;
+
+          &::after {
+            transform: rotate(-45deg);
+            transition: 0.2s;
+          }
+
+          &::before {
+            transform: rotate(45deg);
+            transition: 0.2s;
+          }
         }
       }
 
@@ -166,13 +137,16 @@
       }
     }
 
+    & > *:not(:last-child) {
+      margin-right: 24px;
+    }
+
     @media @tablet {
-      display: block;
+      display: none;
     }
   }
 
   @media @tablet {
-    .content(16px 20px, 0px 0px 32px 32px);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
