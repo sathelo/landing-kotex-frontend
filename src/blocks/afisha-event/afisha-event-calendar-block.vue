@@ -174,6 +174,10 @@ export default {
       const sortedByDate = daysDifference.length
         ? sortedByTags
             .filter((data) => this.contains(data.dates, daysDifference))
+            .map((data) => ({
+              ...data,
+              dates: this.filteredDates(data.dates, daysDifference),
+            }))
             .slice(0, this.$props.maxCard)
         : sortedByTags.slice(this.$props.minCard, this.$props.maxCard);
       return sortedByDate;
@@ -310,6 +314,11 @@ export default {
     contains(where, what) {
       return where.some((el) => {
         return what.includes(el);
+      });
+    },
+    filteredDates(where, what) {
+      return where.filter((el) => {
+        return what.indexOf(el) !== -1;
       });
     },
   },

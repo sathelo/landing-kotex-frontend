@@ -9,41 +9,57 @@
       </div>
     </div>
 
-    <div class="podcasts-cards">
-      <div
-        v-for="(dataPodcast, dataPodcastId) in podcasts"
-        :key="dataPodcastId"
-        :class="{
-          'podcasts-cards-card--active': dataPodcast.podcast.isActive,
-        }"
-        class="podcasts-cards-card"
-      >
-        <img
-          :src="getStaticUrl(dataPodcast.podcast.image)"
-          alt="photo"
-          class="podcasts-cards-card__photo"
-        />
+    <div ref="swiperPodcast" class="podcasts-cards swiper">
+      <div class="podcasts-cards__wrapper swiper-wrapper">
+        <div
+          v-for="(dataPodcast, dataPodcastId) in podcasts"
+          :key="dataPodcastId"
+          class="podcasts-cards-card swiper-slide"
+        >
+          <img
+            :src="getStaticUrl(dataPodcast.podcast.image)"
+            alt="photo"
+            class="podcasts-cards-card__photo"
+          />
 
-        <div class="podcasts-cards-card-info">
-          <div class="podcasts-cards-card-info__title">
-            {{ dataPodcast.podcast.title }}
-          </div>
-          <div v-if="dataPodcast.podcast.isActive" class="podcasts-cards-card-info__subtitle">
-            {{ dataPodcast.podcast.subtitle }}
-          </div>
+          <div class="podcasts-cards-card-info">
+            <div class="podcasts-cards-card-info__title">
+              {{ dataPodcast.podcast.title }}
+            </div>
+            <div class="podcasts-cards-card-info__subtitle">
+              {{ dataPodcast.podcast.subtitle }}
+            </div>
 
-          <a
-            v-if="dataPodcast.podcast.isActive"
-            :href="dataPodcast.podcast.link"
-            target="_blank"
-            class="podcasts-cards-card-info-btn btn"
-          >
-            <img
-              :src="getStaticUrl('btn-text-listen-gradient.png')"
-              alt="btn-listen"
-              class="podcasts-cards-card-info-btn__listen"
-            />
-          </a>
+            <div class="podcasts-cards-card-info-btn__wrapper">
+              <button v-if="$store.getters.isTablet" class="podcast-swiper-button-prev">
+                <img
+                  :src="getStaticUrl('arrow-left-ico--white.svg')"
+                  alt="arrow-left-ico"
+                  class="podcast-swiper-btn__ico"
+                />
+              </button>
+
+              <a
+                :href="dataPodcast.podcast.link"
+                target="_blank"
+                class="podcasts-cards-card-info-btn btn"
+              >
+                <img
+                  :src="getStaticUrl('btn-text-listen-gradient.png')"
+                  alt="btn-listen"
+                  class="podcasts-cards-card-info-btn__listen"
+                />
+              </a>
+
+              <button v-if="$store.getters.isTablet" class="podcast-swiper-button-next">
+                <img
+                  :src="getStaticUrl('arrow-right-ico--white.svg')"
+                  alt="arrow-right-ico"
+                  class="podcast-swiper-btn__ico"
+                />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -51,6 +67,11 @@
 </template>
 
 <script>
+// import Swiper JS
+import Swiper, { Navigation } from 'swiper';
+// import Swiper styles
+import 'swiper/less';
+
 export default {
   name: 'podcasts-block',
   props: {
@@ -58,6 +79,23 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  mounted() {
+    // eslint-disable-next-line no-new
+    new Swiper(this.$refs.swiperPodcast, {
+      modules: [Navigation],
+      initialSlide: 1,
+      slidesPerView: 'auto',
+      grabCursor: true,
+      loop: true,
+      mousewheel: {
+        forceToAxis: true,
+      },
+      navigation: {
+        nextEl: '.podcast-swiper-button-next',
+        prevEl: '.podcast-swiper-button-prev',
+      },
+    });
   },
 };
 </script>

@@ -9,6 +9,7 @@ Css блоков в итоговой сборке будет иметь тако
 
 /* Components */
 import HeaderBlock from './header/header-block.vue';
+import HeaderBurgerBlock from './header/header-burger-block.vue';
 import MainBlock from './main/main-block.vue';
 import AboutBlock from './about/about-block.vue';
 import AfishaBlock from './afisha/afisha-block.vue';
@@ -30,6 +31,7 @@ import ReviewsDropsBlock from './ui/reviews/reviews-drops-block.vue';
 
 /* Components */
 Vue.component('header-block', HeaderBlock);
+Vue.component('header-burger-block', HeaderBurgerBlock);
 Vue.component('main-block', MainBlock);
 Vue.component('about-block', AboutBlock);
 Vue.component('afisha-block', AfishaBlock);
