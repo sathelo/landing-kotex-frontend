@@ -109,19 +109,21 @@ export default {
     },
   },
   mounted() {
-    // eslint-disable-next-line no-new
-    new Swiper(this.$refs.swiperFilm, {
-      modules: [Navigation],
-      slidesPerView: 'auto',
-      grabCursor: true,
-      mousewheel: {
-        forceToAxis: true,
-      },
-      navigation: {
-        nextEl: '.films-swiper-btn__right',
-        prevEl: '.films-swiper-btn__left',
-      },
-    });
+    if (this.$store.getters.isTablet) {
+      // eslint-disable-next-line no-new
+      new Swiper(this.$refs.swiperFilm, {
+        modules: [Navigation],
+        slidesPerView: 'auto',
+        grabCursor: true,
+        mousewheel: {
+          forceToAxis: true,
+        },
+        navigation: {
+          nextEl: '.films-swiper-btn__right',
+          prevEl: '.films-swiper-btn__left',
+        },
+      });
+    }
   },
   methods: {
     plusToSizeFilms() {
