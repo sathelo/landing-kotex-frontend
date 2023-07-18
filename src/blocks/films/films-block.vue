@@ -11,7 +11,7 @@
     <div ref="swiperFilm" class="films-cards" :class="{ swiper: $store.getters.isTablet }">
       <div class="films-cards__wrapper" :class="{ 'swiper-wrapper': $store.getters.isTablet }">
         <div
-          v-for="(dataFilm, dataFilmId) in films"
+          v-for="(dataFilm, dataFilmId) in filteredFilms"
           :key="dataFilmId"
           class="films-cards-card"
           :class="{ 'swiper-slide': $store.getters.isTablet }"
@@ -60,9 +60,10 @@
       </button>
 
       <a
+        v-if="isBtnMore"
         :href="!$store.getters.isTablet ? '#' : `${films[currentFilm].film.link}`"
-        target="_blank"
         class="films-btn btn"
+        @click="addFilm"
       >
         <div class="films-btn__text">
           {{ !$store.getters.isTablet ? 'Показать больше' : 'Смотреть' }}
@@ -101,11 +102,19 @@ export default {
   data() {
     return {
       currentFilm: 0,
+      maxFilm: 4,
     };
   },
   computed: {
     sizeFilms() {
       return this.$props.films.lenght;
+    },
+    isBtnMore() {
+      console.log(this.$props.films.length, this.maxFilm);
+      return this.$props.films.length && this.$props.films.length >= this.maxFilm;
+    },
+    filteredFilms() {
+      return this.$props.films.slice(0, this.maxFilm);
     },
   },
   mounted() {
@@ -131,6 +140,9 @@ export default {
     },
     minusToSizeFilms() {
       if (this.currentFilm >= 0) this.currentFilm -= 1;
+    },
+    addFilm() {
+      this.maxFilm += 4;
     },
   },
 };
