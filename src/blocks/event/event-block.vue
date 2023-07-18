@@ -27,19 +27,45 @@
     </div>
 
     <div class="event-broadcast">
-      <div v-if="!$store.getters.isTablet" class="event-broadcast-live">
-        <div class="event-broadcast-live__status" />
-        <div class="event-broadcast-live__text">трансляция</div>
-      </div>
+      <iframe
+        v-if="releaseRecord"
+        class="event-broadcast-video"
+        :src="releaseRecord"
+        title="YouTube video-player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      />
 
-      <div class="event-broadcast-close">
-        <div class="event-broadcast-close__title">Скоро здесь появится запись трансляции</div>
-        <lock-block class="event-broadcast-close__lock" s="40px" p="25px" s-image="16px" />
+      <div v-else class="event-broadcast-close__wrapper">
+        <div v-if="!$store.getters.isTablet" class="event-broadcast-live">
+          <div class="event-broadcast-live__status" />
+          <div class="event-broadcast-live__text">трансляция</div>
+        </div>
+
+        <div class="event-broadcast-close">
+          <div class="event-broadcast-close__title">Скоро здесь появится запись трансляции</div>
+          <lock-block class="event-broadcast-close__lock" s="40px" p="25px" s-image="16px" />
+        </div>
       </div>
     </div>
 
     <div class="event-swiper">
       <div ref="swiper" class="event-swiper__content swiper">
+        <div v-if="photoFromBroadcast" class="event-swiper__wrapper swiper-wrapper">
+          <div
+            v-for="(photo, photoId) of photoFromBroadcast"
+            :key="photoId"
+            class="event-swiper__slide swiper-slide"
+          >
+            <img
+              :src="getStaticUrl(`event/image-${photoId + 1}.jpeg`)"
+              :alt="`image-${photoId + 1}`"
+              class="swiper-slide__image"
+            />
+          </div>
+        </div>
+
         <div class="event-swiper__wrapper swiper-wrapper">
           <div
             v-for="(slideData, slideDataId) in slider"
@@ -85,6 +111,12 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data() {
+    return {
+      releaseRecord: 'https://www.youtube.com/embed/MVmgzmuIEAQ',
+      photoFromBroadcast: 20,
+    };
   },
   mounted() {
     // eslint-disable-next-line no-new
