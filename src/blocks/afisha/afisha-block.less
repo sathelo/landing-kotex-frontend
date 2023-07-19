@@ -23,11 +23,11 @@
     }
 
     &__title {
+      color: @white;
       font-style: normal;
       font-weight: 700;
       font-size: 40px;
       line-height: 110%;
-      color: @white;
       margin-bottom: 32px;
 
       @media @tablet {
@@ -41,19 +41,15 @@
     }
 
     &-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: @white;
-      border-radius: 32px;
-      padding: 20px 40px;
+      .content(20px 40px, 32px, @white);
+      .flex-properties(inline-flex);
 
       &__text {
+        color: @yellow-green--dark;
         font-style: normal;
         font-weight: 700;
         font-size: 20px;
         line-height: 120%;
-        color: @yellow-green--dark;
         margin-right: 10px;
 
         @media @tablet {

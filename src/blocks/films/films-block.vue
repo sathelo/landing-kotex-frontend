@@ -36,7 +36,7 @@
               class="films-cards-card-info-btn"
             >
               <img
-                :src="getStaticUrl('btn-gradient.png')"
+                :src="getStaticUrl('ui/btn-watching--gradient.png')"
                 alt="btn-watching"
                 class="films-cards-card-info-btn__watching btn"
               />
@@ -53,7 +53,7 @@
         @click="minusToSizeFilms"
       >
         <img
-          :src="getStaticUrl('arrow-left-ico--gradient.svg')"
+          :src="getStaticUrl('icons/arrow-left--gradient.svg')"
           alt="arrow-left-ico"
           class="films-swiper-btn__ico"
         />
@@ -76,7 +76,7 @@
         @click="plusToSizeFilms"
       >
         <img
-          :src="getStaticUrl('arrow-right-ico--gradient.svg')"
+          :src="getStaticUrl('icons/arrow-right-ico--gradient.svg')"
           alt="arrow-right-ico"
           class="films-swiper-btn__ico"
         />
@@ -110,7 +110,6 @@ export default {
       return this.$props.films.lenght;
     },
     isBtnMore() {
-      console.log(this.$props.films.length, this.maxFilm);
       return this.$props.films.length && this.$props.films.length >= this.maxFilm;
     },
     filteredFilms() {

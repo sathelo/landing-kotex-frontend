@@ -2,7 +2,7 @@
   <div :style="{ width: s, height: s, padding: p }" class="lock">
     <img
       :style="{ maxWidth: sImage }"
-      :src="getStaticUrl('lock-ico.svg')"
+      :src="getStaticUrl('icons/lock-ico--pink.svg')"
       alt="lock-ico"
       class="lock__ico"
     />

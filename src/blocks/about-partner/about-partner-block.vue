@@ -1,8 +1,8 @@
 <template>
-  <div class="about-partner">
+  <section class="about-partner">
     <div class="about-partner-info">
       <img
-        :src="getStaticUrl('logo-perehod.svg')"
+        :src="getStaticUrl('logos/logo-perehod.svg')"
         alt="logo-perehod"
         class="about-partner-info__logo"
       />
@@ -18,8 +18,12 @@
       </a>
     </div>
 
-    <img :src="getStaticUrl('photo-block-3.png')" alt="photo" class="about-partner__photo" />
-  </div>
+    <img
+      :src="getStaticUrl('about-partner/image-1.png')"
+      alt="photo"
+      class="about-partner__photo"
+    />
+  </section>
 </template>
 
 <script>

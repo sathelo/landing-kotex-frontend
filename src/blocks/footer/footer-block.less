@@ -19,10 +19,8 @@
   }
 
   &-logo {
+    .content(13px 9px, 12px, @grey--light);
     display: inline-flex;
-    padding: 13px 9px;
-    background: @grey--light;
-    border-radius: 12px;
     margin-right: 24px;
 
     @media @tablet {
@@ -38,13 +36,13 @@
     width: 100%;
 
     &__text {
-      width: 100%;
-      max-width: 860px;
+      color: @grey;
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
       line-height: 140%;
-      color: @grey;
+      width: 100%;
+      max-width: 860px;
       opacity: 0.4;
       margin-right: 32px;
 
@@ -58,21 +56,21 @@
       display: flex;
 
       &__text {
+        color: @grey;
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
         line-height: 140%;
-        color: @grey;
         opacity: 0.4;
         margin-right: 32px;
       }
 
       &__rating {
+        color: @grey;
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
         line-height: 140%;
-        color: @grey;
         opacity: 0.4;
       }
 

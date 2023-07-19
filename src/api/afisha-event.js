@@ -6,8 +6,8 @@ export class Afisha {
    * Возвращает список событий по id городу.
    *
    * @this {Afisha}
-   * @param {number} cityId - id города
-   * @returns {promise} Список событий
+   * @param {number} cityId - id города.
+   * @returns {promise} Список событий.
    */
   static async getListEventsCity(cityId) {
     const res = await api.get(`/afisha/events`, {
@@ -20,7 +20,7 @@ export class Afisha {
    * Возвращает список городов.
    *
    * @this {Afisha}
-   * @returns {promise} Cписок городов
+   * @returns {promise} Cписок городов.
    */
   static async getCities() {
     const res = await api.get(`/cities/list`);

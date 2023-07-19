@@ -6,6 +6,12 @@
   padding: @indents;
 }
 
+.flex-properties(@flex: flex, @justify-content: center, @align-items: center) {
+  display: @flex;
+  align-items: @align-items;
+  justify-content: @justify-content;
+}
+
 .img(@name) {
   background-image: url('../images/@{name}');
 }

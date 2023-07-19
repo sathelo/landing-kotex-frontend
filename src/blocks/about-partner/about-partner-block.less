@@ -3,8 +3,8 @@
 .about-partner {
   .content(64px 40px);
   position: relative;
-  overflow: hidden;
   display: flex;
+  overflow: hidden;
 
   &-info {
     position: relative;
@@ -22,11 +22,11 @@
     }
 
     &__title {
+      color: @yellow-green--dark;
       font-style: normal;
       font-weight: 700;
       font-size: 40px;
       line-height: 110%;
-      color: @yellow-green--dark;
       margin-bottom: 32px;
 
       @media @tablet {
@@ -40,19 +40,16 @@
 
     &-btn {
       .content(20px 40px, 16px, linear-gradient(124.81deg, #F0B 7.75%, #EA1B23 92.33%));
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      .flex-properties(inline-flex);
 
       &__text {
+        color: @white;
         font-style: normal;
         font-weight: 700;
         font-size: 20px;
         line-height: 120%;
-        color: @white;
 
         @media @tablet {
-          text-align: center;
           color: @white;
           font-size: 16px;
           font-style: normal;
