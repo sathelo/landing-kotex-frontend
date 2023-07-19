@@ -84,10 +84,15 @@ export default {
     // eslint-disable-next-line no-new
     new Swiper(this.$refs.swiperPodcast, {
       modules: [Navigation],
-      initialSlide: 1,
-      slidesPerView: 'auto',
+      // initialSlide: 1,
+      slidesPerView: 3,
       grabCursor: true,
       loop: true,
+      loopAdditionalSlides: this.$props.podcasts.length,
+      loopedSlides: this.$props.podcasts.length,
+      slideToClickedSlide: false,
+      centeredSlides: true,
+      centeredSlidesBounds: true,
       mousewheel: {
         forceToAxis: true,
       },
