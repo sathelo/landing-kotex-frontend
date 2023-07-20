@@ -2,7 +2,7 @@
   <section class="event">
     <event-info-block />
     <event-broadcast-block :release-record="releaseRecord" />
-    <event-slider-block :slider="slider" :photo-from-broadcast="photoFromBroadcast" />
+    <event-swiper-block :photo-from-broadcast="photoFromBroadcast" />
   </section>
 </template>
 
@@ -16,11 +16,10 @@ export default {
     },
   },
   data() {
-    const { releaseRecord, slider } = this.$props.events;
+    const { releaseRecord, photoFromBroadcast } = this.$props.events;
     return {
       releaseRecord,
-      slider,
-      photoFromBroadcast: 20,
+      photoFromBroadcast,
     };
   },
 };

@@ -10,11 +10,26 @@
       height: 100%;
     }
 
-    &__slide {
+    &__wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      box-sizing: content-box;
+    }
+
+    &-slide {
       .content(0, 24px, linear-gradient(124.81deg, #F0B 7.75%, #EA1B23 92.33%));
       .flex-properties();
       flex: 0 0 290px;
       overflow: hidden;
+
+      &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
       @media @tablet {
         flex: 0 0 200px;
@@ -63,16 +78,6 @@
       &__ico {
         @media @tablet {
           max-width: 8px;
-        }
-      }
-    }
-
-    .swiper {
-      &-slide {
-        &__image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
         }
       }
     }

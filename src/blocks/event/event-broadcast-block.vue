@@ -1,9 +1,9 @@
 <template>
   <section class="event-broadcast">
     <iframe
-      v-if="releaseRecord"
+      v-if="link"
       class="event-broadcast__video"
-      :src="releaseRecord"
+      :src="link"
       title="YouTube Video Player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -11,7 +11,7 @@
     />
 
     <div v-else class="event-broadcast-close__wrapper">
-      <div v-if="!isTablet" class="event-broadcast-live">
+      <div class="event-broadcast-live">
         <div class="event-broadcast-live__status" />
         <div class="event-broadcast-live__text">трансляция</div>
       </div>
@@ -25,18 +25,19 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'event-broadcast-block',
   props: {
     releaseRecord: {
-      type: String,
+      type: Object,
       required: true,
     },
   },
-  computed: {
-    ...mapGetters({ isTablet: 'isTablet' }),
+  data() {
+    const { link } = this.$props.releaseRecord;
+    return {
+      link,
+    };
   },
 };
 </script>
