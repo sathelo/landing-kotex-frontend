@@ -1,16 +1,3 @@
-const materials = [
-  {
-    material: {},
-  },
-  {
-    material: {},
-  },
-  {
-    material: {},
-  },
-  {
-    material: {},
-  },
-];
+const materials = [{}, {}, {}, {}];
 
 export default materials;

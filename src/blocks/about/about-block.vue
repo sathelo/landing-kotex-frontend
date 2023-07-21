@@ -33,4 +33,4 @@ export default {
 };
 </script>
 
-<style src="./about-block.less" lang="less"></style>
+<style src="./about-block.less" lang="less" />

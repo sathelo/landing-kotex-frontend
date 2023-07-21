@@ -42,4 +42,4 @@ export default {
 };
 </script>
 
-<style lang="less" src="./event-broadcast-block.less"></style>
+<style lang="less" src="./event-broadcast-block.less" />

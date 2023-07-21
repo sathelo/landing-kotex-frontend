@@ -127,4 +127,4 @@ export default {
 };
 </script>
 
-<style src="./afisha-event-block.less" lang="less"></style>
+<style src="./afisha-event-block.less" lang="less" />

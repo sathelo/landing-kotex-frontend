@@ -1,12 +1,12 @@
 <template>
-  <div :style="{ width: s, height: s, padding: p }" class="lock">
+  <section :style="{ width: s, height: s, padding: p }" class="lock">
     <img
       :style="{ maxWidth: sImage }"
       :src="getStaticUrl('icons/lock-ico--pink.svg')"
       alt="lock-ico"
       class="lock__ico"
     />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -32,4 +32,4 @@ export default {
 };
 </script>
 
-<style src="./lock-block.less" lang="less"></style>
+<style src="./lock-block.less" lang="less" />

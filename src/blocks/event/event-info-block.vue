@@ -39,4 +39,4 @@ export default {
 };
 </script>
 
-<style src="./event-info-block.less" lang="less"></style>
+<style src="./event-info-block.less" lang="less" />

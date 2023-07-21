@@ -32,4 +32,4 @@ export default {
 };
 </script>
 
-<style src="./about-partner-block.less" lang="less"></style>
+<style src="./about-partner-block.less" lang="less" />

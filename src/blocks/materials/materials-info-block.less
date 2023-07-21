@@ -1,0 +1,46 @@
+@import '../../styles/helpers';
+
+.materials {
+  &-info {
+    .flex-properties();
+    flex-direction: column;
+    width: 100%;
+
+    &__title {
+      text-align: center;
+      color: @yellow-green--dark;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 100%;
+      margin-bottom: 24px;
+
+      @media @tablet {
+        color: @yellow-green--dark;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+        margin-bottom: 8px;
+      }
+    }
+
+    &__subtitle {
+      text-align: center;
+      color: @yellow-green--lighten;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 130%;
+      margin-bottom: 24px;
+
+      @media @tablet {
+        color: @yellow-green--lighten;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 130%;
+      }
+    }
+  }
+}

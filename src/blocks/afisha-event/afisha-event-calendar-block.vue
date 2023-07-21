@@ -327,4 +327,4 @@ export default {
 };
 </script>
 
-<style src="./afisha-event-calendar-block.less" lang="less"></style>
+<style src="./afisha-event-calendar-block.less" lang="less" />

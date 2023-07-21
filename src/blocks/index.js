@@ -27,8 +27,12 @@ import AfishaEventBlock from './afisha-event/afisha-event-block.vue';
 import AfishaEventCalendarBlock from './afisha-event/afisha-event-calendar-block.vue';
 import AfishaEventCalendarCardBlock from './afisha-event/afisha-event-calendar-card-block.vue';
 import MaterialsBlock from './materials/materials-block.vue';
-import MaterialsCardsBlock from './materials/materials-cards-block.vue';
+import MaterialsInfoBlock from './materials/materials-info-block.vue';
+import MaterialsBoxBlock from './materials/materials-box-block.vue';
+import MaterialsBoxCardsBlock from './materials/materials-box-cards-block.vue';
 import RecommendationsBlock from './recommendations/recommendations-block.vue';
+import RecommendationsInfoBlock from './recommendations/recommendations-info-block.vue';
+import RecommendationsCardsBlock from './recommendations/recommendations-cards-block.vue';
 import FooterBlock from './footer/footer-block.vue';
 
 /* UI Components */
@@ -55,8 +59,12 @@ Vue.component('afisha-event-block', AfishaEventBlock);
 Vue.component('afisha-event-calendar-block', AfishaEventCalendarBlock);
 Vue.component('afisha-event-calendar-card-block', AfishaEventCalendarCardBlock);
 Vue.component('materials-block', MaterialsBlock);
-Vue.component('materials-cards-block', MaterialsCardsBlock);
+Vue.component('materials-info-block', MaterialsInfoBlock);
+Vue.component('materials-box-block', MaterialsBoxBlock);
+Vue.component('materials-box-cards-block', MaterialsBoxCardsBlock);
 Vue.component('recommendations-block', RecommendationsBlock);
+Vue.component('recommendations-info-block', RecommendationsInfoBlock);
+Vue.component('recommendations-cards-block', RecommendationsCardsBlock);
 Vue.component('footer-block', FooterBlock);
 
 /* UI Components */

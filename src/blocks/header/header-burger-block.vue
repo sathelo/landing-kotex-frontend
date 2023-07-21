@@ -51,4 +51,4 @@ export default {
 };
 </script>
 
-<style lang="less" src="./header-burger-block.less"></style>
+<style lang="less" src="./header-burger-block.less" />

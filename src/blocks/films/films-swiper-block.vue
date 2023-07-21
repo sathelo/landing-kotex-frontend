@@ -57,10 +57,6 @@ export default {
       type: Array,
       required: true,
     },
-    limitFilms: {
-      type: Number,
-      required: true,
-    },
   },
   data() {
     return {

@@ -75,4 +75,4 @@ export default {
 };
 </script>
 
-<style src="./afisha-event-calendar-card-block.less" lang="less"></style>
+<style src="./afisha-event-calendar-card-block.less" lang="less" />

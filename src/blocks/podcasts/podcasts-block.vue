@@ -105,4 +105,4 @@ export default {
 };
 </script>
 
-<style src="./podcasts-block.less" lang="less"></style>
+<style src="./podcasts-block.less" lang="less" />
