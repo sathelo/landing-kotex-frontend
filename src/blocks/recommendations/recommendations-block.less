@@ -2,129 +2,21 @@
 
 .recommendations {
   .content(0, 0, inherit);
+  .flex-properties();
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
 
-  &-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 40px;
-
-    &__header {
-      text-align: center;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 48px;
-      line-height: 100%;
-      color: @grey;
-
-      @media @tablet {
-        color: @grey;
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 110%;
-      }
-    }
-
-    @media @tablet {
-      margin-bottom: 24px;
-    }
-  }
-
-  &-cards {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
-    margin-bottom: 60px;
-
-    & > *:not(:last-child) {
-      margin-right: 24px;
-
-      @media @tablet {
-        margin-right: 0;
-        margin-bottom: 16px;
-      }
-    }
-
-    &-card {
-      .content(37px 37px 16px 37px, 16px);
-      flex: 1;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-
-      &__photo {
-        width: 100%;
-        max-width: 165px;
-        height: 160px;
-        margin-bottom: 37px;
-
-        @media @tablet {
-          max-width: 160px;
-          margin-bottom: 39px;
-        }
-      }
-
-      &-info {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-
-        &__title {
-          text-align: center;
-          font-style: normal;
-          font-weight: 700;
-          font-size: 20px;
-          line-height: 110%;
-          letter-spacing: -0.018em;
-          color: @grey;
-          margin-bottom: 12px;
-
-          @media @tablet {
-            color: @grey;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 130%;
-            letter-spacing: 0.16px;
-          }
-        }
-      }
-
-      @media @tablet {
-        flex: 0 0 100%;
-      }
-    }
-
-    @media @tablet {
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-  }
-
   &-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(124.81deg, #F0B 7.75%, #EA1B23 92.33%);
+    .content(20px 40px, 16px, linear-gradient(124.81deg, #F0B 7.75%, #EA1B23 92.33%));
+    .flex-properties(inline-flex);
     box-shadow: 0 4px 16px rgba(249, 140, 162, 0.4), inset 0 4px 30px rgba(255, 255, 255, 0.25);
-    border-radius: 16px;
-    padding: 20px 40px;
 
     &__text {
+      color: @white;
       font-style: normal;
       font-weight: 700;
       font-size: 20px;
       line-height: 120%;
-      color: @white;
 
       @media @tablet {
         color: @white;

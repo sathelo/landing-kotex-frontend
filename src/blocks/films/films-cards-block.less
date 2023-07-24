@@ -1,0 +1,109 @@
+@import '../../styles/helpers';
+
+.films {
+  &-cards {
+    .flex-properties();
+    flex-direction: column;
+    width: 100%;
+
+    &__wrapper {
+      .flex-properties(flex, space-between);
+      flex-wrap: wrap;
+
+      & > * {
+        margin-bottom: 20px;
+
+        &:nth-last-child(-n+2) {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &-card {
+      .content(32px);
+      width: calc(50% - 10px);
+      display: flex;
+
+      &__photo {
+        width: 100%;
+        max-width: 175px;
+        height: 237px;
+        border-radius: 16px;
+        margin-right: 24px;
+      }
+
+      &-info {
+        width: 100%;
+
+        &__title {
+          color: @yellow-green--dark;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 110%;
+          letter-spacing: -0.008em;
+          margin-bottom: 8px;
+        }
+
+        &__subtitle {
+          color: @yellow-green--light;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 100%;
+          margin-bottom: 16px;
+        }
+
+        &__description {
+          display: -webkit-box;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 150%;
+          letter-spacing: 0.02em;
+          color: @yellow-green--dark;
+          margin-bottom: 28px;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        &-btn {
+          display: block;
+
+          &__watching {
+            width: 100%;
+            max-width: 107px;
+          }
+        }
+      }
+
+      &--hidden {
+        opacity: 0;
+      }
+    }
+
+    @media @tablet {
+      display: none;
+    }
+  }
+
+  &-btn {
+    .content(20px 40px, 16px, linear-gradient(124.81deg, #F0B 7.75%, #EA1B23 92.33%));
+    .flex-properties(inline-flex);
+    box-shadow: 0 4px 16px rgba(249, 140, 162, 0.4), inset 0 4px 30px rgba(255, 255, 255, 0.25);
+    margin-top: 40px;
+
+    &__text {
+      color: @white;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 120%;
+    }
+
+    &--hidden {
+      display: none;
+    }
+  }
+}

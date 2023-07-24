@@ -1,12 +1,17 @@
 <template>
-  <div class="drops">
-    <div v-for="(rat, ratId) in maxRating" :key="ratId" class="drops-drop">
+  <section class="drops">
+    <div v-for="(rat, ratIndex) in maxRating" :key="ratIndex" class="drops-drop">
       <img
-        :src="isFilled(rat) ? getStaticUrl('drop-filled.svg') : getStaticUrl('drop-empty.svg')"
+        :src="
+          isFilled(rat)
+            ? getStaticUrl('icons/drop-filled--pink.svg')
+            : getStaticUrl('icons/drop-empty--pink.svg')
+        "
         alt="drop-filled"
+        :class="isFilled(rat) ? 'drops-drop__filled' : 'drops-drop__empty'"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -36,4 +41,4 @@ export default {
 };
 </script>
 
-<style src="./reviews-drops-block.less" lang="less"></style>
+<style src="./reviews-drops-block.less" lang="less" />

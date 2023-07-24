@@ -3,7 +3,7 @@
 .header {
   &-burger-menu {
     &-nav {
-      .content(0 20px 20px 20px, 0, #FDCBD1);
+      .content(0 20px 20px 20px, 0, @pink--light);
       position: fixed;
       z-index: 3;
       top: 0;
@@ -12,7 +12,7 @@
       flex-direction: column;
       height: 100%;
       width: 100%;
-      color: rgba(54, 54, 54, 0.6);
+      color: @grey--dark;
       font-size: 20px;
       font-style: normal;
       font-weight: 700;
@@ -37,9 +37,7 @@
     &-btn {
       &-calendar {
         .content(18px 32px, 32px, @white);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        .flex-properties(inline-flex);
         width: 100%;
         margin-top: 32px;
 
@@ -55,17 +53,14 @@
 
       &__more {
         .content(18px 32px, 16px, linear-gradient(125deg, #F0B 7.75%, #EA1B23 92.33%));
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 18px 32px;
-        width: 100%;
-        margin-top: 16px;
+        .flex-properties(inline-flex);
         color: @white;
         font-size: 16px;
         font-style: normal;
         font-weight: 700;
         line-height: 120%;
+        width: 100%;
+        margin-top: 16px;
       }
     }
 

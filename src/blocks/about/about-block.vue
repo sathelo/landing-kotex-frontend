@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <section class="about">
     <div class="about-info">
       <div class="about-info__title">
         &laquo;Твой первый раз&raquo; уникальный образовательный курс для родителей
@@ -15,21 +15,22 @@
     </div>
 
     <img
-      :src="
-        $store.getters.isTablet
-          ? getStaticUrl('photo-block-for-mobile-1.png')
-          : getStaticUrl('photo-block-1.png')
-      "
+      :src="isTablet ? getStaticUrl('about/mobile-image-1.png') : getStaticUrl('about/image-1.png')"
       alt="photo"
       class="about__photo"
     />
-  </div>
+  </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'about-block',
+  computed: {
+    ...mapGetters({ isTablet: 'isTablet' }),
+  },
 };
 </script>
 
-<style src="./about-block.less" lang="less"></style>
+<style src="./about-block.less" lang="less" />

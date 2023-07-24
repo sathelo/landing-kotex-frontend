@@ -1,7 +1,7 @@
 <template>
-  <div class="footer">
+  <footer class="footer">
     <div class="footer-logo">
-      <img :src="getStaticUrl('vk-ico-grey.svg')" alt="vk-ico" class="footer-logo__ico" />
+      <img :src="getStaticUrl('icons/vk-ico--grey.svg')" alt="vk-ico" class="footer-logo__ico" />
     </div>
 
     <div class="footer-info">
@@ -16,7 +16,7 @@
         <div class="footer-info-copyrights__rating">12+</div>
       </div>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script>

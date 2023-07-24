@@ -7,7 +7,7 @@
 
     <a :href="link" target="_blank" class="calendar-card-btn">
       <img
-        :src="getStaticUrl('btn-gradient-more.png')"
+        :src="getStaticUrl('ui/btn-more--gradient.png')"
         alt="more"
         class="calendar-card-btn__more btn"
       />
@@ -19,6 +19,10 @@
 export default {
   name: 'afisha-event-calendar-card-block',
   props: {
+    afishaEvent: {
+      type: Object,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -43,8 +47,7 @@ export default {
   },
   computed: {
     titleType() {
-      return this.$store.state.bunker.calendar.types.filter((t) => t.type === this.$props.type)[0]
-        ?.title;
+      return this.$props.afishaEvent.types.filter((t) => t.type === this.$props.type)[0]?.title;
     },
     datesString() {
       return this.$props.dates
@@ -52,16 +55,18 @@ export default {
           const data = new Date(date);
           const day = data.getDate();
           const month = data.getMonth();
-          return `${day} ${this.defineMonth(month).toLowerCase()}, ${this.getWeekDay(
-            data
-          ).toLowerCase()}`;
+          // return `${day} ${this.defineMonth(month).toLowerCase()}, ${this.getWeekDay(
+          //   data
+          // ).toLowerCase()}`;
+          return `${day}.${this.defineMonth(month)}`;
         })
-        .join('; ');
+        .join(', ');
     },
   },
   methods: {
     defineMonth(month) {
-      return this.$store.state.bunker.calendar.months.genitive[month];
+      // return this.$store.state.bunker.calendar.months.genitive[month];
+      return month < 10 ? `0${month}` : month;
     },
     getWeekDay(date) {
       return this.days[date % 7];
@@ -70,4 +75,4 @@ export default {
 };
 </script>
 
-<style src="./afisha-event-calendar-card-block.less" lang="less"></style>
+<style src="./afisha-event-calendar-card-block.less" lang="less" />

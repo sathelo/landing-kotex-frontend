@@ -1,11 +1,11 @@
 <template>
-  <div class="header">
+  <header class="header">
     <div class="header__content">
       <div class="header-logos">
         <a href="#" target="_blank" class="header-logos-logo">
           <img
             class="header-logos-logo__kotex"
-            :src="getStaticUrl('logo-kotex-red.svg')"
+            :src="getStaticUrl('logos/logo-kotex--red.svg')"
             alt="logo-kotex"
           />
         </a>
@@ -13,42 +13,39 @@
         <a href="#" target="_blank" class="header-logos-logo">
           <img
             class="header-logos-logo__perehod"
-            :src="getStaticUrl('logo-perehod.svg')"
+            :src="getStaticUrl('logos/logo-perehod.svg')"
             alt="logo-perehod"
           />
         </a>
       </div>
 
       <div class="header-menu">
-        <div v-for="(menuItem, menuItemId) in menu" :key="menuItemId" class="header-menu-item">
+        <div v-for="(menuItem, menuItemId) in menu" :key="menuItemId" class="header-menu-items">
           <a
             :href="menuItem.item.link"
             :target="menuItem.item.target"
-            class="header-menu-item__link"
+            class="header-menu-items__item"
             v-html="menuItem.item.title"
           />
         </div>
       </div>
 
       <div
-        v-if="$store.getters.isTablet"
-        class="header-menu-btn"
-        :class="{ 'header-menu-btn--active': sideMenu }"
-        @click="showSideMenu"
+        class="header__btn"
+        :class="{ 'header__btn--active': isBurgerMenu }"
+        @click="changeVisibleBurgerMenu"
       >
         <span />
       </div>
     </div>
 
-    <header-burger-block
-      v-if="$store.getters.isTablet && sideMenu"
-      :side-menu="sideMenu"
-      :menu="menu"
-    />
-  </div>
+    <header-burger-block v-if="isTablet && isBurgerMenu" :menu="menu" :is-visible="isBurgerMenu" />
+  </header>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'header-block',
   props: {
@@ -59,12 +56,15 @@ export default {
   },
   data() {
     return {
-      sideMenu: false,
+      isBurgerMenu: false,
     };
   },
+  computed: {
+    ...mapGetters({ isTablet: 'isTablet' }),
+  },
   methods: {
-    showSideMenu() {
-      this.sideMenu = !this.sideMenu;
+    changeVisibleBurgerMenu() {
+      this.isBurgerMenu = !this.isBurgerMenu;
     },
   },
 };

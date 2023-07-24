@@ -2,7 +2,7 @@
   <div class="calendar">
     <div class="calendar-events">
       <div
-        v-for="(event, eventId) in events"
+        v-for="(event, eventId) in afishaEvent.events"
         :key="eventId"
         class="calendar-events-event"
         :class="{ 'calendar-events-event--active': eventId === eventActive }"
@@ -15,7 +15,7 @@
     <div class="calendar-months">
       <button class="calendar-months-btn__left" @click="scrollDays(-300)">
         <img
-          :src="getStaticUrl('arrow-left-ico.svg')"
+          :src="getStaticUrl('icons/arrow-left--white.svg')"
           alt="arrow-left-ico"
           class="calendar-months-btn__ico"
         />
@@ -51,7 +51,7 @@
 
       <button class="calendar-months-btn__right" @click="scrollDays(300)">
         <img
-          :src="getStaticUrl('arrow-right-ico.svg')"
+          :src="getStaticUrl('icons/arrow-right--white.svg')"
           alt="arrow-right-ico"
           class="calendar-months-btn__ico"
         />
@@ -62,6 +62,7 @@
       <afisha-event-calendar-card-block
         v-for="(card, cardIndex) in filteredDataCity"
         :key="cardIndex"
+        :afisha-event="afishaEvent"
         :title="card.title"
         :dates="card.dates"
         :type="card.type"
@@ -79,6 +80,10 @@
 export default {
   name: 'afisha-event-calendar-block',
   props: {
+    afishaEvent: {
+      type: Object,
+      required: true,
+    },
     dataCity: {
       type: Array,
       required: true,
@@ -113,14 +118,11 @@ export default {
     };
   },
   computed: {
-    events() {
-      return this.$store.state.bunker.calendar.events;
-    },
     months() {
-      return this.$store.state.bunker.calendar.months.nominativeAccusative;
+      return this.$props.afishaEvent.months.nominativeAccusative;
     },
     sortedMonths() {
-      return this.$store.state.bunker.calendar.months.nominativeAccusative.slice(
+      return this.$props.afishaEvent.months.nominativeAccusative.slice(
         this.minMonths,
         this.minMonths + this.maxMonths
       );
@@ -166,7 +168,7 @@ export default {
         }
       }
 
-      const currentEventId = this.$store.state.bunker.calendar.events[this.eventActive].event.id;
+      const currentEventId = this.$props.afishaEvent.events[this.eventActive].event.id;
       const sortedByTags =
         currentEventId !== 'all'
           ? this.$props.dataCity.filter((data) => data.tags.includes(currentEventId))
@@ -257,7 +259,7 @@ export default {
       return this.days[date % 7];
     },
     getNumberMonth(month) {
-      return this.$store.state.bunker.calendar.months.nominativeAccusative.indexOf(month);
+      return this.$props.afishaEvent.months.nominativeAccusative.indexOf(month);
     },
     scrollDays(shift) {
       const { listDaysWrapper } = this.$refs;
@@ -325,4 +327,4 @@ export default {
 };
 </script>
 
-<style src="./afisha-event-calendar-block.less" lang="less"></style>
+<style src="./afisha-event-calendar-block.less" lang="less" />

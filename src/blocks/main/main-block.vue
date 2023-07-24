@@ -1,23 +1,23 @@
 <template>
-  <div class="main">
+  <main class="main">
     <about-block />
     <afisha-block />
     <about-partner-block />
-    <event-block :slider="slider" />
+    <event-block :events="events" />
     <films-block :films="films" />
     <podcasts-block :podcasts="podcasts" />
-    <afisha-event-block />
+    <afisha-event-block :afisha-event="afishaEvent" />
     <materials-block :materials="materials" />
     <recommendations-block :recommendations="recommendations" />
-  </div>
+  </main>
 </template>
 
 <script>
 export default {
   name: 'main-block',
   props: {
-    slider: {
-      type: Array,
+    events: {
+      type: Object,
       required: true,
     },
     films: {
@@ -26,6 +26,10 @@ export default {
     },
     podcasts: {
       type: Array,
+      required: true,
+    },
+    afishaEvent: {
+      type: Object,
       required: true,
     },
     materials: {

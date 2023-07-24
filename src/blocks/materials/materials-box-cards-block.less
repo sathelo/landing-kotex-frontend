@@ -1,17 +1,15 @@
 @import '../../styles/helpers';
 
-.cards {
+.materials-box-cards {
   display: flex;
-  width: 100%;
-  height: 50vh;
   flex-wrap: wrap;
+  width: 100%;
+  height: 708px;
+  margin-bottom: 40px;
 
   &-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(124.81deg, #F0B 7.75%, #EA1B23 92.33%);
-    border-radius: 24px;
+    .content(0, 24px, linear-gradient(124.81deg, #F0B 7.75%, #EA1B23 92.33%));
+    .flex-properties();
 
     &:nth-child(1) {
       width: calc(50% - 24px / 2);
@@ -20,9 +18,9 @@
 
       @media @tablet {
         width: 100%;
+        height: 392px;
         margin-right: 0;
         margin-bottom: 16px;
-        height: 392px;
       }
     }
 
@@ -38,16 +36,16 @@
     width: calc(50% - 24px / 2);
     height: 100%;
 
-    .cards-card {
+    .materials-box-cards-card {
       &:nth-child(1) {
         width: 100%;
         height: calc(50% - 24px / 2);
-        margin-bottom: 24px;
         margin-right: 0;
+        margin-bottom: 24px;
 
         @media @tablet {
-          margin-bottom: 16px;
           height: 196px;
+          margin-bottom: 16px;
         }
       }
 
@@ -78,5 +76,6 @@
 
   @media @tablet {
     height: 100%;
+    margin-bottom: 24px;
   }
 }

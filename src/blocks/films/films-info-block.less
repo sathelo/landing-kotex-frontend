@@ -1,0 +1,50 @@
+@import '../../styles/helpers';
+
+.films {
+  &-info {
+    .flex-properties();
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 40px;
+
+    &__header {
+      color: @yellow-green--dark;
+      text-align: center;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 100%;
+      margin-bottom: 24px;
+
+      @media @tablet {
+        color: @yellow-green--dark;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+        margin-bottom: 8px;
+      }
+    }
+
+    &__subtitle {
+      color: @yellow-green--lighten;
+      text-align: center;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 130%;
+
+      @media @tablet {
+        color: @yellow-green--lighten;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 130%;
+      }
+    }
+
+    @media @tablet {
+      margin-bottom: 24px;
+    }
+  }
+}

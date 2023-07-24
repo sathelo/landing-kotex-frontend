@@ -1,0 +1,98 @@
+@import '../../styles/helpers';
+
+.event {
+  &-info {
+    .flex-properties();
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 40px;
+
+    &__header {
+      text-align: center;
+      color: @yellow-green--dark;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 100%;
+      margin-bottom: 8px;
+
+      @media @tablet {
+        color: @yellow-green--dark;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+        margin-bottom: 4px;
+      }
+    }
+
+    &__title {
+      text-align: center;
+      color: @yellow-green--dark;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 100%;
+      margin-bottom: 24px;
+
+      @media @tablet {
+        color: @yellow-green--dark;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+        margin-bottom: 8px;
+      }
+    }
+
+    &__subtitle {
+      text-align: center;
+      color: @yellow-green--lighten;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 130%;
+      width: 100%;
+      max-width: 804px;
+      margin-bottom: 24px;
+
+      @media @tablet {
+        color: @yellow-green--lighten;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 130%;
+      }
+    }
+
+    &-btn {
+      .content(20px 40px, 32px, @yellow-green--dark);
+      .flex-properties(inline-flex);
+
+      &__text {
+        color: @white;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 120%;
+        margin-right: 10px;
+
+        @media @tablet {
+          color: @white;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 120%;
+        }
+      }
+
+      @media @tablet {
+        .content(18px 30px, 32px, @yellow-green--dark);
+      }
+    }
+
+    @media @tablet {
+      margin-bottom: 24px;
+    }
+  }
+}

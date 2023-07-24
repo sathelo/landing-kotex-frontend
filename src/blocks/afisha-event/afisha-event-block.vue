@@ -2,12 +2,12 @@
   <div class="afisha-event">
     <div v-if="!$store.getters.isTablet" class="afisha-event-heart">
       <img
-        :src="getStaticUrl('heart-fill.svg')"
+        :src="getStaticUrl('afisha-event/heart-fill--pink.svg')"
         alt="heart-fill"
         class="afisha-event-heart__fill"
       />
       <img
-        :src="getStaticUrl('heart-empty.svg')"
+        :src="getStaticUrl('afisha-event/heart-empty--pink.svg')"
         alt="heart-empty"
         class="afisha-event-heart__empty"
       />
@@ -26,8 +26,8 @@
       >
         <div class="afisha-event-info-select__text">{{ currentCity.name }}</div>
         <img
-          :src="getStaticUrl('arrow-bottom-ico.svg')"
-          alt="arrow-bottom"
+          :src="getStaticUrl('icons/arrow-bottom--black.svg')"
+          alt="arrow-bottom-ico"
           class="afisha-event-info-select__ico"
         />
 
@@ -49,6 +49,7 @@
 
     <afisha-event-calendar-block
       v-if="!isEmptyObj(dataCity)"
+      :afisha-event="afishaEvent"
       :data-city="dataCity"
       :min-card="minCard"
       :max-card="maxCard"
@@ -62,6 +63,12 @@ import { Afisha } from '../../api/afisha-event';
 
 export default {
   name: 'afisha-event-block',
+  props: {
+    afishaEvent: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       cities: [],
@@ -120,4 +127,4 @@ export default {
 };
 </script>
 
-<style src="./afisha-event-block.less" lang="less"></style>
+<style src="./afisha-event-block.less" lang="less" />
