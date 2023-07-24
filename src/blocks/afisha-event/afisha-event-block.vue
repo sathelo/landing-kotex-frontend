@@ -1,6 +1,6 @@
 <template>
-  <div class="afisha-event">
-    <div v-if="!$store.getters.isTablet" class="afisha-event-heart">
+  <section class="afisha-event">
+    <div class="afisha-event-heart">
       <img
         :src="getStaticUrl('afisha-event/heart-fill--pink.svg')"
         alt="heart-fill"
@@ -12,41 +12,14 @@
         class="afisha-event-heart__empty"
       />
     </div>
-
-    <div class="afisha-event-info">
-      <div class="afisha-event-info__title">Афиша событий</div>
-      <div class="afisha-event-info__subtitle">
-        Подборка событий для совместного посещения родителями и&nbsp;подростками
-      </div>
-      <div
-        ref="choosesCities"
-        :class="{ 'afisha-event-info-select--chooses': isSelect }"
-        class="afisha-event-info-select"
-        @click="openSelect"
-      >
-        <div class="afisha-event-info-select__text">{{ currentCity.name }}</div>
-        <img
-          :src="getStaticUrl('icons/arrow-bottom--black.svg')"
-          alt="arrow-bottom-ico"
-          class="afisha-event-info-select__ico"
-        />
-
-        <div v-if="isSelect" class="afisha-event-info-select--active">
-          <div class="afisha-event-info-select-cities">
-            <div
-              v-for="(city, cityId) in filteredCities"
-              :key="cityId"
-              class="afisha-event-info-select-cities-city"
-            >
-              <div class="afisha-event-info-select-city__name" @click="selectCity(city)">
-                {{ city.name }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <afisha-event-info-block
+      :current-city="currentCity"
+      :is-select="isSelect"
+      :filtered-cities="filteredCities"
+      @selectCity="selectCity"
+      @openSelect="openSelect"
+      @closeSelect="closeSelect"
+    />
     <afisha-event-calendar-block
       v-if="!isEmptyObj(dataCity)"
       :afisha-event="afishaEvent"
@@ -55,7 +28,7 @@
       :max-card="maxCard"
       @moreCard="moreCard"
     />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -86,18 +59,11 @@ export default {
       return this.cities.filter((city) => this.currentCity?.id !== city?.id);
     },
   },
-  beforeDestroy() {
-    document.removeEventListener('click', this.handleClickOutside);
-  },
   async mounted() {
     await this.getCities();
     await this.getCityData();
-    document.addEventListener('click', this.handleClickOutside);
   },
   methods: {
-    openSelect() {
-      this.isSelect = !this.isSelect;
-    },
     selectCity(city) {
       this.currentCity = city;
       this.getCityData();
@@ -106,10 +72,6 @@ export default {
       const values = Object.values(obj);
       if (!values.length) return true;
       return !values.filter((v) => v !== undefined && v !== null).length;
-    },
-    handleClickOutside(event) {
-      const { choosesCities } = this.$refs;
-      if (!choosesCities.contains(event.target)) this.isSelect = false;
     },
     moreCard() {
       this.maxCard += this.howMuchWeAdd;
@@ -122,6 +84,12 @@ export default {
     },
     async getCityData() {
       this.dataCity = (await Afisha.getListEventsCity(this.currentCity?.id))?.items;
+    },
+    openSelect() {
+      this.isSelect = !this.isSelect;
+    },
+    closeSelect() {
+      this.isSelect = false;
     },
   },
 };
