@@ -1,8 +1,8 @@
 @import '../../styles/helpers';
 
 .afisha-event-info {
-  position: inherit;
   .flex-properties();
+  position: inherit;
   flex-direction: column;
   width: 100%;
   margin-bottom: 40px;
@@ -51,7 +51,7 @@
     z-index: 2;
     top: -12px;
     right: -2px;
-    width: 250px;
+    width: 262px;
     border: 2px solid rgba(29, 29, 27, 0.2);
     cursor: pointer;
 
@@ -80,7 +80,7 @@
     }
 
     &-cities {
-      .content(0, 16px, @white);
+      .content(12px 32px 0 32px, 16px, @white);
       position: absolute;
       left: -2px;
       z-index: 2;
@@ -95,7 +95,6 @@
         font-style: normal;
         font-weight: 700;
         line-height: 140%;
-        padding: 12px 32px 0 32px;
       }
 
       & > *:not(:last-child) {

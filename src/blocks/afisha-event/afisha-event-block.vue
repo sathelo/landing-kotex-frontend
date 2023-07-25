@@ -20,14 +20,27 @@
       @openSelect="openSelect"
       @closeSelect="closeSelect"
     />
-    <afisha-event-calendar-block
+    <afisha-event-events-block
       v-if="!isEmptyObj(dataCity)"
-      :afisha-event="afishaEvent"
-      :data-city="dataCity"
-      :min-card="minCard"
-      :max-card="maxCard"
-      @moreCard="moreCard"
+      :event-active="eventActive"
+      :events="filteredEvents"
+      @chooseEvent="chooseEvent"
     />
+    <afisha-event-calendar-block
+      :months="months"
+      :choose-dates="chooseDates"
+      @setParamsFirstDay="setParamsFirstDay"
+      @setParamsLastDay="setParamsLastDay"
+    />
+    <afisha-event-cards-block
+      v-if="!isEmptyObj(dataCity)"
+      :filtered-data-city="filteredDataCity"
+      :types="types"
+      :limit-card="limitCard"
+      :total-cards="totalCards"
+      @addCard="addCard"
+    />
+    <afisha-event-plug-block v-if="isEmptyObj(dataCity)" />
   </section>
 </template>
 
@@ -43,29 +56,134 @@ export default {
     },
   },
   data() {
+    const { months, types } = this.$props.afishaEvent;
     return {
+      months,
+      types,
+      eventActive: 0,
       cities: [],
       dataCity: [],
       currentCity: {},
-      defaultCityId: 0,
       isSelect: false,
-      minCard: 0,
-      maxCard: 4,
-      howMuchWeAdd: 4,
+      limitCard: 4,
+      chooseDates: {
+        fDay: {
+          year: null,
+          month: null,
+          day: null,
+        },
+        lDay: {
+          year: null,
+          month: null,
+          day: null,
+        },
+      },
     };
   },
   computed: {
+    filteredEvents() {
+      const res = ['all'];
+      this.dataCity.forEach((data) => {
+        if (!res.includes(data.type)) res.push(data.type);
+      });
+      return res;
+    },
     filteredCities() {
       return this.cities.filter((city) => this.currentCity?.id !== city?.id);
+    },
+    filteredDataCity() {
+      const daysDifference = [];
+      if (!this.isEmptyObj(this.chooseDates.fDay)) {
+        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
+        const startDate = new Date(fYear, fMonth, fDay);
+        daysDifference.push(
+          `${startDate.getFullYear()}-${
+            startDate.getMonth() + 1 < 10
+              ? `0${startDate.getMonth() + 1}`
+              : startDate.getMonth() + 1
+          }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
+        );
+      }
+      if (!this.isEmptyObj(this.chooseDates.fDay) && !this.isEmptyObj(this.chooseDates.lDay)) {
+        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
+        const { year: lYear, month: lMonth, day: lDay } = this.chooseDates.lDay;
+        const startDate = new Date(fYear, fMonth, fDay);
+        const endDate = new Date(lYear, lMonth, lDay);
+        if (startDate > endDate) {
+          while (endDate <= startDate) {
+            daysDifference.push(
+              `${endDate.getFullYear()}-${
+                endDate.getMonth() + 1 < 10 ? `0${endDate.getMonth() + 1}` : endDate.getMonth() + 1
+              }-${endDate.getDate() < 10 ? `0${endDate.getDate()}` : endDate.getDate()}`
+            );
+            endDate.setDate(endDate.getDate() + 1);
+          }
+        } else {
+          while (startDate <= endDate) {
+            daysDifference.push(
+              `${startDate.getFullYear()}-${
+                startDate.getMonth() + 1 < 10
+                  ? `0${startDate.getMonth() + 1}`
+                  : startDate.getMonth() + 1
+              }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
+            );
+            startDate.setDate(startDate.getDate() + 1);
+          }
+        }
+      }
+
+      const currentEvent = this.filteredEvents[this.eventActive];
+      const sortedByTags =
+        currentEvent !== 'all'
+          ? this.dataCity.filter((data) => data.type === currentEvent)
+          : this.dataCity;
+
+      const sortedByDate = daysDifference.length
+        ? sortedByTags
+            .filter((data) => this.contains(data.dates, daysDifference))
+            .map((data) => ({
+              ...data,
+              dates: this.filteredDates(data.dates, daysDifference),
+            }))
+            .slice(0, this.limitCard)
+        : sortedByTags.slice(0, this.limitCard);
+
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.totalCards = daysDifference.length
+        ? sortedByTags
+            .filter((data) => this.contains(data.dates, daysDifference))
+            .map((data) => ({
+              ...data,
+              dates: this.filteredDates(data.dates, daysDifference),
+            })).length
+        : sortedByTags.length;
+
+      return sortedByDate;
     },
   },
   async mounted() {
     await this.getCities();
-    await this.getCityData();
   },
   methods: {
+    setParamsFirstDay(params) {
+      this.chooseDates.fDay = params;
+    },
+    setParamsLastDay(params) {
+      this.chooseDates.lDay = params;
+    },
+    contains(where, what) {
+      return where.some((el) => {
+        return what.includes(el);
+      });
+    },
+    filteredDates(where, what) {
+      return where.filter((el) => {
+        return what.indexOf(el) !== -1;
+      });
+    },
     selectCity(city) {
       this.currentCity = city;
+      this.eventActive = 0; // reset active event
       this.getCityData();
     },
     isEmptyObj(obj) {
@@ -73,14 +191,11 @@ export default {
       if (!values.length) return true;
       return !values.filter((v) => v !== undefined && v !== null).length;
     },
-    moreCard() {
-      this.maxCard += this.howMuchWeAdd;
+    addCard(step) {
+      this.limitCard += step;
     },
     async getCities() {
       this.cities = (await Afisha.getCities())?.items;
-      this.currentCity = !this.isEmptyObj(this.cities)
-        ? this.cities[this.defaultCityId]
-        : this.currentCity;
     },
     async getCityData() {
       this.dataCity = (await Afisha.getListEventsCity(this.currentCity?.id))?.items;
@@ -90,6 +205,9 @@ export default {
     },
     closeSelect() {
       this.isSelect = false;
+    },
+    chooseEvent(eventId) {
+      this.eventActive = eventId;
     },
   },
 };

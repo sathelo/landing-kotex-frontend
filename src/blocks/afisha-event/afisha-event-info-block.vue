@@ -20,8 +20,8 @@
       <div v-if="isSelect" class="afisha-event-info-select--active">
         <div class="afisha-event-info-select-cities">
           <div
-            v-for="(city, cityId) in filteredCities"
-            :key="cityId"
+            v-for="(city, cityIndex) in filteredCities"
+            :key="cityIndex"
             class="afisha-event-info-select-cities-city"
           >
             <div class="afisha-event-info-select-city__name" @click="selectCity(city)">
@@ -53,10 +53,9 @@ export default {
   },
   computed: {
     cityName() {
-      // return !this.isEmpty(this.$props.currentCity.name)
-      //     ? this.$props.currentCity.name
-      //     : 'Выберите ваш город';
-      return this.$props.currentCity.name;
+      return !this.isEmpty(this.$props.currentCity)
+        ? this.$props.currentCity.name
+        : 'Выберите город';
     },
   },
   mounted() {

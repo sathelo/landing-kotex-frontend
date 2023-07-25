@@ -19,10 +19,6 @@
 export default {
   name: 'afisha-event-calendar-card-block',
   props: {
-    afishaEvent: {
-      type: Object,
-      required: true,
-    },
     title: {
       type: String,
       required: true,
@@ -39,6 +35,10 @@ export default {
       type: String,
       required: true,
     },
+    types: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     titleType() {
-      return this.$props.afishaEvent.types.filter((t) => t.type === this.$props.type)[0]?.title;
+      return this.$props.types.filter((t) => t.type === this.$props.type)[0]?.title;
     },
     datesString() {
       return this.$props.dates

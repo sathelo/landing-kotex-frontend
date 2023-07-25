@@ -1,42 +1,4 @@
 const afishaEvent = {
-  events: [
-    {
-      event: {
-        id: 'all',
-        title: 'все',
-      },
-    },
-    {
-      event: {
-        id: 'cinema',
-        title: 'кино',
-      },
-    },
-    {
-      event: {
-        id: 'concert',
-        title: 'концерты',
-      },
-    },
-    {
-      event: {
-        id: 'art',
-        title: 'выставки',
-      },
-    },
-    {
-      event: {
-        id: 'restaurants',
-        title: 'рестораны',
-      },
-    },
-    {
-      event: {
-        id: 'lectures',
-        title: 'лекции',
-      },
-    },
-  ],
   months: {
     nominativeAccusative: [
       'Январь',
@@ -69,39 +31,32 @@ const afishaEvent = {
   },
   types: [
     {
-      id: 'cinema',
-      title: 'Кино',
       type: 'cinema',
+      title: 'Кино',
     },
     {
-      id: 'show',
+      type: 'show',
       title: 'Шоу',
-      type: null,
     },
     {
-      id: 'theatre',
-      title: 'Театр',
       type: 'theatre',
+      title: 'Театр',
     },
     {
-      id: 'quest',
-      title: 'Квесты',
       type: 'quest',
+      title: 'Квесты',
     },
     {
-      id: 'excursions',
+      type: 'excursions',
       title: 'Экскурсии',
-      type: null,
     },
     {
-      id: 'concert',
-      title: 'Концерты',
       type: 'concert',
+      title: 'Концерты',
     },
     {
-      id: 'art',
-      title: 'Выставки',
       type: 'art',
+      title: 'Выставки',
     },
   ],
 };
