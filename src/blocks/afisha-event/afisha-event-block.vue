@@ -33,14 +33,14 @@
       @setParamsLastDay="setParamsLastDay"
     />
     <afisha-event-cards-block
-      v-if="!isEmptyObj(dataCity)"
+      v-if="!isEmptyObj(filteredDataCity)"
       :filtered-data-city="filteredDataCity"
       :types="types"
       :limit-card="limitCard"
       :total-cards="totalCards"
       @addCard="addCard"
     />
-    <afisha-event-plug-block v-if="isEmptyObj(dataCity)" />
+    <afisha-event-plug-block v-if="isEmptyObj(filteredDataCity)" />
   </section>
 </template>
 

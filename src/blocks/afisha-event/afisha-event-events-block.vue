@@ -26,6 +26,12 @@ export default {
     },
   },
   methods: {
+    /**
+     * Выбирает событие и генерирует событие выбора.
+     * @param {number} eventId - Идентификатор выбранного события.
+     * @returns {void}
+     * @emits chooseEvent
+     */
     chooseEvent(eventId) {
       this.$emit('chooseEvent', eventId);
     },

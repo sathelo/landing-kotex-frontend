@@ -1,6 +1,6 @@
 <template>
   <section class="afisha-event-cards">
-    <afisha-event-calendar-card-block
+    <afisha-event-cards-card-block
       v-for="(card, cardIndex) in filteredDataCity"
       :key="cardIndex"
       :title="card.title"
@@ -39,10 +39,16 @@ export default {
   },
   computed: {
     isBtnMore() {
-      return this.$props.filteredDataCity.length && this.$props.totalCards <= this.$props.limitCard;
+      return this.$props.totalCards <= this.$props.limitCard;
     },
   },
   methods: {
+    /**
+     * Генерирует событие добавления карточки с указанным шагом.
+     * @param {number} step - Шаг, на сколько увеличивается вместимость карточки.
+     * @returns {void}
+     * @emits addCard
+     */
     addCard(step) {
       this.$emit('addCard', step);
     },

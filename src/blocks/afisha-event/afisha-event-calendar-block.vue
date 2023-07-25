@@ -13,15 +13,15 @@
         <div ref="listDaysWrapper" class="afisha-event-calendar-months__wrapper">
           <div class="afisha-event-calendar-months__wrapper-scroll">
             <div
-              v-for="(month, monthId) in sortedMonths"
-              :key="monthId"
+              v-for="(month, monthIndex) in sortedMonths"
+              :key="monthIndex"
               class="afisha-event-calendar-months-month"
             >
               <div class="afisha-event-calendar-months-month__title">{{ month }}</div>
               <div class="afisha-event-calendar-months-month-dates">
                 <div
-                  v-for="(date, dateId) in getDates(month)"
-                  :key="dateId"
+                  v-for="(date, dateIndex) in getDates(month)"
+                  :key="dateIndex"
                   :ref="`dateSelect${Number(isChooseDate(month, date))}`"
                   class="afisha-event-calendar-months-month-dates-date"
                   :class="{
