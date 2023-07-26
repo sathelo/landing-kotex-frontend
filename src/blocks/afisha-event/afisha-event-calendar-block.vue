@@ -106,6 +106,12 @@ export default {
     this.startMonths = this.$store.getters.currentMonth - 1;
   },
   methods: {
+    /**
+    Отображает выбранный диапазон дат на календаре.
+    @param {Object} left - DOM-элемент левой границы диапазона.
+    @param {Object} right - DOM-элемент правой границы диапазона.
+    @returns {void}
+    */
     showRange(left, right) {
       const { listDaysWrapper, listDaysRange } = this.$refs;
       let leftRect = left.getBoundingClientRect();
@@ -123,10 +129,48 @@ export default {
         leftRect.left + listDaysWrapper.scrollLeft - listDaysWrapperRect.left
       }px`;
     },
+
+    /**
+    Скрывает выбранный диапазон дат на календаре.
+    @returns {void}
+    */
     hideRange() {
       const { listDaysRange } = this.$refs;
       listDaysRange.style.width = 0;
     },
+
+    /**
+    Прокручивает список дней влево или вправо на заданное расстояние.
+    @param {number} shift - Расстояние прокрутки в пикселях. Значение > 0 соответствует прокрутке вправо, значение < 0 - прокрутке влево.
+    @returns {void}
+    */
+    scrollDays(shift) {
+      const { listDaysWrapper } = this.$refs;
+      if (listDaysWrapper) {
+        this.scrollElementTo({
+          element: listDaysWrapper,
+          left: listDaysWrapper.scrollLeft + shift,
+        });
+      }
+    },
+
+    /**
+    Прокручивает указанный элемент до указанной позиции.
+    @param {Object} options - Объект с параметрами прокрутки.
+    @param {Object} options.element - DOM-элемент, который необходимо прокрутить.
+    @param {number} options.left - Количество пикселей, на которое необходимо прокрутить элемент влево.
+    @returns {void}
+    */
+    scrollElementTo({ element, left }) {
+      element.scrollTo({ left, behavior: 'smooth' });
+    },
+
+    /**
+    Генерирует массив целых чисел в заданном диапазоне.
+    @param {number} start - Начальное значение диапазона.
+    @param {number} end - Конечное значение диапазона.
+    @returns {Array} - Массив целых чисел в заданном диапазоне.
+    */
     range(start, end) {
       const arr = [];
       for (let counter = start; counter <= end; counter += 1) {
@@ -136,6 +180,13 @@ export default {
       }
       return arr;
     },
+
+    /**
+    Обрабатывает выбор даты на календаре.
+    @param {string} month - Название выбранного месяца.
+    @param {number} day - Номер выбранного дня.
+    @returns {void}
+    */
     chooseDate(month, day) {
       const year = this.$store.getters.currentYear;
       const m = this.getNumberMonth(month);
@@ -162,24 +213,24 @@ export default {
         this.$emit('setParamsLastDay', resetParams);
       }
     },
-    scrollDays(shift) {
-      const { listDaysWrapper } = this.$refs;
-      if (listDaysWrapper) {
-        this.scrollElementTo({
-          element: listDaysWrapper,
-          left: listDaysWrapper.scrollLeft + shift,
-        });
-      }
-    },
-    scrollElementTo({ element, left }) {
-      element.scrollTo({ left, behavior: 'smooth' });
-    },
+
+    /**
+    Возвращает последний день выбранного месяца.
+    @param {string} month - Название выбранного месяца.
+    @returns {number} - Последний день выбранного месяца.
+    */
     getLastDay(month) {
       const year = this.$store.getters.currentYear;
       const nMonth = this.getNumberMonth(month);
       const lastDay = new Date(year, nMonth, 0).getDate();
       return lastDay;
     },
+
+    /**
+    Возвращает массив дней месяца.
+    @param {string} month - Название месяца.
+    @returns {Array} - Массив дней месяца.
+    */
     getDates(month) {
       if (month === this.$props.months.nominativeAccusative[this.$store.getters.currentMonth - 1]) {
         const firstDay = new Date().getDate();
@@ -190,12 +241,31 @@ export default {
       const lastDay = this.getLastDay(month);
       return this.range(firstDay, lastDay);
     },
+
+    /**
+    Возвращает название дня недели по дате.
+    @param {number} date - Дата в формате Unix time.
+    @returns {string} - Название дня недели.
+    */
     getWeekDay(date) {
       return this.days[date % 7];
     },
+
+    /**
+    Возвращает номер месяца по его названию.
+    @param {string} month - Название месяца.
+    @returns {number} - Номер месяца.
+    */
     getNumberMonth(month) {
       return this.$props.months.nominativeAccusative.indexOf(month);
     },
+
+    /**
+    Проверяет, выбрана ли указанная дата на календаре.
+    @param {string} month - Название выбранного месяца.
+    @param {number} day - Номер выбранного дня.
+    @returns {boolean} - Результат проверки на выбранность даты.
+    */
     isChooseDate(month, day) {
       const year = this.$store.getters.currentYear;
       const m = this.getNumberMonth(month);
@@ -205,6 +275,12 @@ export default {
         JSON.stringify(this.$props.chooseDates.lDay) === JSON.stringify(params)
       );
     },
+
+    /**
+    Проверяет, является ли переданный объект пустым (не содержит свойств) или нет.
+    @param {Object} obj - Проверяемый объект.
+    @returns {boolean} - true, если объект пустой или содержит только undefined или null, иначе false.
+    */
     isEmptyObj(obj) {
       const values = Object.values(obj);
       if (!values.length) return true;

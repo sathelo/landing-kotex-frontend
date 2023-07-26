@@ -81,6 +81,9 @@ export default {
     };
   },
   computed: {
+    totalCards() {
+      return this.sortedDataCity.length;
+    },
     filteredEvents() {
       const res = ['all'];
       this.dataCity.forEach((data) => {
@@ -92,6 +95,9 @@ export default {
       return this.cities.filter((city) => this.currentCity?.id !== city?.id);
     },
     filteredDataCity() {
+      return this.sortedDataCity.slice(0, this.limitCard);
+    },
+    sortedDataCity() {
       const daysDifference = [];
       if (!this.isEmptyObj(this.chooseDates.fDay)) {
         const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
@@ -140,23 +146,12 @@ export default {
 
       const sortedByDate = daysDifference.length
         ? sortedByTags
-            .filter((data) => this.contains(data.dates, daysDifference))
+            .filter((data) => this.isContains(data.dates, daysDifference))
             .map((data) => ({
               ...data,
               dates: this.filteredDates(data.dates, daysDifference),
             }))
-            .slice(0, this.limitCard)
-        : sortedByTags.slice(0, this.limitCard);
-
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.totalCards = daysDifference.length
-        ? sortedByTags
-            .filter((data) => this.contains(data.dates, daysDifference))
-            .map((data) => ({
-              ...data,
-              dates: this.filteredDates(data.dates, daysDifference),
-            })).length
-        : sortedByTags.length;
+        : sortedByTags;
 
       return sortedByDate;
     },
@@ -165,49 +160,132 @@ export default {
     await this.getCities();
   },
   methods: {
+    /**
+    Асинхронно получает список городов с помощью метода getCities из объекта Afisha.
+    @returns {Promise<void>}
+    */
+    async getCities() {
+      this.cities = (await Afisha.getCities())?.items;
+    },
+
+    /**
+    Асинхронно получает данные о событиях в выбранном городе с помощью метода getListEventsCity из объекта Afisha.
+    @returns {Promise<void>}
+    */
+    async getCityData() {
+      this.dataCity = (await Afisha.getListEventsCity(this.currentCity?.id))?.items;
+    },
+
+    /**
+    Устанавливает параметры для выбранной первой даты в объекте chooseDates.
+    @param {Object} params - Параметры выбранной первой даты.
+    @param {number|null} params.year - Год выбранной первой даты.
+    @param {number|null} params.month - Месяц выбранной первой даты.
+    @param {number|null} params.day - День выбранной первой даты.
+    @returns {void}
+    */
     setParamsFirstDay(params) {
       this.chooseDates.fDay = params;
     },
+
+    /**
+    Устанавливает параметры для выбранной последней даты в объекте chooseDates.
+    @param {Object} params - Параметры выбранной последней даты.
+    @param {number|null} params.year - Год выбранной последней даты.
+    @param {number|null} params.month - Месяц выбранной последней даты.
+    @param {number|null} params.day - День выбранной последней даты.
+    @returns {void}
+    */
     setParamsLastDay(params) {
       this.chooseDates.lDay = params;
     },
-    contains(where, what) {
-      return where.some((el) => {
-        return what.includes(el);
-      });
-    },
+
+    /**
+    Фильтрует элементы массива where, оставляя только те, что содержатся в массиве what.
+    @param {Array} where - Массив элементов, который нужно отфильтровать.
+    @param {Array} what - Массив элементов, по которому происходит фильтрация.
+    @returns {Array} - Новый массив, состоящий только из элементов из массива where, которые содержатся в массиве what.
+    */
     filteredDates(where, what) {
       return where.filter((el) => {
         return what.indexOf(el) !== -1;
       });
     },
+
+    /**
+    Выбирает город и обновляет данные о событиях в выбранном городе.
+    @param {Object} city - Выбранный город.
+    @returns {void}
+    */
     selectCity(city) {
       this.currentCity = city;
-      this.eventActive = 0; // reset active event
+      this.resetFilters();
       this.getCityData();
     },
+
+    /**
+    Устанавливает выбранное событие в качестве активного.
+    @param {number} eventId - Идентификатор выбранного события.
+    @returns {void}
+    */
+    chooseEvent(eventId) {
+      this.eventActive = eventId;
+    },
+
+    /**
+    Увеличивает максимальное количество отображаемых карточек на странице на заданный шаг.
+    @param {number} step - Шаг для увеличения максимального количества отображаемых карточек.
+    @returns {void}
+    */
+    addCard(step) {
+      this.limitCard += step;
+    },
+
+    /**
+    Открывает или закрывает выпадающий список.
+    @returns {void}
+    */
+    openSelect() {
+      this.isSelect = !this.isSelect;
+    },
+
+    /**
+    Закрывает выпадающий список.
+    @returns {void}
+    */
+    closeSelect() {
+      this.isSelect = false;
+    },
+
+    /**
+    Сбрасывает фильтры и устанавливает значение eventActive в 0.
+    @returns {void}
+    */
+    resetFilters() {
+      this.eventActive = 0;
+    },
+
+    /**
+    Проверяет, содержит ли массив what хотя бы один элемент из массива where.
+    @param {Array} where - Массив элементов для поиска.
+    @param {Array} what - Массив элементов, в котором происходит поиск.
+    @returns {boolean} - true, если хотя бы один элемент из массива where содержится в массиве what, иначе false.
+    */
+    isContains(where, what) {
+      return where.some((el) => {
+        return what.includes(el);
+      });
+    },
+
+    /**
+    Проверяет, является ли переданный объект пустым (не содержит свойств) или нет.
+    @param {Object} obj - Проверяемый объект.
+    @returns {boolean} - true, если объект пустой или содержит только undefined или null, иначе false.
+    */
     isEmptyObj(obj) {
       const values = Object.values(obj);
       if (!values.length) return true;
       return !values.filter((v) => v !== undefined && v !== null).length;
-    },
-    addCard(step) {
-      this.limitCard += step;
-    },
-    async getCities() {
-      this.cities = (await Afisha.getCities())?.items;
-    },
-    async getCityData() {
-      this.dataCity = (await Afisha.getListEventsCity(this.currentCity?.id))?.items;
-    },
-    openSelect() {
-      this.isSelect = !this.isSelect;
-    },
-    closeSelect() {
-      this.isSelect = false;
-    },
-    chooseEvent(eventId) {
-      this.eventActive = eventId;
     },
   },
 };
