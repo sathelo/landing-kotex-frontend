@@ -1,17 +1,17 @@
 <template>
-  <div class="calendar-cards-card">
-    <div class="calendar-cards-card-info">
-      <div class="calendar-cards-card-info__title">{{ title }}</div>
-      <div class="calendar-cards-card-info__subtitle">
-        {{ formatDatesToString }} / {{ typeTitle }}
+  <div class="afisha-event-cards-card">
+    <div class="afisha-event-cards-card-info">
+      <div class="afisha-event-cards-card-info__title">{{ title }}</div>
+      <div class="afisha-event-cards-card-info__subtitle">
+        {{ formatDatesToString }} / {{ type }}
       </div>
     </div>
 
-    <a :href="link" target="_blank" class="calendar-cards-card-btn">
+    <a :href="link" target="_blank" class="afisha-event-cards-card-btn">
       <img
         :src="getStaticUrl('ui/btn-more--gradient.png')"
         alt="more"
-        class="calendar-cards-card-btn__more btn"
+        class="afisha-event-cards-card-btn__more btn"
       />
     </a>
   </div>
@@ -37,15 +37,8 @@ export default {
       type: String,
       required: true,
     },
-    types: {
-      type: Array,
-      required: true,
-    },
   },
   computed: {
-    typeTitle() {
-      return this.$props.types.find((t) => t.type === this.$props.type)?.title;
-    },
     formatDatesToString() {
       return this.$props.dates
         .map((date) => {

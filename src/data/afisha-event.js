@@ -15,36 +15,16 @@ const afishaEvent = {
       'Декабрь',
     ],
   },
-  types: [
-    {
-      type: 'cinema',
-      title: 'Кино',
-    },
-    {
-      type: 'show',
-      title: 'Шоу',
-    },
-    {
-      type: 'theatre',
-      title: 'Театр',
-    },
-    {
-      type: 'quest',
-      title: 'Квесты',
-    },
-    {
-      type: 'excursions',
-      title: 'Экскурсии',
-    },
-    {
-      type: 'concert',
-      title: 'Концерты',
-    },
-    {
-      type: 'art',
-      title: 'Выставки',
-    },
-  ],
+  types: {
+    all: 'Все',
+    cinema: 'Кино',
+    show: 'Шоу',
+    theatre: 'Театр',
+    quest: 'Квесты',
+    excursions: 'Экскурсии',
+    concert: 'Концерты',
+    art: 'Выставки',
+  },
 };
 
 export default afishaEvent;

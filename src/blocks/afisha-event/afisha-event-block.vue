@@ -21,9 +21,10 @@
       @closeSelect="closeSelect"
     />
     <afisha-event-events-block
-      v-if="!isEmptyObj(dataCity)"
+      v-if="!isEmptyObj(sortedDataCityByTags)"
       :event-active="eventActive"
       :events="filteredEvents"
+      :types="types"
       @chooseEvent="chooseEvent"
     />
     <afisha-event-calendar-block
@@ -40,7 +41,7 @@
       :total-cards="totalCards"
       @addCard="addCard"
     />
-    <afisha-event-plug-block v-if="isEmptyObj(filteredDataCity)" />
+    <afisha-event-plug-block v-else />
   </section>
 </template>
 
@@ -60,7 +61,7 @@ export default {
     return {
       months,
       types,
-      eventActive: 0,
+      eventActive: 'all',
       cities: [],
       dataCity: [],
       currentCity: {},
@@ -82,22 +83,21 @@ export default {
   },
   computed: {
     totalCards() {
-      return this.sortedDataCity.length;
+      return this.sortedDataCityByTags.length;
     },
     filteredEvents() {
-      const res = ['all'];
-      this.dataCity.forEach((data) => {
-        if (!res.includes(data.type)) res.push(data.type);
-      });
-      return res;
+      const res = Object.keys(this.types);
+      return res.filter(
+        (r) => r === 'all' || this.sortedDataCityByDate.some(({ type }) => type === r)
+      );
     },
     filteredCities() {
       return this.cities.filter((city) => this.currentCity?.id !== city?.id);
     },
     filteredDataCity() {
-      return this.sortedDataCity.slice(0, this.limitCard);
+      return this.sortedDataCityByTags.slice(0, this.limitCard);
     },
-    sortedDataCity() {
+    sortedDataCityByDate() {
       const daysDifference = [];
       if (!this.isEmptyObj(this.chooseDates.fDay)) {
         const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
@@ -138,22 +138,27 @@ export default {
         }
       }
 
-      const currentEvent = this.filteredEvents[this.eventActive];
-      const sortedByTags =
-        currentEvent !== 'all'
-          ? this.dataCity.filter((data) => data.type === currentEvent)
-          : this.dataCity;
-
       const sortedByDate = daysDifference.length
-        ? sortedByTags
+        ? this.dataCity
             .filter((data) => this.isContains(data.dates, daysDifference))
             .map((data) => ({
               ...data,
               dates: this.filteredDates(data.dates, daysDifference),
             }))
-        : sortedByTags;
+        : this.dataCity;
 
       return sortedByDate;
+    },
+    sortedDataCityByTags() {
+      return this.eventActive !== 'all'
+        ? this.sortedDataCityByDate.filter((data) => data.type === this.eventActive)
+        : this.sortedDataCityByDate;
+    },
+  },
+  watch: {
+    sortedDataCityByDate(newSortedDataCityByDate) {
+      if (newSortedDataCityByDate.some((data) => data.type === this.eventActive)) return;
+      this.resetFilters();
     },
   },
   async mounted() {
@@ -262,7 +267,7 @@ export default {
     @returns {void}
     */
     resetFilters() {
-      this.eventActive = 0;
+      this.eventActive = 'all';
     },
 
     /**

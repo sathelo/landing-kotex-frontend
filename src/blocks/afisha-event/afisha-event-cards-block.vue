@@ -3,11 +3,11 @@
     <afisha-event-cards-card-block
       v-for="(card, cardIndex) in filteredDataCity"
       :key="cardIndex"
+      class="afisha-event-cards__item"
       :title="card.title"
       :dates="card.dates"
-      :type="card.type"
+      :type="types[card.type]"
       :link="card.afisha_url"
-      :types="types"
     />
 
     <button v-if="!isBtnMore" class="afisha-event-cards-btn btn" @click="addCard(4)">
@@ -25,7 +25,7 @@ export default {
       required: true,
     },
     types: {
-      type: Array,
+      type: Object,
       required: true,
     },
     limitCard: {

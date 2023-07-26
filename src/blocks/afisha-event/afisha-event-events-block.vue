@@ -4,10 +4,10 @@
       v-for="(event, eventIndex) in events"
       :key="eventIndex"
       class="afisha-event-events-event"
-      :class="{ 'afisha-event-events-event--active': eventIndex === eventActive }"
-      @click="chooseEvent(eventIndex)"
+      :class="{ 'afisha-event-events-event--active': event === eventActive }"
+      @click="chooseEvent(event)"
     >
-      {{ event }}
+      {{ types[event] }}
     </div>
   </section>
 </template>
@@ -21,19 +21,23 @@ export default {
       required: true,
     },
     eventActive: {
-      type: Number,
-      default: 0,
+      type: String,
+      required: true,
+    },
+    types: {
+      type: Object,
+      required: true,
     },
   },
   methods: {
     /**
      * Выбирает событие и генерирует событие выбора.
-     * @param {number} eventId - Идентификатор выбранного события.
+     * @param {string} event - Выбранное событие.
      * @returns {void}
      * @emits chooseEvent
      */
-    chooseEvent(eventId) {
-      this.$emit('chooseEvent', eventId);
+    chooseEvent(event) {
+      this.$emit('chooseEvent', event);
     },
   },
 };
