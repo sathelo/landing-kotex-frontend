@@ -1,6 +1,6 @@
 <template>
-  <div class="afisha-event">
-    <div v-if="!$store.getters.isTablet" class="afisha-event-heart">
+  <section class="afisha-event">
+    <div class="afisha-event-heart">
       <img
         :src="getStaticUrl('afisha-event/heart-fill--pink.svg')"
         alt="heart-fill"
@@ -12,50 +12,37 @@
         class="afisha-event-heart__empty"
       />
     </div>
-
-    <div class="afisha-event-info">
-      <div class="afisha-event-info__title">Афиша событий</div>
-      <div class="afisha-event-info__subtitle">
-        Подборка событий для совместного посещения родителями и&nbsp;подростками
-      </div>
-      <div
-        ref="choosesCities"
-        :class="{ 'afisha-event-info-select--chooses': isSelect }"
-        class="afisha-event-info-select"
-        @click="openSelect"
-      >
-        <div class="afisha-event-info-select__text">{{ currentCity.name }}</div>
-        <img
-          :src="getStaticUrl('icons/arrow-bottom--black.svg')"
-          alt="arrow-bottom-ico"
-          class="afisha-event-info-select__ico"
-        />
-
-        <div v-if="isSelect" class="afisha-event-info-select--active">
-          <div class="afisha-event-info-select-cities">
-            <div
-              v-for="(city, cityId) in filteredCities"
-              :key="cityId"
-              class="afisha-event-info-select-cities-city"
-            >
-              <div class="afisha-event-info-select-city__name" @click="selectCity(city)">
-                {{ city.name }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <afisha-event-calendar-block
-      v-if="!isEmptyObj(dataCity)"
-      :afisha-event="afishaEvent"
-      :data-city="dataCity"
-      :min-card="minCard"
-      :max-card="maxCard"
-      @moreCard="moreCard"
+    <afisha-event-info-block
+      :current-city="currentCity"
+      :is-select="isSelect"
+      :filtered-cities="filteredCities"
+      @selectCity="selectCity"
+      @openSelect="openSelect"
+      @closeSelect="closeSelect"
     />
-  </div>
+    <afisha-event-events-block
+      v-if="!isEmptyObj(sortedDataCityByTags)"
+      :event-active="eventActive"
+      :events="filteredEvents"
+      :types="types"
+      @chooseEvent="chooseEvent"
+    />
+    <afisha-event-calendar-block
+      :months="months"
+      :choose-dates="chooseDates"
+      @setParamsFirstDay="setParamsFirstDay"
+      @setParamsLastDay="setParamsLastDay"
+    />
+    <afisha-event-cards-block
+      v-if="!isEmptyObj(filteredDataCity)"
+      :filtered-data-city="filteredDataCity"
+      :types="types"
+      :limit-card="limitCard"
+      :total-cards="totalCards"
+      @addCard="addCard"
+    />
+    <afisha-event-plug-block v-else />
+  </section>
 </template>
 
 <script>
@@ -70,58 +57,240 @@ export default {
     },
   },
   data() {
+    const { months, types } = this.$props.afishaEvent;
     return {
+      months,
+      types,
+      eventActive: 'all',
       cities: [],
       dataCity: [],
       currentCity: {},
-      defaultCityId: 0,
       isSelect: false,
-      minCard: 0,
-      maxCard: 4,
-      howMuchWeAdd: 4,
+      limitCard: 4,
+      chooseDates: {
+        fDay: {
+          year: null,
+          month: null,
+          day: null,
+        },
+        lDay: {
+          year: null,
+          month: null,
+          day: null,
+        },
+      },
     };
   },
   computed: {
+    totalCards() {
+      return this.sortedDataCityByTags.length;
+    },
+    filteredEvents() {
+      const res = Object.keys(this.types);
+      return res.filter(
+        (r) => r === 'all' || this.sortedDataCityByDate.some(({ type }) => type === r)
+      );
+    },
     filteredCities() {
       return this.cities.filter((city) => this.currentCity?.id !== city?.id);
     },
+    filteredDataCity() {
+      return this.sortedDataCityByTags.slice(0, this.limitCard);
+    },
+    sortedDataCityByDate() {
+      const daysDifference = [];
+      if (!this.isEmptyObj(this.chooseDates.fDay)) {
+        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
+        const startDate = new Date(fYear, fMonth, fDay);
+        daysDifference.push(
+          `${startDate.getFullYear()}-${
+            startDate.getMonth() + 1 < 10
+              ? `0${startDate.getMonth() + 1}`
+              : startDate.getMonth() + 1
+          }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
+        );
+      }
+      if (!this.isEmptyObj(this.chooseDates.fDay) && !this.isEmptyObj(this.chooseDates.lDay)) {
+        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
+        const { year: lYear, month: lMonth, day: lDay } = this.chooseDates.lDay;
+        const startDate = new Date(fYear, fMonth, fDay);
+        const endDate = new Date(lYear, lMonth, lDay);
+        if (startDate > endDate) {
+          while (endDate <= startDate) {
+            daysDifference.push(
+              `${endDate.getFullYear()}-${
+                endDate.getMonth() + 1 < 10 ? `0${endDate.getMonth() + 1}` : endDate.getMonth() + 1
+              }-${endDate.getDate() < 10 ? `0${endDate.getDate()}` : endDate.getDate()}`
+            );
+            endDate.setDate(endDate.getDate() + 1);
+          }
+        } else {
+          while (startDate <= endDate) {
+            daysDifference.push(
+              `${startDate.getFullYear()}-${
+                startDate.getMonth() + 1 < 10
+                  ? `0${startDate.getMonth() + 1}`
+                  : startDate.getMonth() + 1
+              }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
+            );
+            startDate.setDate(startDate.getDate() + 1);
+          }
+        }
+      }
+
+      const sortedByDate = daysDifference.length
+        ? this.dataCity
+            .filter((data) => this.isContains(data.dates, daysDifference))
+            .map((data) => ({
+              ...data,
+              dates: this.filteredDates(data.dates, daysDifference),
+            }))
+        : this.dataCity;
+
+      return sortedByDate;
+    },
+    sortedDataCityByTags() {
+      return this.eventActive !== 'all'
+        ? this.sortedDataCityByDate.filter((data) => data.type === this.eventActive)
+        : this.sortedDataCityByDate;
+    },
   },
-  beforeDestroy() {
-    document.removeEventListener('click', this.handleClickOutside);
+  watch: {
+    sortedDataCityByDate(newSortedDataCityByDate) {
+      if (newSortedDataCityByDate.some((data) => data.type === this.eventActive)) return;
+      this.resetFilters();
+    },
   },
   async mounted() {
     await this.getCities();
-    await this.getCityData();
-    document.addEventListener('click', this.handleClickOutside);
   },
   methods: {
+    /**
+    Асинхронно получает список городов с помощью метода getCities из объекта Afisha.
+    @returns {Promise<void>}
+    */
+    async getCities() {
+      this.cities = (await Afisha.getCities())?.items;
+    },
+
+    /**
+    Асинхронно получает данные о событиях в выбранном городе с помощью метода getListEventsCity из объекта Afisha.
+    @returns {Promise<void>}
+    */
+    async getCityData() {
+      this.dataCity = (await Afisha.getListEventsCity(this.currentCity?.id))?.items;
+    },
+
+    /**
+    Устанавливает параметры для выбранной первой даты в объекте chooseDates.
+    @param {Object} params - Параметры выбранной первой даты.
+    @param {number|null} params.year - Год выбранной первой даты.
+    @param {number|null} params.month - Месяц выбранной первой даты.
+    @param {number|null} params.day - День выбранной первой даты.
+    @returns {void}
+    */
+    setParamsFirstDay(params) {
+      this.chooseDates.fDay = params;
+    },
+
+    /**
+    Устанавливает параметры для выбранной последней даты в объекте chooseDates.
+    @param {Object} params - Параметры выбранной последней даты.
+    @param {number|null} params.year - Год выбранной последней даты.
+    @param {number|null} params.month - Месяц выбранной последней даты.
+    @param {number|null} params.day - День выбранной последней даты.
+    @returns {void}
+    */
+    setParamsLastDay(params) {
+      this.chooseDates.lDay = params;
+    },
+
+    /**
+    Фильтрует элементы массива where, оставляя только те, что содержатся в массиве what.
+    @param {Array} where - Массив элементов, который нужно отфильтровать.
+    @param {Array} what - Массив элементов, по которому происходит фильтрация.
+    @returns {Array} - Новый массив, состоящий только из элементов из массива where, которые содержатся в массиве what.
+    */
+    filteredDates(where, what) {
+      return where.filter((el) => {
+        return what.indexOf(el) !== -1;
+      });
+    },
+
+    /**
+    Выбирает город и обновляет данные о событиях в выбранном городе.
+    @param {Object} city - Выбранный город.
+    @returns {void}
+    */
+    selectCity(city) {
+      this.currentCity = city;
+      this.resetFilters();
+      this.getCityData();
+    },
+
+    /**
+    Устанавливает выбранное событие в качестве активного.
+    @param {number} eventId - Идентификатор выбранного события.
+    @returns {void}
+    */
+    chooseEvent(eventId) {
+      this.eventActive = eventId;
+    },
+
+    /**
+    Увеличивает максимальное количество отображаемых карточек на странице на заданный шаг.
+    @param {number} step - Шаг для увеличения максимального количества отображаемых карточек.
+    @returns {void}
+    */
+    addCard(step) {
+      this.limitCard += step;
+    },
+
+    /**
+    Открывает или закрывает выпадающий список.
+    @returns {void}
+    */
     openSelect() {
       this.isSelect = !this.isSelect;
     },
-    selectCity(city) {
-      this.currentCity = city;
-      this.getCityData();
+
+    /**
+    Закрывает выпадающий список.
+    @returns {void}
+    */
+    closeSelect() {
+      this.isSelect = false;
     },
+
+    /**
+    Сбрасывает фильтры и устанавливает значение eventActive в 0.
+    @returns {void}
+    */
+    resetFilters() {
+      this.eventActive = 'all';
+    },
+
+    /**
+    Проверяет, содержит ли массив what хотя бы один элемент из массива where.
+    @param {Array} where - Массив элементов для поиска.
+    @param {Array} what - Массив элементов, в котором происходит поиск.
+    @returns {boolean} - true, если хотя бы один элемент из массива where содержится в массиве what, иначе false.
+    */
+    isContains(where, what) {
+      return where.some((el) => {
+        return what.includes(el);
+      });
+    },
+
+    /**
+    Проверяет, является ли переданный объект пустым (не содержит свойств) или нет.
+    @param {Object} obj - Проверяемый объект.
+    @returns {boolean} - true, если объект пустой или содержит только undefined или null, иначе false.
+    */
     isEmptyObj(obj) {
       const values = Object.values(obj);
       if (!values.length) return true;
       return !values.filter((v) => v !== undefined && v !== null).length;
-    },
-    handleClickOutside(event) {
-      const { choosesCities } = this.$refs;
-      if (!choosesCities.contains(event.target)) this.isSelect = false;
-    },
-    moreCard() {
-      this.maxCard += this.howMuchWeAdd;
-    },
-    async getCities() {
-      this.cities = (await Afisha.getCities())?.items;
-      this.currentCity = !this.isEmptyObj(this.cities)
-        ? this.cities[this.defaultCityId]
-        : this.currentCity;
-    },
-    async getCityData() {
-      this.dataCity = (await Afisha.getListEventsCity(this.currentCity?.id))?.items;
     },
   },
 };

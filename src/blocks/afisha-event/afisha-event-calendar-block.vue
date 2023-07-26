@@ -1,191 +1,91 @@
 <template>
-  <div class="calendar">
-    <div class="calendar-events">
-      <div
-        v-for="(event, eventId) in afishaEvent.events"
-        :key="eventId"
-        class="calendar-events-event"
-        :class="{ 'calendar-events-event--active': eventId === eventActive }"
-        @click="chooseEvent(eventId)"
-      >
-        {{ event.event.title }}
-      </div>
-    </div>
-
-    <div class="calendar-months">
-      <button class="calendar-months-btn__left" @click="scrollDays(-300)">
+  <section class="afisha-event-calendar">
+    <div class="afisha-event-calendar-months">
+      <button class="afisha-event-calendar-months-btn__left" @click="scrollDays(-300)">
         <img
           :src="getStaticUrl('icons/arrow-left--white.svg')"
           alt="arrow-left-ico"
-          class="calendar-months-btn__ico"
+          class="afisha-event-calendar-months-btn__ico"
         />
       </button>
 
-      <div class="calendar-months__content">
-        <div ref="listDaysWrapper" class="calendar-months__wrapper">
-          <div class="calendar-months__wrapper-scroll">
+      <div class="afisha-event-calendar-months__content">
+        <div ref="listDaysWrapper" class="afisha-event-calendar-months__wrapper">
+          <div class="afisha-event-calendar-months__wrapper-scroll">
             <div
-              v-for="(month, monthId) in sortedMonths"
-              :key="monthId"
-              class="calendar-months-month"
+              v-for="(month, monthIndex) in sortedMonths"
+              :key="monthIndex"
+              class="afisha-event-calendar-months-month"
             >
-              <div class="calendar-months-month__title">{{ month }}</div>
-              <div class="calendar-months-month-dates">
+              <div class="afisha-event-calendar-months-month__title">{{ month }}</div>
+              <div class="afisha-event-calendar-months-month-dates">
                 <div
-                  v-for="(date, dateId) in getDates(month)"
-                  :key="dateId"
+                  v-for="(date, dateIndex) in getDates(month)"
+                  :key="dateIndex"
                   :ref="`dateSelect${Number(isChooseDate(month, date))}`"
-                  class="calendar-months-month-dates-date"
-                  :class="{ 'calendar-months-month-dates-date--active': isChooseDate(month, date) }"
+                  class="afisha-event-calendar-months-month-dates-date"
+                  :class="{
+                    'afisha-event-calendar-months-month-dates-date--active': isChooseDate(
+                      month,
+                      date
+                    ),
+                  }"
                   @click="chooseDate(month, date)"
                 >
-                  <div class="calendar-months-month-dates-date__number">{{ date }}</div>
-                  <div class="calendar-months-month-dates-date__name">{{ getWeekDay(date) }}</div>
+                  <div class="afisha-event-calendar-months-month-dates-date__number">
+                    {{ date }}
+                  </div>
+                  <div class="afisha-event-calendar-months-month-dates-date__name">
+                    {{ getWeekDay(date) }}
+                  </div>
                 </div>
               </div>
             </div>
-            <div ref="listDaysRange" class="calendar-months-month-dates-date__ranged" />
+            <div
+              ref="listDaysRange"
+              class="afisha-event-calendar-months-month-dates-date__ranged"
+            />
           </div>
         </div>
       </div>
 
-      <button class="calendar-months-btn__right" @click="scrollDays(300)">
+      <button class="afisha-event-calendar-months-btn__right" @click="scrollDays(300)">
         <img
           :src="getStaticUrl('icons/arrow-right--white.svg')"
           alt="arrow-right-ico"
-          class="calendar-months-btn__ico"
+          class="afisha-event-calendar-months-btn__ico"
         />
       </button>
     </div>
-
-    <div class="calendar-cards">
-      <afisha-event-calendar-card-block
-        v-for="(card, cardIndex) in filteredDataCity"
-        :key="cardIndex"
-        :afisha-event="afishaEvent"
-        :title="card.title"
-        :dates="card.dates"
-        :type="card.type"
-        :link="card.afisha_url"
-      />
-    </div>
-
-    <button v-if="isBtnMore" class="calendar-btn btn" @click="$emit('moreCard')">
-      <div class="calendar-btn__text">Показать больше</div>
-    </button>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
   name: 'afisha-event-calendar-block',
   props: {
-    afishaEvent: {
+    months: {
       type: Object,
       required: true,
     },
-    dataCity: {
-      type: Array,
-      required: true,
-    },
-    minCard: {
-      type: Number,
-      required: true,
-    },
-    maxCard: {
-      type: Number,
+    chooseDates: {
+      type: Object,
       required: true,
     },
   },
   data() {
     return {
-      eventActive: 0,
+      startMonths: 0,
+      endMonths: 2,
       days: ['СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', 'ПН', 'ВТ'],
-      minMonths: 0,
-      maxMonths: 2,
-      chooseDates: {
-        fDay: {
-          year: null,
-          month: null,
-          day: null,
-        },
-        lDay: {
-          year: null,
-          month: null,
-          day: null,
-        },
-      },
     };
   },
   computed: {
-    months() {
-      return this.$props.afishaEvent.months.nominativeAccusative;
-    },
     sortedMonths() {
-      return this.$props.afishaEvent.months.nominativeAccusative.slice(
-        this.minMonths,
-        this.minMonths + this.maxMonths
+      return this.$props.months.nominativeAccusative.slice(
+        this.startMonths,
+        this.startMonths + this.endMonths
       );
-    },
-    filteredDataCity() {
-      const daysDifference = [];
-      if (!this.isEmptyObj(this.chooseDates.fDay)) {
-        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
-        const startDate = new Date(fYear, fMonth, fDay);
-        daysDifference.push(
-          `${startDate.getFullYear()}-${
-            startDate.getMonth() + 1 < 10
-              ? `0${startDate.getMonth() + 1}`
-              : startDate.getMonth() + 1
-          }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
-        );
-      }
-      if (!this.isEmptyObj(this.chooseDates.fDay) && !this.isEmptyObj(this.chooseDates.lDay)) {
-        const { year: fYear, month: fMonth, day: fDay } = this.chooseDates.fDay;
-        const { year: lYear, month: lMonth, day: lDay } = this.chooseDates.lDay;
-        const startDate = new Date(fYear, fMonth, fDay);
-        const endDate = new Date(lYear, lMonth, lDay);
-        if (startDate > endDate) {
-          while (endDate <= startDate) {
-            daysDifference.push(
-              `${endDate.getFullYear()}-${
-                endDate.getMonth() + 1 < 10 ? `0${endDate.getMonth() + 1}` : endDate.getMonth() + 1
-              }-${endDate.getDate() < 10 ? `0${endDate.getDate()}` : endDate.getDate()}`
-            );
-            endDate.setDate(endDate.getDate() + 1);
-          }
-        } else {
-          while (startDate <= endDate) {
-            daysDifference.push(
-              `${startDate.getFullYear()}-${
-                startDate.getMonth() + 1 < 10
-                  ? `0${startDate.getMonth() + 1}`
-                  : startDate.getMonth() + 1
-              }-${startDate.getDate() < 10 ? `0${startDate.getDate()}` : startDate.getDate()}`
-            );
-            startDate.setDate(startDate.getDate() + 1);
-          }
-        }
-      }
-
-      const currentEventId = this.$props.afishaEvent.events[this.eventActive].event.id;
-      const sortedByTags =
-        currentEventId !== 'all'
-          ? this.$props.dataCity.filter((data) => data.tags.includes(currentEventId))
-          : this.$props.dataCity;
-      const sortedByDate = daysDifference.length
-        ? sortedByTags
-            .filter((data) => this.contains(data.dates, daysDifference))
-            .map((data) => ({
-              ...data,
-              dates: this.filteredDates(data.dates, daysDifference),
-            }))
-            .slice(0, this.$props.maxCard)
-        : sortedByTags.slice(this.$props.minCard, this.$props.maxCard);
-      return sortedByDate;
-    },
-    isBtnMore() {
-      return this.filteredDataCity.length && this.filteredDataCity.length === this.$props.maxCard;
     },
   },
   watch: {
@@ -203,12 +103,15 @@ export default {
     },
   },
   mounted() {
-    this.minMonths = this.$store.getters.currentMonth - 1;
+    this.startMonths = this.$store.getters.currentMonth - 1;
   },
   methods: {
-    chooseEvent(currentEventId) {
-      this.eventActive = currentEventId;
-    },
+    /**
+    Отображает выбранный диапазон дат на календаре.
+    @param {Object} left - DOM-элемент левой границы диапазона.
+    @param {Object} right - DOM-элемент правой границы диапазона.
+    @returns {void}
+    */
     showRange(left, right) {
       const { listDaysWrapper, listDaysRange } = this.$refs;
       let leftRect = left.getBoundingClientRect();
@@ -226,41 +129,21 @@ export default {
         leftRect.left + listDaysWrapper.scrollLeft - listDaysWrapperRect.left
       }px`;
     },
+
+    /**
+    Скрывает выбранный диапазон дат на календаре.
+    @returns {void}
+    */
     hideRange() {
       const { listDaysRange } = this.$refs;
       listDaysRange.style.width = 0;
     },
-    getLastDay(month) {
-      const year = this.$store.getters.currentYear;
-      const nMonth = this.getNumberMonth(month);
-      const lastDay = new Date(year, nMonth, 0).getDate();
-      return lastDay;
-    },
-    range(start, end) {
-      const arr = [];
-      for (let counter = start; counter <= end; counter += 1) {
-        if (counter <= end) {
-          arr.push(counter);
-        }
-      }
-      return arr;
-    },
-    getDates(month) {
-      if (month === this.months[this.$store.getters.currentMonth - 1]) {
-        const firstDay = new Date().getDate();
-        const lastDay = this.getLastDay();
-        return this.range(firstDay, lastDay);
-      }
-      const firstDay = 1;
-      const lastDay = this.getLastDay(month);
-      return this.range(firstDay, lastDay);
-    },
-    getWeekDay(date) {
-      return this.days[date % 7];
-    },
-    getNumberMonth(month) {
-      return this.$props.afishaEvent.months.nominativeAccusative.indexOf(month);
-    },
+
+    /**
+    Прокручивает список дней влево или вправо на заданное расстояние.
+    @param {number} shift - Расстояние прокрутки в пикселях. Значение > 0 соответствует прокрутке вправо, значение < 0 - прокрутке влево.
+    @returns {void}
+    */
     scrollDays(shift) {
       const { listDaysWrapper } = this.$refs;
       if (listDaysWrapper) {
@@ -270,58 +153,138 @@ export default {
         });
       }
     },
+
+    /**
+    Прокручивает указанный элемент до указанной позиции.
+    @param {Object} options - Объект с параметрами прокрутки.
+    @param {Object} options.element - DOM-элемент, который необходимо прокрутить.
+    @param {number} options.left - Количество пикселей, на которое необходимо прокрутить элемент влево.
+    @returns {void}
+    */
     scrollElementTo({ element, left }) {
       element.scrollTo({ left, behavior: 'smooth' });
     },
+
+    /**
+    Генерирует массив целых чисел в заданном диапазоне.
+    @param {number} start - Начальное значение диапазона.
+    @param {number} end - Конечное значение диапазона.
+    @returns {Array} - Массив целых чисел в заданном диапазоне.
+    */
+    range(start, end) {
+      const arr = [];
+      for (let counter = start; counter <= end; counter += 1) {
+        if (counter <= end) {
+          arr.push(counter);
+        }
+      }
+      return arr;
+    },
+
+    /**
+    Обрабатывает выбор даты на календаре.
+    @param {string} month - Название выбранного месяца.
+    @param {number} day - Номер выбранного дня.
+    @returns {void}
+    */
     chooseDate(month, day) {
       const year = this.$store.getters.currentYear;
       const m = this.getNumberMonth(month);
       const params = { year, month: m, day };
       const resetParams = { year: null, month: null, day: null };
       if (
-        this.chooseDates.fDay.year === params.year &&
-        this.chooseDates.fDay.month === params.month &&
-        this.chooseDates.fDay.day === params.day &&
-        this.isEmptyObj(this.chooseDates.lDay)
+        this.$props.chooseDates.fDay.year === params.year &&
+        this.$props.chooseDates.fDay.month === params.month &&
+        this.$props.chooseDates.fDay.day === params.day &&
+        this.isEmptyObj(this.$props.chooseDates.lDay)
       ) {
-        this.chooseDates.fDay = resetParams;
-        this.chooseDates.lDay = resetParams;
+        this.$emit('setParamsFirstDay', resetParams);
+        this.$emit('setParamsLastDay', resetParams);
         return;
       }
-      if (this.isEmptyObj(this.chooseDates.fDay)) {
-        this.chooseDates.fDay = params;
+      if (this.isEmptyObj(this.$props.chooseDates.fDay)) {
+        this.$emit('setParamsFirstDay', params);
         return;
       }
-      if (this.isEmptyObj(this.chooseDates.lDay)) {
-        this.chooseDates.lDay = params;
+      if (this.isEmptyObj(this.$props.chooseDates.lDay)) {
+        this.$emit('setParamsLastDay', params);
       } else {
-        this.chooseDates.fDay = params;
-        this.chooseDates.lDay = resetParams;
+        this.$emit('setParamsFirstDay', params);
+        this.$emit('setParamsLastDay', resetParams);
       }
     },
-    isEmptyObj(obj) {
-      const values = Object.values(obj);
-      if (!values.length) return true;
-      return !values.filter((v) => v !== undefined && v !== null).length;
+
+    /**
+    Возвращает последний день выбранного месяца.
+    @param {string} month - Название выбранного месяца.
+    @returns {number} - Последний день выбранного месяца.
+    */
+    getLastDay(month) {
+      const year = this.$store.getters.currentYear;
+      const nMonth = this.getNumberMonth(month);
+      const lastDay = new Date(year, nMonth, 0).getDate();
+      return lastDay;
     },
+
+    /**
+    Возвращает массив дней месяца.
+    @param {string} month - Название месяца.
+    @returns {Array} - Массив дней месяца.
+    */
+    getDates(month) {
+      if (month === this.$props.months.nominativeAccusative[this.$store.getters.currentMonth - 1]) {
+        const firstDay = new Date().getDate();
+        const lastDay = this.getLastDay();
+        return this.range(firstDay, lastDay);
+      }
+      const firstDay = 1;
+      const lastDay = this.getLastDay(month);
+      return this.range(firstDay, lastDay);
+    },
+
+    /**
+    Возвращает название дня недели по дате.
+    @param {number} date - Дата в формате Unix time.
+    @returns {string} - Название дня недели.
+    */
+    getWeekDay(date) {
+      return this.days[date % 7];
+    },
+
+    /**
+    Возвращает номер месяца по его названию.
+    @param {string} month - Название месяца.
+    @returns {number} - Номер месяца.
+    */
+    getNumberMonth(month) {
+      return this.$props.months.nominativeAccusative.indexOf(month);
+    },
+
+    /**
+    Проверяет, выбрана ли указанная дата на календаре.
+    @param {string} month - Название выбранного месяца.
+    @param {number} day - Номер выбранного дня.
+    @returns {boolean} - Результат проверки на выбранность даты.
+    */
     isChooseDate(month, day) {
       const year = this.$store.getters.currentYear;
       const m = this.getNumberMonth(month);
       const params = { year, month: m, day };
       return (
-        JSON.stringify(this.chooseDates.fDay) === JSON.stringify(params) ||
-        JSON.stringify(this.chooseDates.lDay) === JSON.stringify(params)
+        JSON.stringify(this.$props.chooseDates.fDay) === JSON.stringify(params) ||
+        JSON.stringify(this.$props.chooseDates.lDay) === JSON.stringify(params)
       );
     },
-    contains(where, what) {
-      return where.some((el) => {
-        return what.includes(el);
-      });
-    },
-    filteredDates(where, what) {
-      return where.filter((el) => {
-        return what.indexOf(el) !== -1;
-      });
+
+    /**
+    Проверяет, является ли переданный объект пустым (не содержит свойств) или нет.
+    @param {Object} obj - Проверяемый объект.
+    @returns {boolean} - true, если объект пустой или содержит только undefined или null, иначе false.
+    */
+    isEmptyObj(obj) {
+      const values = Object.values(obj);
+      if (!values.length) return true;
+      return !values.filter((v) => v !== undefined && v !== null).length;
     },
   },
 };

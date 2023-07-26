@@ -1,0 +1,41 @@
+@import '../../styles/helpers';
+
+.afisha-event-cards {
+  .flex-properties();
+  flex-direction: column;
+  width: 100%;
+
+  &-btn {
+    .content(20px 40px, 16px, linear-gradient(125deg, #F0B 7.75%, #EA1B23 92.33%));
+    .flex-properties(inline-flex);
+    box-shadow: 0 4px 30px 0 rgba(255, 255, 255, 0.25) inset, 0 4px 16px 0 rgba(249, 140, 162, 0.4);
+    margin-top: 40px;
+
+    &__text {
+      color: @white;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 120%;
+
+      @media @tablet {
+        color: @white;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+      }
+    }
+
+    @media @tablet {
+      .content(18px 32px, 16px, linear-gradient(125deg, #F0B 7.75%, #EA1B23 92.33%));
+      width: 100%;
+      margin-top: 32px;
+    }
+  }
+
+  & > &__item {
+    &:not(:last-of-type) {
+      margin-bottom: 16px;
+    }
+  }
+}

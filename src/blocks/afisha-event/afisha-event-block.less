@@ -2,10 +2,8 @@
 
 .afisha-event {
   .content(64px 40px);
+  .flex-properties();
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
   overflow: hidden;
 
@@ -21,121 +19,9 @@
       top: 158px;
       right: 30px;
     }
-  }
-
-  &-info {
-    position: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 40px;
-
-    &-select {
-      .content(20px 40px, 16px, @white);
-      position: absolute;
-      z-index: 2;
-      top: -12px;
-      right: -2px;
-      display: flex;
-      border: 2px solid rgba(29, 29, 27, 0.2);
-      cursor: pointer;
-
-      &__text {
-        margin-right: 8px;
-        font-style: normal;
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 120%;
-        color: @yellow-green--dark;
-
-        @media @tablet {
-          color: @yellow-green--dark;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: 140%;
-        }
-      }
-
-      &--active {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-      }
-
-      &-cities {
-        .content(0, 16px, @white);
-        position: absolute;
-        left: -2px;
-        z-index: 2;
-        text-align: center;
-        width: 102%;
-        max-height: calc(200px - 20px);
-        border: 2px solid rgba(29, 29, 27, 0.2);
-        border-radius: 0 0 16px 16px;
-        border-top: none;
-        overflow-y: scroll;
-
-        &-city {
-          padding: 20px 0;
-        }
-      }
-
-      @media @tablet {
-        .content(12px 32px, 76px, @white);
-        position: relative;
-        top: 0;
-        right: 0;
-        border: 2px solid rgba(29, 29, 27, 0.2);
-      }
-
-      &--chooses {
-        border-radius: 16px 16px 0 0;
-      }
-    }
-
-    &__title {
-      text-align: center;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 48px;
-      line-height: 100%;
-      color: @yellow-green--dark;
-      margin-bottom: 24px;
-
-      @media @tablet {
-        color: @yellow-green--dark;
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 110%;
-        margin-bottom: 8px;
-      }
-    }
-
-    &__subtitle {
-      text-align: center;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 130%;
-      color: @yellow-green--lighten;
-
-      @media @tablet {
-        color: @yellow-green--lighten;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 130%;
-        margin-bottom: 12px;
-      }
-    }
 
     @media @tablet {
-      margin-bottom: 32px;
+      display: none;
     }
   }
 

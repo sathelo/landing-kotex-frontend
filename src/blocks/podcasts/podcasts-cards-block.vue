@@ -7,6 +7,31 @@
         :podcast="podcast"
       />
     </div>
+    <div class="podcasts-cards__navigation">
+      <button class="podcasts-cards-btn--prev">
+        <img
+          :src="
+            isTablet
+              ? getStaticUrl('icons/arrow-left--white.svg')
+              : getStaticUrl('icons/arrow-left--gradient.svg')
+          "
+          alt="arrow-left-ico"
+          class="podcasts-cards-btn__ico"
+        />
+      </button>
+
+      <button class="podcasts-cards-btn--next">
+        <img
+          :src="
+            isTablet
+              ? getStaticUrl('icons/arrow-right--white.svg')
+              : getStaticUrl('icons/arrow-right--gradient.svg')
+          "
+          alt="arrow-right-ico"
+          class="podcasts-cards-btn__ico"
+        />
+      </button>
+    </div>
   </section>
 </template>
 
@@ -15,6 +40,7 @@
 import Swiper, { Navigation, EffectCoverflow } from 'swiper';
 // import Swiper styles
 import 'swiper/less';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'podcasts-cards-block',
@@ -27,6 +53,9 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  computed: {
+    ...mapGetters({ isTablet: 'isTablet' }),
   },
   mounted() {
     const swiper = this.initSwiper();
@@ -66,8 +95,18 @@ export default {
           forceToAxis: true,
         },
         navigation: {
-          nextEl: '.podcast-swiper-button-next',
-          prevEl: '.podcast-swiper-button-prev',
+          nextEl: '.podcasts-cards-btn--next',
+          prevEl: '.podcasts-cards-btn--prev',
+        },
+        breakpoints: {
+          0: {
+            centeredSlides: false,
+            slidesPerView: 'auto',
+          },
+          1024: {
+            slidesPerView: this.$props.slidesPerView,
+            centeredSlides: true,
+          },
         },
       });
     },

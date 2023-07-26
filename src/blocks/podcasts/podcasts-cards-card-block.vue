@@ -6,7 +6,7 @@
       <div class="podcasts-cards-card-info__title">
         {{ podcast.title }}
       </div>
-      <div class="podcasts-cards-card-info__subtitle">
+      <div v-if="podcast.subtitle" class="podcasts-cards-card-info__subtitle">
         {{ podcast.subtitle }}
       </div>
       <a
@@ -21,32 +21,9 @@
           class="podcasts-cards-card-info-btn__listen"
         />
       </a>
-
-      <!-- <div class="podcasts-cards-card-info-btn__wrapper">
-        <button v-if="$store.getters.isTablet" class="podcast-swiper-button-prev">
-          <img
-            :src="getStaticUrl('icons/arrow-left--white.svg')"
-            alt="arrow-left-ico"
-            class="podcast-swiper-btn__ico"
-          />
-        </button>
-
-        <a :href="podcast.link" target="_blank" class="podcasts-cards-card-info-btn btn">
-          <img
-            :src="getStaticUrl('ui/btn-listen--gradient.png')"
-            alt="btn-listen"
-            class="podcasts-cards-card-info-btn__listen"
-          />
-        </a>
-
-        <button v-if="$store.getters.isTablet" class="podcast-swiper-button-next">
-          <img
-            :src="getStaticUrl('icons/arrow-right--white.svg')"
-            alt="arrow-right-ico"
-            class="podcast-swiper-btn__ico"
-          />
-        </button>
-      </div> -->
+      <div v-else class="podcasts-cards-card-info-close">
+        <lock-block class="podcasts-cards-card-info-close__lock" s="40px" p="30px" s-image="18px" />
+      </div>
     </div>
   </section>
 </template>
