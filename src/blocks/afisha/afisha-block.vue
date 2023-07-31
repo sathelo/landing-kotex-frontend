@@ -1,5 +1,5 @@
 <template>
-  <section class="afisha">
+  <section id="afisha" class="afisha">
     <img
       :src="
         isTablet ? getStaticUrl('afisha/mobile-image-1.png') : getStaticUrl('afisha/image-1.png')

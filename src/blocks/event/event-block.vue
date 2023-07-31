@@ -1,5 +1,5 @@
 <template>
-  <section class="event">
+  <section id="event" class="event">
     <event-info-block />
     <event-broadcast-block :release-record="releaseRecord" />
     <event-swiper-block :photo-from-broadcast="photoFromBroadcast" />

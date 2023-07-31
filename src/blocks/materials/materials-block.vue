@@ -1,5 +1,5 @@
 <template>
-  <section class="materials">
+  <section id="materials" class="materials">
     <materials-info-block />
     <materials-box-block :materials-box="filteredMaterials" />
     <a href="#" target="_blank" class="materials-btn btn">

@@ -71,11 +71,11 @@ export default {
 
       return new Swiper(podcastSwiper, {
         modules: [Navigation, EffectCoverflow],
-        effect: 'coverflow',
+        // effect: 'coverflow',
         spaceBetween: 16,
         slidesPerView: this.$props.slidesPerView,
         grabCursor: true,
-        centeredSlides: true,
+        // centeredSlides: true,
         loop: true,
         loopAdditionalSlides: this.$props.slidesPerView - 1,
         loopedSlides: this.$props.slidesPerView - 1,

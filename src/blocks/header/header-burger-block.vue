@@ -1,12 +1,12 @@
 <template>
-  <section v-if="isVisible || !isTablet" class="header-burger-menu">
+  <section class="header-burger-menu">
     <div :class="{ 'header-burger-menu-nav--active': isVisible }" class="header-burger-menu-nav">
       <a
         v-for="(items, itemsIndex) in menu"
         :key="itemsIndex"
-        :href="items.item.link"
-        :target="items.item.target"
+        :href="items.item.href"
         class="header-burger-menu-nav__item"
+        @click="changeVisibleBurgerMenu"
         v-html="items.item.title"
       />
       <a href="#" target="_blank" class="header-burger-menu-btn-calendar btn">
@@ -47,6 +47,11 @@ export default {
   },
   destroyed() {
     document.body.style.overflow = '';
+  },
+  methods: {
+    changeVisibleBurgerMenu() {
+      this.$emit('changeVisibleBurgerMenu');
+    },
   },
 };
 </script>

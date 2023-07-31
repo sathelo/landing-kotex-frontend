@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       startMonths: 0,
-      endMonths: 2,
+      endMonths: 3,
       days: ['СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', 'ПН', 'ВТ'],
     };
   },
@@ -234,7 +234,7 @@ export default {
     getDates(month) {
       if (month === this.$props.months.nominativeAccusative[this.$store.getters.currentMonth - 1]) {
         const firstDay = new Date().getDate();
-        const lastDay = this.getLastDay();
+        const lastDay = this.getLastDay(month);
         return this.range(firstDay, lastDay);
       }
       const firstDay = 1;
@@ -257,7 +257,7 @@ export default {
     @returns {number} - Номер месяца.
     */
     getNumberMonth(month) {
-      return this.$props.months.nominativeAccusative.indexOf(month);
+      return this.$props.months.nominativeAccusative.indexOf(month) + 1;
     },
 
     /**

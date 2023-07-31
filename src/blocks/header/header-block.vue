@@ -22,8 +22,7 @@
       <div class="header-menu">
         <div v-for="(menuItem, menuItemId) in menu" :key="menuItemId" class="header-menu-items">
           <a
-            :href="menuItem.item.link"
-            :target="menuItem.item.target"
+            :href="menuItem.item.href"
             class="header-menu-items__item"
             v-html="menuItem.item.title"
           />
@@ -39,7 +38,12 @@
       </div>
     </div>
 
-    <header-burger-block v-if="isTablet && isBurgerMenu" :menu="menu" :is-visible="isBurgerMenu" />
+    <header-burger-block
+      v-if="isTablet && isBurgerMenu"
+      :menu="menu"
+      :is-visible="isBurgerMenu"
+      @changeVisibleBurgerMenu="changeVisibleBurgerMenu"
+    />
   </header>
 </template>
 
