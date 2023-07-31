@@ -1,5 +1,5 @@
 <template>
-  <section class="about-partner">
+  <section id="about-partner" class="about-partner">
     <div class="about-partner-info">
       <img
         :src="getStaticUrl('logos/logo-perehod.svg')"

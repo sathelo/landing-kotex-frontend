@@ -1,5 +1,5 @@
 <template>
-  <section class="afisha-event">
+  <section id="afisha-event" class="afisha-event">
     <div class="afisha-event-heart">
       <img
         :src="getStaticUrl('afisha-event/heart-fill--pink.svg')"

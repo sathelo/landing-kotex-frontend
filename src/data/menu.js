@@ -2,57 +2,49 @@ const menu = [
   {
     item: {
       title: 'О\u00A0проекте',
-      link: '#',
-      target: '_blank',
+      href: '#about',
     },
   },
   {
     item: {
       title: "О\u00A0продуктах Kotex<sup class='reg'>\u00AE</sup>",
-      link: '#',
-      target: '_blank',
+      href: '#afisha',
     },
   },
   {
     item: {
       title: 'О\u00A0партнере \u00ABПереход\u00BB',
-      link: '#',
-      target: '_blank',
+      href: '#about-partner',
     },
   },
   {
     item: {
       title: 'Фото с\u00A0мероприятия',
-      link: '#',
-      target: '_blank',
+      href: '#event',
     },
   },
   {
     item: {
       title: 'Фильмы',
-      link: '#',
-      target: '_blank',
+      href: '#films',
     },
   },
   {
     item: {
       title: 'Подкасты',
-      link: '#',
-      target: '_blank',
+      href: '#podcasts',
     },
   },
   {
     item: {
       title: 'Афиша',
-      link: '#',
-      target: '_blank',
+      href: '#afisha-event',
     },
   },
   {
     item: {
       title: 'Полезные материалы',
-      link: '#',
-      target: '_blank',
+      href: '#materials',
     },
   },
 ];

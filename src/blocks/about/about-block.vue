@@ -1,5 +1,5 @@
 <template>
-  <section class="about">
+  <section id="about" class="about">
     <div class="about-info">
       <div class="about-info__title">
         &laquo;Твой первый раз&raquo; уникальный образовательный курс для родителей

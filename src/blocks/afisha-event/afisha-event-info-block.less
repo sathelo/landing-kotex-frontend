@@ -91,10 +91,18 @@
 
       &-city {
         color: @yellow-green--dark;
-        font-size: 14px;
+        font-size: 20px;
         font-style: normal;
         font-weight: 700;
-        line-height: 140%;
+        line-height: 120%;
+
+        @media @tablet {
+          color: @yellow-green--dark;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 140%;
+        }
       }
 
       & > *:not(:last-child) {

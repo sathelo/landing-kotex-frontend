@@ -1,5 +1,5 @@
 <template>
-  <section class="films">
+  <section id="films" class="films">
     <films-info-block />
     <films-cards-block
       :films="filteredFilms"

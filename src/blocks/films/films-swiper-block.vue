@@ -1,11 +1,13 @@
 <template>
   <section ref="filmSwiper" class="films-swiper">
     <div class="films-swiper__wrapper">
-      <div
+      <a
         v-for="(film, filmIndex) in films"
         :key="filmIndex"
         :class="{ 'films-swiper-card--hidden': isEmpty(film) }"
         class="films-swiper-card"
+        :href="film.link"
+        target="_blank"
       >
         <img :src="getStaticUrl(film.image)" alt="photo" class="films-swiper-card__photo" />
         <div class="films-swiper-card-info">
@@ -17,7 +19,7 @@
             {{ film.description }}
           </div>
         </div>
-      </div>
+      </a>
     </div>
 
     <div class="films-pagination">

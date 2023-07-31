@@ -1,5 +1,5 @@
 <template>
-  <section class="podcasts">
+  <section id="podcasts" class="podcasts">
     <podcasts-info-block />
     <podcasts-cards-block :podcasts="slides" :slides-per-view="slidesPerView" />
   </section>
