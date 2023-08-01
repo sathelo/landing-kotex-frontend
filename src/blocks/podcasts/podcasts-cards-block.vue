@@ -37,7 +37,7 @@
 
 <script>
 // import Swiper JS
-import Swiper, { Navigation, EffectCoverflow } from 'swiper';
+import Swiper, { Navigation } from 'swiper';
 // import Swiper styles
 import 'swiper/less';
 import { mapGetters } from 'vuex';
@@ -70,12 +70,10 @@ export default {
       const { podcastSwiper } = this.$refs;
 
       return new Swiper(podcastSwiper, {
-        modules: [Navigation, EffectCoverflow],
-        // effect: 'coverflow',
+        modules: [Navigation],
         spaceBetween: 16,
         slidesPerView: this.$props.slidesPerView,
         grabCursor: true,
-        // centeredSlides: true,
         loop: true,
         loopAdditionalSlides: this.$props.slidesPerView - 1,
         loopedSlides: this.$props.slidesPerView - 1,
@@ -84,13 +82,6 @@ export default {
         slideActiveClass: 'podcasts-cards-card--active',
         slidePrevClass: 'podcasts-cards-card--prev',
         slideNextClass: 'podcasts-cards-card--next',
-        coverflowEffect: {
-          rotate: 0,
-          stretch: 0,
-          depth: 0,
-          modifier: 0,
-          slideShadows: false,
-        },
         mousewheel: {
           forceToAxis: true,
         },

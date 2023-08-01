@@ -58,6 +58,7 @@
       margin-bottom: 24px;
 
       @media @tablet {
+        display: block;
         color: @white;
         text-align: center;
         font-size: 16px;
@@ -82,11 +83,16 @@
 
       @media @tablet {
         .content(18px 32px, 16px);
+        display: block;
       }
     }
 
     &-close {
       display: none;
+
+      @media @tablet {
+        display: block;
+      }
     }
 
     &__title + &-close {
@@ -140,6 +146,9 @@
   }
 
   @media @tablet {
+    .content(32px 32px 40px 32px, 32px, #F8AAB3);
     flex: 0 0 calc(100vw - 40px);
+    height: 100%;
+    border: 2px solid #FBD2D7;
   }
 }
