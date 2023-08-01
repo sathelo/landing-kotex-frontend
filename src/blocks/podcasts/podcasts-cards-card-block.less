@@ -106,7 +106,9 @@
 
   &--active {
     .content(32px 32px 40px 32px, 32px, #F8AAB3);
+    justify-content: initial;
     border: 2px solid #FBD2D7;
+    height: 100%;
 
     .podcasts-cards-card-info__title {
       text-align: center;
@@ -147,6 +149,7 @@
 
   @media @tablet {
     .content(32px 32px 40px 32px, 32px, #F8AAB3);
+    .flex-properties(flex, initial, center);
     flex: 0 0 calc(100vw - 40px);
     height: 100%;
     border: 2px solid #FBD2D7;
