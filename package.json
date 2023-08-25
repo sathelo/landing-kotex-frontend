@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "webpack serve --mode=development",
     "dev-kp": "sudo webpack serve --mode=development --host=dev.kinopoisk.ru --port=443 --https",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "deploy": "node scripts/gh-pages-deploy.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.16.7",
@@ -31,6 +32,7 @@
     "eslint": "^8.8.0",
     "eslint-webpack-plugin": "^3.1.1",
     "extra-watch-webpack-plugin": "^1.0.3",
+    "gh-pages": "^6.0.0",
     "html-webpack-plugin": "^5.5.0",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",

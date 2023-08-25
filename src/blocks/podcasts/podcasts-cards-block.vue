@@ -11,9 +11,9 @@
       <button class="podcasts-cards-btn--prev">
         <img
           :src="
-            isTablet
-              ? getStaticUrl('icons/arrow-left--white.svg')
-              : getStaticUrl('icons/arrow-left--gradient.svg')
+            getStaticUrl(
+              isTablet ? 'icons/arrow-left--white.svg' : 'icons/arrow-left--gradient.svg'
+            )
           "
           alt="arrow-left-ico"
           class="podcasts-cards-btn__ico"
@@ -23,9 +23,9 @@
       <button class="podcasts-cards-btn--next">
         <img
           :src="
-            isTablet
-              ? getStaticUrl('icons/arrow-right--white.svg')
-              : getStaticUrl('icons/arrow-right--gradient.svg')
+            getStaticUrl(
+              isTablet ? 'icons/arrow-right--white.svg' : 'icons/arrow-right--gradient.svg'
+            )
           "
           alt="arrow-right-ico"
           class="podcasts-cards-btn__ico"

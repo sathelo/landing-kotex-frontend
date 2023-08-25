@@ -15,7 +15,7 @@
     </div>
 
     <img
-      :src="isTablet ? getStaticUrl('about/mobile-image-1.png') : getStaticUrl('about/image-1.png')"
+      :src="getStaticUrl(isTablet ? 'about/mobile-image-1.png' : 'about/image-1.png')"
       alt="photo"
       class="about__photo"
     />

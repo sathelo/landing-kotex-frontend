@@ -3,9 +3,7 @@
     <div v-for="(rat, ratIndex) in maxRating" :key="ratIndex" class="drops-drop">
       <img
         :src="
-          isFilled(rat)
-            ? getStaticUrl('icons/drop-filled--pink.svg')
-            : getStaticUrl('icons/drop-empty--pink.svg')
+          getStaticUrl(isFilled(rat) ? 'icons/drop-filled--pink.svg' : 'icons/drop-empty--pink.svg')
         "
         alt="drop-filled"
         :class="isFilled(rat) ? 'drops-drop__filled' : 'drops-drop__empty'"

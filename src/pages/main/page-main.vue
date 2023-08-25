@@ -24,28 +24,16 @@ import recommendations from '@/data/recommendations';
 
 export default {
   name: 'page-main',
-  computed: {
-    menu() {
-      return menu;
-    },
-    events() {
-      return events;
-    },
-    films() {
-      return films;
-    },
-    podcasts() {
-      return podcasts;
-    },
-    afishaEvent() {
-      return afishaEvent;
-    },
-    materials() {
-      return materials;
-    },
-    recommendations() {
-      return recommendations;
-    },
+  data() {
+    return {
+      menu,
+      events,
+      films,
+      podcasts,
+      afishaEvent,
+      materials,
+      recommendations,
+    };
   },
 };
 </script>

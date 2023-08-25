@@ -5,7 +5,7 @@
  * @returns {string}
  */
 export function getStaticUrl(path, isCssUrl = false) {
-  const staticUrl = `${window.ASSETS_PATH}/static/${path}`;
+  const staticUrl = `.${window.ASSETS_PATH}/static/${path}`;
   return isCssUrl ? `url(${staticUrl})` : staticUrl;
 }
 
