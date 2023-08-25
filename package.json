@@ -1,4 +1,5 @@
 {
+  "name": "landing-kotex-frontend",
   "private": true,
   "browserslist": [
     "> 0.5%",
