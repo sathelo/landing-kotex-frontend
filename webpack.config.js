@@ -7,9 +7,17 @@ const plugins = require('./webpack/plugins');
 const optimization = require('./webpack/optimization');
 
 const projectName = '';
+const nameRepo = `/${process.env.npm_package_name}/`; // for gh-pages
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
+  const isDevelopment = argv.mode === 'development';
+  let myPublicPath = '';
+
+  if (nameRepo && !isDevelopment) myPublicPath = nameRepo;
+  else {
+    myPublicPath = isProduction ? '../' : '/';
+  }
 
   if (isProduction) {
     process.env.NODE_ENV = 'production';
@@ -22,7 +30,7 @@ module.exports = (env, argv) => {
     output: {
       filename: 'js/[name].js',
       path: path.resolve('dist'),
-      publicPath: isProduction ? '../' : '/',
+      publicPath: myPublicPath,
     },
     devServer: {
       client: {
